@@ -1,0 +1,24 @@
+#version
+{
+    display: block;
+    float: right;
+    font-size: 10px;
+    font-family: Consolas, monaco, monospace;
+    color: #ffffff;
+    background: #993300;
+    padding: 2px 5px;
+}
+
+#canvasContainer
+{
+    padding-top: 50px;
+}
+
+canvas
+{
+    width: 800px;
+    height: 600px;
+    display: block;
+    margin: auto;
+    border: 1px solid black;
+}

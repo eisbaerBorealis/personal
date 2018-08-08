@@ -1,0 +1,78 @@
+{
+   "contactInfo": {
+       "name": "Aliquam sodales",
+       "email": "ultricies.borealis@semper.justo",
+       "phone": "505-728-7653"
+   },
+   "workExperiences": [
+       {
+           "jobTitle": "Vestibulum",
+           "employer": "Eleifend (AC)",
+           "location": "Torquent NEC",
+           "startTime": "Sept 2014",
+           "endTime": "Jan 2017",
+           "responsibilities": [
+               "Praesent mollis scelerisque diam ac mollis",
+               "Vivamus vitae justo ac nunc convallis molestie eget nec nunc",
+               "Integer eget auctor mi",
+               "Sed sollicitudin velit sem, lacinia ultricies sem vulputate scelerisque",
+               "Vivamus non mauris pretium, volutpat turpis vitae, condimentum diam",
+               "Donec efficitur, erat ut semper varius, arcu purus dapibus tellus",
+               "Vivamus gravida viverra eros, eget tincidunt eros pretium ut"
+           ]
+       },
+       {
+           "jobTitle": "Sodales Nisi",
+           "employer": "Nunc mauris",
+           "location": "Eleifend nisl",
+           "startTime": "Jan 2013",
+           "endTime": "Aug 2014",
+           "responsibilities": [
+               "Praesent eget nulla a magna pharetra imperdiet et eu lectus",
+               "Praesent hendrerit augue et lacus egestas maximus",
+               "Morbi tempor ac magna eu viverra",
+               "Nunc leo felis, odio nisl aliquam metus",
+               "Aenean tincidunt purus nec quam sagittis",
+               "Integer accumsan luctus quam sed luctus"
+           ]
+       },
+       {
+           "jobTitle": "Maximus",
+           "employer": "Praesent in magna",
+           "location": "Tempus feugiat",
+           "startTime": "Mar 2012",
+           "endTime": "Sept 2012",
+           "responsibilities": [
+               "Vestibulum ante ipsum primis in faucibus",
+               "Vestibulum ex eros, auctor a laoreet ut"
+           ]
+       }
+   ],
+   "skills": [
+       "consectetur",
+       "adipiscing",
+       "elit",
+       "dolor",
+       "suscipit gravida, 70 dolor"
+   ],
+   "otherAchievements": [
+       "In eget condimentum augue",
+       "ut elementum orci"
+   ],
+   "references": [
+       {
+           "name": "Donec maximus",
+           "relationship": "arcu",
+           "company": "Pellentesque",
+           "email": "donec@maximus.et",
+           "phone": "801-362-5611"
+       },
+       {
+           "name": "Fusce nisl",
+           "relationship": "Phasellus",
+           "company": "Bibendum libero",
+           "email": null,
+           "phone": "801-876-0385"
+       }
+   ]
+}

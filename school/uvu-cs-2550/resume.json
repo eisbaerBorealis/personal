@@ -1,0 +1,78 @@
+{
+    "contactInfo": {
+        "name": "Jesse Howell",
+        "email": "eisbaer.borealis@gmail.com",
+        "phone": "505-728-7653"
+    },
+    "workExperiences": [
+        {
+            "jobTitle": "Programmer",
+            "employer": "PicoLabs (BYU)",
+            "location": "Provo UT",
+            "startTime": "Sept 2014",
+            "endTime": "Jan 2017",
+            "responsibilities": [
+                "Designed and Implemented websites for KRL programmers",
+                "devtools.picolabs.io and picolab.github.io/manifold (incomplete)",
+                "Used Github for version control and project management",
+                "Adjusted CSS to create desired look for website",
+                "Created website from pre-built template, changing pages, tabs, and content",
+                "Organized documentation for KRL language",
+                "Presented demo for product at OpenWest conference"
+            ]
+        },
+        {
+            "jobTitle": "Web Developer",
+            "employer": "Steinway Management",
+            "location": "Provo UT",
+            "startTime": "Jan 2013",
+            "endTime": "Aug 2014",
+            "responsibilities": [
+                "Checked hundreds of websites for functional, logical, and grammar/spelling errors",
+                "Communicated clearly to Manager the exact location, description, and reason of errors",
+                "Maintained dozens of GoDaddy accounts and thousands of domains",
+                "Fixed errors on sites (text, images, hyperlinks, and CSS)",
+                "Built websites from Photoshop blueprint",
+                "Processed and reported revenue"
+            ]
+        },
+        {
+            "jobTitle": "Programmer",
+            "employer": "Administration Building, BYU",
+            "location": "Provo UT",
+            "startTime": "Mar 2012",
+            "endTime": "Sept 2012",
+            "responsibilities": [
+                "Edited the websites for several BYU departments",
+                "Performed computer support for several BYU departments"
+            ]
+        }
+    ],
+    "skills": [
+        "Java",
+        "HTML",
+        "CSS",
+        "Javascript",
+        "Touch typist, 70 WPM"
+    ],
+    "otherAchievements": [
+        "Returned Missionary for LDS Church",
+        "Eagle Scout"
+    ],
+    "references": [
+        {
+            "name": "Phil Windley",
+            "relationship": "Boss",
+            "company": "PicoLabs",
+            "email": "phil@windley.org",
+            "phone": "801-362-5611"
+        },
+        {
+            "name": "Snow Kwon",
+            "relationship": "Manager",
+            "company": "Steinway Management",
+            "email": null,
+            "phone": "801-876-0385"
+        }
+    ]
+}

@@ -1,0 +1,39 @@
+  NOTES:
+  
+  document.getElementsByClassName("place-cont")
+    This returns an array of the buttons on the left
+
+    game._____ will also be very useful
+
+  document.getElementById("active-0").click()
+    This will click on one of the upgrade popups. Acts a little funny if there are more than one (active-1, active-2, etc.)
+    Maybe just click on the first five every round?
+  document.getElementById("actives").childNodes
+    An array of 20 "next active" nodes. Add "[#].click();" to click it
+
+  document.getElementsByClassName("building-cont")[0].childNodes
+    This returns an array of the name/button, count, cost, and income
+  document.getElementsByClassName("building-cont")[0].childNodes[0]
+    returns the button for the first building, but it is not .click()able
+
+  Regular Expressions:
+    /[0-9]+% - Build [0-9]+ [A-z]+/g
+      Matches "36% - Build 50 Bloodhound", or "##% - Build X <building>"
+    /[0-9]+% - Have [0-9]+ [A-z]+/g
+      Matches "25% - Have 1000000 Deer", or "##% - Have X <resource>"
+    /[0-9]+% - Generate [0-9]+ [A-z]+/g
+      Matches "0% - Generate 2200000 Lamb", or "##% - Generate X <resource>"
+    /[0-9]+% - Reach [0-9]+ income!/g
+      Matches "29% - Reach 5250 income!", or "##% - Reach X income!"
+    /[0-9]+% - Have [0-9]+ income from [A-z]+/g
+      Matches "15% - Have 300 income from Shepherd", or "##% - Have X income from Y"
+    /[0-9]+% - Build [0-9]+ of tiers 1-5/g
+      Matches "92% - Build 30 of tiers 1-5", or "##% - Build X of tiers 1-5"
+    //g
+      Matches "", or "##% - "
+      
+      var requirement = "36% - Build 50 Bloodhound";
+      var percent = requirement.match(/[0-9]+%/g)[0];
+      var number = Number(percent.match(/[0-9]+/g)[0]);
+      number;
+      

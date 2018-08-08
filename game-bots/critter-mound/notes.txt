@@ -1,0 +1,83 @@
+button classes:
+  "recycle" = sacrifice   0 = Female Royal    1 = Male Royal
+  "mine" = workers        1 = Female Royal    2 = Male Royal
+  "army" = soldiers
+  "female"[3] = Queen
+  "male"[3] = King
+
+Sacrifice top female in Royal Hatchery:
+document.getElementsByClassName("recycle")[0].click();
+
+game.femaleMound().length
+  how many female offspring there are
+game.femaleMound()[0].score
+  gives the score for the first female in the Royal Hatchery
+game.femaleMound()[0].traits[0]   through traits[4]
+  gives Vitality through Sting
+game.femaleMound()[0].traits[0].genes.length
+  how many mutations are in the first trait in the first female
+game.femaleMound()[0].traits[0].genes[0].expression
+  2 means it is expressed
+  1 is recessive???
+
+use game.mother() in place of game.femaleMount()[0]
+
+maleMount and father are used the same way
+  
+document.getElementsByClassName("upgrade")
+game.TogglePauseBreeding()
+game.sod()
+game.map() // this'll be huge
+game.Boost()
+game.maxArmyMoundSize()
+
+//  Have "nationsDefeated" count
+game.nations()[nationsDefeated].highBaseValue
+game.nations()[4].isDefeated() != true  //  isDefeated returns true or undefined
+!game.nations()[4].isDefeated() //  works, too
+
+//  On initiliazation, go through the nations and find what has not been defeated, and set nationsDefeated
+//  Each turn, check the next nation and see if we're strong enough to take them on
+
+Do sod upgrades, then mutations, then wars (just starting them), then manual battles, plus the war mutations.
+Make function to find the size of whatever it is, based on the upgrade cost
+  Better idea: keep track of all sizes in global variables
+  Better better idea: use game.max___MoundSize()
+  
+Order of upgrades: Factory, Carriers, Farm, Mine, Queen, King, Soldiers, Princess, Prince
+
+War:
+  game.map().tiles()[11]()[17].danger() //  Gets the number for the 12th row, 18th column (map is 20x20), returns 0 if special
+    also .isUnlocked() and .isCleared()
+  game.map().tiles()[11]()[17].extraClass() //  Returns "gene" if it's a gene, "" if normal, and "enemy" if it's the star
+  game.map().mound.y  //  returns y coordinate (column)
+  game.map().mound.x  //  returns x coordinate (row)
+  
+  document.getElementsByClassName("fog unlocked")[0].click()
+  document.getElementsByClassName("fog unlocked")[0].className == "unlocked fog gene" //  returns true if it's a gene
+
+Milestones:
+  All sod upgrades purchased (move on to heir hatchery?)
+  Ready to fight Tarantulas
+  Cooling down
+  
+Each turn:
+  Check upgrades/sod; buy if possible
+  If there's space in both mounds and available boosts, use a boost
+  Check offspring. If weaker than queen/king, check army for space/upgrades, otherwise send to workers
+  Check for War conditions. Start war or continue war.
+  
+MUCH Later down the road (may use for coolDown)
+  document.getElementsByClassName("image")[10].click()  //  this selects the first female offspring (at least when there's one of each offsprings and the mound size is 6)
+
+Changing a pull-down
+  document.getElementsByTagName("select")[4].value = "score"  //  This is the Army sorting pulldown
+  
+Changing a slider (visually only; doesn't work)
+  document.getElementsByTagName("input")[1].value = 1 //  changes the position of the "Battle Speed" slider, but not the actual value
+  game.battleTurnLength() //  gets the Battle Speed, but still not what we want
+
+Will be necessary for finding out how many war-genes we have, to calculate how many more are needed:
+  game.nations()[4].geneFound()
+  
+Or maybe I'll just keep them at 9,000 until I get 100 mutations. Should figure out how to not take on tarantulas until I have 9 soldiers...

@@ -1,0 +1,32 @@
+This project will be a cartoony animated solar system.
+
+Ultimately I'd like to pull celestial objects from a json file and have them rotate around the sun.
+    Maybe even allow a mouseover on the objects identifying them?
+
+MVP:
+    Black background, randomly placed starfield
+    Yellow ball in middle
+    Multiple colored balls circling it at the same speed (distance, not angle)
+
+Planet A moving at speed X:
+    Full rotation = 2 * pi * (orbit radius)
+    X is a set speed for all planets
+    Each planet object will have a size, color, orbit radius, and angle
+        Drawing will be done with sine and cosine
+    Each tick will need to calculate the change in angle
+    X / Circumference = Angle change / (2 * pi)
+    Angle change (radians) = 2 * pi * X / Circumference
+        Angle change (radians) = 2 * pi * X / (2 * pi * radius)
+        Angle change (radians) = X / radius
+            Yeah, that sounds like something from calculus...
+    If angle > 2 * pi, subtract 2 * pi
+
+Each Planet object (including the sun) needs to have:
+    name:   the name of the object
+    size:   a value between 0.0 and 1.0, representing the radius of the planet
+    color:  color fill of the planet
+    orbit:  a value between 0.0 and 1.0, representing the distance from the sun
+    revolution: the angle in radians
+
+    *optional*
+    description: the text to appear if the user mouses over it (far future functionality)

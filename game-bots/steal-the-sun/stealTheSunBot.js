@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Steal the Sun Bot
 // @namespace    http://tampermonkey.net/
-// @version      0.1.6
+// @version      0.1.7
 // @description  Play the game "Steal the Sun" at stealthesun.net
 // @author       eisbaerBorealis
 // @match        http://stealthesun.net/*
@@ -26,7 +26,7 @@ var warmup = 4;
 {
 	'use strict';
 	
-	console.log("DEBUG: Starting eisbaerBorealis' Bot, version 0.1.6");
+	console.log("DEBUG: Starting eisbaerBorealis' Bot, version 0.1.7");
 	
 	setInterval(doRound, 500);
 })();
@@ -243,7 +243,7 @@ function buildQuarry()
 	{
 		// relax at the campfire a bit
 	}
-	else if(resources.energy.amount < 17)
+	else if(resources.energy.amount < 16)
 	{
 		move(campfireX, campfireY);
 	}
@@ -275,7 +275,7 @@ function buildQuarry()
 	}
 	else if(playerAt(stoneX, stoneY))
 	{
-		document.getElementById("build_sawmill").click();
+		document.getElementById("build_quarry").click();
 	}
 	else
 	{
@@ -289,7 +289,7 @@ function endGame()
 	{
 		// relax at the campfire a bit
 	}
-	else if(resources.energy.amount < 17)
+	else if(resources.energy.amount < 16)
 	{
 		move(campfireX, campfireY);
 	}

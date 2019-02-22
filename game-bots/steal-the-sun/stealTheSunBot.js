@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Steal the Sun Bot
 // @namespace    http://tampermonkey.net/
-// @version      0.1.7
+// @version      0.1.12
 // @description  Play the game "Steal the Sun" at stealthesun.net
 // @author       eisbaerBorealis
 // @match        http://stealthesun.net/*
@@ -20,15 +20,19 @@ var woodStoreX = 6;
 var woodStoreY = 5;
 var stonestoreX = 4;
 var stonestoreY = 5;
+var energystoreX = 5;
+var energystoreY = 6;
+
+var tickLength = 250;
 var warmup = 4;
 
 (function()
 {
 	'use strict';
 	
-	console.log("DEBUG: Starting eisbaerBorealis' Bot, version 0.1.7");
+	console.log("DEBUG: Starting eisbaerBorealis' Bot, version 0.1.12");
 	
-	setInterval(doRound, 500);
+	setInterval(doRound, tickLength);
 })();
 
 function doRound()
@@ -51,6 +55,10 @@ function doRound()
 		{
 			buildStonestore();
 		}
+		else if(build.energystore.position === undefined)
+		{
+			buildEnergystore();
+		}
 		else if(build.sawmill.position === undefined)
 		{
 			buildSawmill();
@@ -68,7 +76,7 @@ function doRound()
 
 function playerAt(x, y)
 {
-	returnValue = true;
+	var returnValue = true;
 	
 	if(player.current_position[0] != x || player.current_position[1] != y)
 	{
@@ -120,9 +128,9 @@ function buildCampfire()
 
 function buildWoodstore()
 {
-	if(playerAt(campfireX, campfireY) && resources.energy.amount < resources.energy.cap && resources.wood.amount > 0)
+	if(playerAt(campfireX, campfireY) && resources.energy.amount < resources.energy.cap - 1 && resources.wood.amount > 0)
 	{
-		// relax at the campfire a bit
+		document.getElementById("gather").click();
 	}
 	else if(resources.energy.amount < 7)
 	{
@@ -151,9 +159,9 @@ function buildWoodstore()
 
 function buildStonestore()
 {
-	if(playerAt(campfireX, campfireY) && resources.energy.amount < resources.energy.cap && resources.wood.amount > 0)
+	if(playerAt(campfireX, campfireY) && resources.energy.amount < resources.energy.cap - 1 && resources.wood.amount > 0)
 	{
-		// relax at the campfire a bit
+		document.getElementById("gather").click();
 	}
 	else if(resources.energy.amount < 7)
 	{
@@ -191,11 +199,57 @@ function buildStonestore()
 	}
 }
 
+function buildEnergystore()
+{
+	if(playerAt(campfireX, campfireY) && resources.energy.amount < resources.energy.cap - 1 && resources.wood.amount > 0)
+	{
+		document.getElementById("gather").click();
+	}
+	else if(resources.energy.amount < 7)
+	{
+		move(campfireX, campfireY);
+	}
+	else if(resources.wood.amount < build.energystore.cost.wood + 20)
+	{
+		if(playerAt(woodX, woodY))
+		{
+			document.getElementById("gather").click();
+		}
+		else
+		{
+			move(woodX, woodY);
+		}
+	}
+	else if(resources.stone.amount < build.energystore.cost.stone)
+	{
+		if(playerAt(stoneX, stoneY))
+		{
+			document.getElementById("gather").click();
+		}
+		else
+		{
+			move(stoneX, stoneY);
+		}
+	}
+	else if(resources.energy.amount < 5)
+	{
+		move(campfireX, campfireY);
+	}
+	else if(playerAt(energystoreX, energystoreY))
+	{
+		document.getElementById("build_energystore").click();
+	}
+	else
+	{
+		move(energystoreX, energystoreY);
+	}
+}
+
 function buildSawmill()
 {
-	if(playerAt(campfireX, campfireY) && resources.energy.amount < resources.energy.cap && resources.wood.amount > 0)
+	if(playerAt(campfireX, campfireY) && resources.energy.amount < resources.energy.cap - 1 && resources.wood.amount > 0)
 	{
-		// relax at the campfire a bit
+		document.getElementById("gather").click();
 	}
 	else if(resources.energy.amount < 7)
 	{
@@ -239,9 +293,9 @@ function buildSawmill()
 
 function buildQuarry()
 {
-	if(playerAt(campfireX, campfireY) && resources.energy.amount < resources.energy.cap && resources.wood.amount > 0)
+	if(playerAt(campfireX, campfireY) && resources.energy.amount < resources.energy.cap - 1 && resources.wood.amount > 0)
 	{
-		// relax at the campfire a bit
+		document.getElementById("gather").click();
 	}
 	else if(resources.energy.amount < 16)
 	{
@@ -251,7 +305,7 @@ function buildQuarry()
 	{
 		if(playerAt(woodX, woodY))
 		{
-			// Sawmill will work for us
+			document.getElementById("gather").click();
 		}
 		else
 		{
@@ -285,9 +339,9 @@ function buildQuarry()
 
 function endGame()
 {
-	if(playerAt(campfireX, campfireY) && resources.energy.amount < resources.energy.cap && resources.wood.amount > 0)
+	if(playerAt(campfireX, campfireY) && resources.energy.amount < resources.energy.cap - 1 && resources.wood.amount > 0)
 	{
-		// relax at the campfire a bit
+		document.getElementById("gather").click();
 	}
 	else if(resources.energy.amount < 16)
 	{
@@ -297,7 +351,7 @@ function endGame()
 	{
 		if(playerAt(woodX, woodY))
 		{
-			// Sawmill will work for us
+			document.getElementById("gather").click();
 		}
 		else
 		{
@@ -308,7 +362,7 @@ function endGame()
 	{
 		if(playerAt(stoneX, stoneY))
 		{
-			// Quarry will work for us
+			document.getElementById("gather").click();
 		}
 		else
 		{

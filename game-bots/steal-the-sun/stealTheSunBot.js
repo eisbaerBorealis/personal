@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Steal the Sun Bot
 // @namespace    http://tampermonkey.net/
-// @version      0.1.12
+// @version      0.1.17
 // @description  Play the game "Steal the Sun" at stealthesun.net
 // @author       eisbaerBorealis
-// @match        http://stealthesun.net/*
+// @match        https://stealthesun.net/*
 // @grant        none
 // ==/UserScript==
 
@@ -20,17 +20,19 @@ var woodStoreX = 6;
 var woodStoreY = 5;
 var stonestoreX = 4;
 var stonestoreY = 5;
-var energystoreX = 5;
-var energystoreY = 6;
+var shelterX = 5;
+var shelterY = 4;
+var smelterX = 5;
+var smelterY = 6;
 
 var tickLength = 250;
-var warmup = 4;
+var warmup = 8;
 
 (function()
 {
 	'use strict';
 	
-	console.log("DEBUG: Starting eisbaerBorealis' Bot, version 0.1.12");
+	console.log("DEBUG: Starting eisbaerBorealis' Bot, version 0.1.17");
 	
 	setInterval(doRound, tickLength);
 })();
@@ -55,9 +57,9 @@ function doRound()
 		{
 			buildStonestore();
 		}
-		else if(build.energystore.position === undefined)
+		else if(build.shelter.position === undefined)
 		{
-			buildEnergystore();
+			buildShelter();
 		}
 		else if(build.sawmill.position === undefined)
 		{
@@ -66,6 +68,10 @@ function doRound()
 		else if(build.quarry.position === undefined)
 		{
 			buildQuarry();
+		}
+		else if(build.smelter.position === undefined)
+		{
+			buildSmelter();
 		}
 		else
 		{
@@ -199,7 +205,7 @@ function buildStonestore()
 	}
 }
 
-function buildEnergystore()
+function buildShelter()
 {
 	if(playerAt(campfireX, campfireY) && resources.energy.amount < resources.energy.cap - 1 && resources.wood.amount > 0)
 	{
@@ -209,7 +215,7 @@ function buildEnergystore()
 	{
 		move(campfireX, campfireY);
 	}
-	else if(resources.wood.amount < build.energystore.cost.wood + 20)
+	else if(resources.wood.amount < build.shelter.cost.wood + 20)
 	{
 		if(playerAt(woodX, woodY))
 		{
@@ -220,7 +226,7 @@ function buildEnergystore()
 			move(woodX, woodY);
 		}
 	}
-	else if(resources.stone.amount < build.energystore.cost.stone)
+	else if(resources.stone.amount < build.shelter.cost.stone)
 	{
 		if(playerAt(stoneX, stoneY))
 		{
@@ -235,13 +241,13 @@ function buildEnergystore()
 	{
 		move(campfireX, campfireY);
 	}
-	else if(playerAt(energystoreX, energystoreY))
+	else if(playerAt(shelterX, shelterY))
 	{
-		document.getElementById("build_energystore").click();
+		document.getElementById("build_shelter").click();
 	}
 	else
 	{
-		move(energystoreX, energystoreY);
+		move(shelterX, shelterY);
 	}
 }
 
@@ -301,7 +307,7 @@ function buildQuarry()
 	{
 		move(campfireX, campfireY);
 	}
-	else if(resources.wood.amount < build.quarry.cost.wood)
+	else if(resources.wood.amount < build.quarry.cost.wood + 10)
 	{
 		if(playerAt(woodX, woodY))
 		{
@@ -337,6 +343,52 @@ function buildQuarry()
 	}
 }
 
+function buildSmelter()
+{
+	if(playerAt(campfireX, campfireY) && resources.energy.amount < resources.energy.cap - 1 && resources.wood.amount > 0)
+	{
+		document.getElementById("gather").click();
+	}
+	else if(resources.energy.amount < 16)
+	{
+		move(campfireX, campfireY);
+	}
+	else if(resources.wood.amount < 70)
+	{
+		if(playerAt(woodX, woodY))
+		{
+			document.getElementById("gather").click();
+		}
+		else
+		{
+			move(woodX, woodY);
+		}
+	}
+	else if(resources.stone.amount < build.smelter.cost.stone)
+	{
+		if(playerAt(stoneX, stoneY))
+		{
+			document.getElementById("gather").click();
+		}
+		else
+		{
+			move(stoneX, stoneY);
+		}
+	}
+	else if(resources.energy.amount < 31) // 8 to stone, 8 back to wood, 10 for sawmill, 4 to campfire, 1 extra
+	{
+		move(campfireX, campfireY);
+	}
+	else if(playerAt(smelterX, smelterY))
+	{
+		document.getElementById("build_smelter").click();
+	}
+	else
+	{
+		move(smelterX, smelterY);
+	}
+}
+
 function endGame()
 {
 	if(playerAt(campfireX, campfireY) && resources.energy.amount < resources.energy.cap - 1 && resources.wood.amount > 0)
@@ -358,7 +410,7 @@ function endGame()
 			move(woodX, woodY);
 		}
 	}
-	else if(resources.stone.amount < resources.stone.cap)
+	else if(resources.stone.amount < resources.stone.cap * 0.9)
 	{
 		if(playerAt(stoneX, stoneY))
 		{
@@ -367,6 +419,17 @@ function endGame()
 		else
 		{
 			move(stoneX, stoneY);
+		}
+	}
+	else if(resources.metal.amount < resources.metal.cap)
+	{
+		if(playerAt(smelterX, smelterY))
+		{
+			document.getElementById("gather").click();
+		}
+		else
+		{
+			move(smelterX, smelterY);
 		}
 	}
 	else if(playerAt(campfireX, campfireY))

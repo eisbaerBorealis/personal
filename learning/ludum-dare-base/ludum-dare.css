@@ -1,0 +1,13 @@
+html {
+    background-color: #444444
+}
+
+body {
+    width: 700px;
+    margin: 50px auto;
+}
+
+#gameCanvas {
+    border:1px solid #000000;
+    margin: 0px 100px;
+}

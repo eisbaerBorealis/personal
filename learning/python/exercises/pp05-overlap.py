@@ -5,8 +5,6 @@ def main():
 	list2 = []
 	list3 = []
 	
-	good_input = False
-	
 	size1 = random.randint(8, 17)
 	size2 = random.randint(8, 17)
 	

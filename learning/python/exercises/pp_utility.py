@@ -1,3 +1,5 @@
+import random
+
 def get_int(message):
 	good_input = False
 	while(not good_input):
@@ -20,3 +22,10 @@ def get_int_min(message, min):
 		except:
 			print("Error: please enter an integer.")
 	return user_input
+	
+def get_random_list(size_min, size_max, value_min, value_max):
+	list = []
+	size = random.randint(size_min, size_max)
+	for x in range(size):
+		list.append(random.randint(value_min, value_max))
+	return list

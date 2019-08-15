@@ -1,13 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 <title>Product App</title>
+<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
+    <div class="nav-bar"></div>
+
     <div id="app">
-        <h1>{{ product }}</h1>
+        <div class="product">
+            <div class="product-image">
+                <img :src="image" :alt="altText">
+            </div>
+            <div class="product-info">
+                <h1>{{ product }}</h1>
+                <p v-if="inventory > 10">In Stock</p>
+                <p v-else-if="inventory<=10 && inventory > 0">Almost sold out! Only {{inventory}} left!</p>
+                <p v-else>Out of Stock</p>
+                <ul>
+                    <li v-for="detail in details">{{detail}}</li>
+                </ul>
+
+                <div v-for="variant in variants" :key="variant.variantId">
+                    <p @mouseover="updateProduct(variant.variantImage)">{{ variant.variantColor }}</p>
+                </div>
+
+                <button @click="addToCart">Add to Cart</button>
+
+                <div class="cart">
+                    <p>Cart({{ cart }})</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>

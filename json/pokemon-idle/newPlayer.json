@@ -1,0 +1,45 @@
+{
+    "player": {
+        "name": null,
+        "gender": null,
+        "rivalName": null,
+        "rivalType": -1,
+        "pokemon": [],
+        "party": [],
+        "inventory": [],
+        "money": 250,
+        "pokedex": [],
+        "objectives": [],
+        "unlockedActions": [],
+        "upgrades": [],
+        "normalStats": {
+            "pokemonDefeated": 0,
+            "pokemonCaptured": 0,
+            "shinyPokemonCaptured": 0,
+            "trainersDefeated": 0,
+            "pokemonFainted": 0,
+            "pokemonEvolved": 0,
+            "pokemonMaxed": 0,
+            "pokemonReleased": 0,
+            "eliteFourLosses": 0,
+            "eliteFourVictores": 0
+        },
+        "totalStats": {
+            "pokemonDefeated": 0,
+            "pokemonCaptured": 0,
+            "shinyPokemonCaptured": 0,
+            "trainersDefeated": 0,
+            "pokemonFainted": 0,
+            "pokemonEvolved": 0,
+            "pokemonMaxed": 0,
+            "pokemonReleased": 0,
+            "eliteFourLosses": 0,
+            "eliteFourVictores": 0,
+            "highestPokedex": 0
+        },
+        "settings": {
+            "updatesPerSecond": 20,
+            "theme": "plain"
+        }
+    }
+}

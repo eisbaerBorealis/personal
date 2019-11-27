@@ -1,0 +1,37 @@
+{
+    "trainers": [
+        {
+            "id": 0,
+            "name": "Rival A 1",
+            "pokemon": [
+                {
+                    "id": 1,
+                    "level": 5
+                }
+            ],
+            "reward": 100
+        },
+        {
+            "id": 1,
+            "name": "Rival B 1",
+            "pokemon": [
+                {
+                    "id": 4,
+                    "level": 5
+                }
+            ],
+            "reward": 100
+        },
+        {
+            "id": 2,
+            "name": "Rival C 1",
+            "pokemon": [
+                {
+                    "id": 7,
+                    "level": 5
+                }
+            ],
+            "reward": 100
+        }
+    ]
+}

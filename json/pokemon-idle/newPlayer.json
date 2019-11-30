@@ -4,6 +4,7 @@
         "gender": null,
         "rivalName": null,
         "rivalType": -1,
+        "location": 0,
         "pokemon": [],
         "party": [],
         "inventory": [],
@@ -22,7 +23,9 @@
             "pokemonMaxed": 0,
             "pokemonReleased": 0,
             "eliteFourLosses": 0,
-            "eliteFourVictores": 0
+            "eliteFourVictories": 0,
+            "timesHealed": 0,
+            "timesKnockedOut": 0
         },
         "totalStats": {
             "pokemonDefeated": 0,
@@ -34,12 +37,15 @@
             "pokemonMaxed": 0,
             "pokemonReleased": 0,
             "eliteFourLosses": 0,
-            "eliteFourVictores": 0,
+            "eliteFourVictories": 0,
+            "timesHealed": 0,
+            "timesKnockedOut": 0,
             "highestPokedex": 0
         },
         "settings": {
             "updatesPerSecond": 20,
-            "theme": "plain"
+            "theme": "plain",
+            "lastPokemonId": 0
         }
     }
 }

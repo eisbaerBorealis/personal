@@ -1,0 +1,305 @@
+{
+    "actions": [
+        {
+            "id": 0,
+            "text": "Check PC",
+            "response": [
+                {
+                    "objectiveId": 1000,
+                    "text": "Your PC is empty.",
+                    "result": null
+                },
+                {
+                    "objectiveId": -1,
+                    "text": "You received a Potion",
+                    "result": {
+                        "type": "item",
+                        "value": 0,
+                        "count": 1
+                    }
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "text": "Talk to Mom",
+            "response": [
+                {
+                    "objectiveId": 1,
+                    "text": "You look tired! Rest for a quick minute",
+                    "result": {
+                        "type": "heal"
+                    }
+                },
+                {
+                    "objectiveId": -1,
+                    "text": "Oh, you're awake! Didn't Professor Oak want to see you today?",
+                    "result": null
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "text": "Go outside",
+            "response": [
+                {
+                    "objectiveId": -1,
+                    "text": "You find yourself in Pallet Town",
+                    "result": {
+                        "type": "travel",
+                        "value": 1
+                    }
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "text": "Enter Your House",
+            "response": [
+                {
+                    "objectiveId": -1,
+                    "text": "You find yourself in Your House",
+                    "result": {
+                        "type": "travel",
+                        "value": 0
+                    }
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "text": "Enter Your Rival's House",
+            "response": [
+                {
+                    "objectiveId": -1,
+                    "text": "You find yourself in Your Rival's House",
+                    "result": {
+                        "type": "travel",
+                        "value": 2
+                    }
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "text": "Enter Professor Oak's Laboratory",
+            "response": [
+                {
+                    "objectiveId": -1,
+                    "text": "You find yourself in Professor Oak's Laboratory",
+                    "result": {
+                        "type": "travel",
+                        "value": 3
+                    }
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "text": "Go north to Route 1",
+            "response": [
+                {
+                    "objectiveId": 1,
+                    "text": "You find yourself at Route 1",
+                    "result": {
+                        "type": "travel",
+                        "value": 3
+                    }
+                },
+                {
+                    "objectiveId": 0,
+                    "text": "You should visit Professor Oak's Laboratory",
+                    "result": null
+                },
+                {
+                    "objectiveId": -1,
+                    "text": "Professor Oak: \"Stop! Don't go into tall grass without a Pokemon! Come visit me in my laboratory.",
+                    "result": {
+                        "type": "objective",
+                        "value": 0
+                    }
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "text": "Go south to Route 21",
+            "response": [
+                {
+                    "objectiveId": 999,
+                    "text": "You find yourself at Route 21",
+                    "result": {
+                        "type": "travel",
+                        "value": 999
+                    }
+                },
+                {
+                    "objectiveId": -1,
+                    "text": "Water blocks your path. You need a way to cross it.",
+                    "result": null
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "text": "Talk to your Rival's sister",
+            "response": [
+                {
+                    "objectiveId": 1001,
+                    "text": "Have fun on your adventure!",
+                    "result": null
+                },
+                {
+                    "objectiveId": 3,
+                    "text": "You're going on an adventure? Cool! Here, take this map with you!",
+                    "result": {
+                        "type": "item",
+                        "value": 3,
+                        "count": 1
+                    }
+                },
+                {
+                    "objectiveId": -1,
+                    "text": "My grandpa's probably at his lab or on Route 1 studying Pokemon.",
+                    "result": null
+                }
+            ]
+        },
+        {
+            "id": 9,
+            "text": "Talk to Professor Oak",
+            "response": [
+                {
+                    "objectiveId": 1002,
+                    "text": "Good luck! Please fulfill my dream of completing the Pokedex!",
+                    "result": null
+                },
+                {
+                    "objectiveId": 2,
+                    "text": "Oh, thank you for delivering my parcel!",
+                    "result": [
+                        {
+                            "type": "item",
+                            "value": 1,
+                            "count": -1
+                        },
+                        {
+                            "type": "item",
+                            "value": 2,
+                            "count": 1
+                        },
+                        {
+                            "type": "item",
+                            "value": 3,
+                            "count": 5
+                        },
+                        {
+                            "type": "objective",
+                            "value": 3
+                        }
+                    ]
+                },
+                {
+                    "objectiveId": 1,
+                    "text": "You should head north to Viridian City",
+                    "result": null
+                },
+                {
+                    "objectiveId": 0,
+                    "text": "Here! Choose a Pokemon!",
+                    "result": [
+                        {
+                            "type": "special",
+                            "value": 0
+                        },
+                        {
+                            "type": "objective",
+                            "value": 1
+                        }
+                    ]
+                },
+                {
+                    "objectiveId": -1,
+                    "text": "Weird, Professor Oak isn't here...",
+                    "result": null
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "text": "Go south to Pallet Town",
+            "response": [
+                {
+                    "objectiveId": -1,
+                    "text": "You find yourself in Pallet Town",
+                    "result": {
+                        "type": "travel",
+                        "value": 1
+                    }
+                }
+            ]
+        },
+        {
+            "id": 11,
+            "text": "Go north to Viridian City",
+            "response": [
+                {
+                    "objectiveId": -1,
+                    "text": "You find yourself in Pallet Town",
+                    "result": {
+                        "type": "travel",
+                        "value": 5
+                    }
+                }
+            ]
+        },
+        {
+            "id": 12,
+            "text": "Go south to Route 1",
+            "response": [
+                {
+                    "objectiveId": -1,
+                    "text": "You find yourself in Route 1",
+                    "result": {
+                        "type": "travel",
+                        "value": 4
+                    }
+                }
+            ]
+        },
+        {
+            "id": 13,
+            "text": "Go to the Pokemart",
+            "response": [
+                {
+                    "objectiveId": 3,
+                    "text": "Welcome to the Pokemart!",
+                    "result": {
+                        "type": "mart",
+                        "value": 5
+                    }
+                },
+                {
+                    "objectiveId": 2,
+                    "text": "Have you delivered Oak's parcel yet?",
+                    "result": null
+                },
+                {
+                    "objectiveId": -1,
+                    "text": "Hey, did you come from Pallet Town? Please deliver this parcel to Professor Oak",
+                    "result": [
+                        {
+                            "type": "item",
+                            "value": 1,
+                            "count": 1
+                        },
+                        {
+                            "type": "objective",
+                            "value": 2
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -71,7 +71,7 @@ function startup() {
 	// start up the main doRound function
 	var mainLoopInterval = setInterval(doRound, 1000 / TICKS_PER_SEC);
 
-	console.log('"EisDEBUG: Finished startup');
+	console.log('EisDEBUG: Finished startup');
 }
 
 function doRound() {
@@ -86,7 +86,7 @@ function doRound() {
                     // do something every 40 ticks
                 }
                 break;
-            case '"special':
+            case 'special':
                 // do special things
                 break;
             default:

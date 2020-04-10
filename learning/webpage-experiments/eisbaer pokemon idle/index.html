@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Eisbaer's Pokemon Idle</title>
+        
+        <link rel="stylesheet" type="text/css" href="style.css">
+
+        <!-- data files -->
+        <script src="data/pokemon.js"></script>
+        <script src="data/newPlayer.js"></script>
+        <script src="data/actions.js"></script>
+        <script src="data/objectives.js"></script>
+        <script src="data/miniObjectives.js"></script>
+        <script src="data/locations.js"></script>
+        <script src="data/items.js"></script>
+        <script src="data/trainers.js"></script>
+        <script src="data/pokemarts.js"></script>
+        <script src="data/special.js"></script>
+
+        <!-- script files -->
+        <script src="setup.js"></script>
+        <script src="scripts/Player.js"></script>
+        <script src="scripts/gameDisplay.js"></script>
+        <script src="scripts/GameEngine.js"></script>
+        <script src="scripts/specialEvent.js"></script>
+        <script src="scripts/Pokemon.js"></script>
+        <script src="scripts/Battle.js"></script>
+    </head>
+
+    <body>
+
+        <section id="start-game" class="flex-col">
+        <div id="load-game" class="hidden">
+            <div id="load-found"></div>
+            <p>Load this character or create a new Player (this character will be deleted forever)</p>
+            <div id="load-character" class="button">Load</div>
+        </div>
+
+        <div id="new-game">
+            <h1 id="no-save">No save data found</h1>
+            <div id="reload" class="button">Try to Reload</div>
+            <p id="reload-fail" class="hidden"></p>
+            <h2 class="text-center">New Player:</h2>
+            <div id="new-form">
+            <div id="new-name">Character name:<input name="new-name"></div>
+            <div id="new-gender">Gender: 
+                <input type="radio" name="gender" value="male">Male 
+                <input type="radio" name="gender" value="female">Female 
+                <input type="radio" name="gender" value="other">Other 
+            </div>
+            <div id="new-rival-name">Rival name: 
+                <input name="new-rival-name">
+            </div>
+            </div>
+            <div id="create-character" class="button">Create</div>
+        </div>
+        </section>
+
+        <section id="badges" class="hidden flex-col">
+        <h2 id=badges-label></h2>
+        <div id="badge-box">
+            <div class="badge-row">
+            <div id="badge-1" class="empty-badge"></div><div id="badge-2" class="empty-badge"></div>
+            <div id="badge-3" class="empty-badge"></div><div id="badge-4" class="empty-badge"></div>
+            </div>
+            <div class="badge-row">
+            <div id="badge-5" class="empty-badge"></div><div id="badge-6" class="empty-badge"></div>
+            <div id="badge-7" class="empty-badge"></div><div id="badge-8" class="empty-badge"></div>
+            </div>
+        </div>
+        </section>
+
+        <section id="map" class="hidden flex-col">
+        <div id="map-box"><img src="data/pokemap 02 - basic.png"></div>
+        </section>
+
+        <section id="activity" class="hidden flex-col">
+        <div id="battle-box" class="hidden flex-row">
+            <div id="my-pokemon">
+            <div id="fighter-image" class="party-image flex-col"></div>
+            <div class="party-info flex-col">
+                <div id="fighter-text"></div>
+                <div class="full-hp"><div id="fighter-hp"></div></div>
+                <div class="full-exp"><div id="fighter-exp" class="exp-bar"></div></div>
+            </div>
+            </div>
+
+            <div id="commands">
+            <div id="full-battle-countdown">
+                <div id="attack-countdown"></div>
+                <div id="enemy-countdown"></div>
+                <div id="attacks"></div>
+            </div>
+            </div>
+
+            <div id="enemy-pokemon">
+            <div id="enemy-image" class="party-image flex-col"></div>
+            <div class="party-info flex-col">
+                <div id="enemy-text"></div>
+                <div class="full-hp"><div id="pokemon-8-hp"></div></div>
+            </div>
+            </div>
+        </div>
+        <div id="activity-box">
+            <div id="activity-timer"></div>
+            <div id="current-actions">
+            <div id="location"></div>
+            <div id="action-result"></div>
+            <div id="explored-count"></div>
+            <div id="actions"></div>
+            </div>
+        </div>
+        </section>
+
+        <section id="pokemon-team" class="hidden flex-col">
+        <h2>Pokemon Team</h2>
+        <!-- <div id="party-row-1" class="party-row">
+            <div id="pokemon-1" class="party-pkmn"></div><div id="pokemon-2" class="party-pkmn"></div><div id="pokemon-3" class="party-pkmn"></div>
+        </div><div id="party-row-2" class="party-row">
+            <div id="pokemon-4" class="party-pkmn"></div><div id="pokemon-5" class="party-pkmn"></div><div id="pokemon-6" class="party-pkmn"></div>
+        </div> -->
+        <div class="party-row flex-row">
+            <div class="party-pkmn"></div><div class="party-pkmn hidden"></div><div class="party-pkmn hidden"></div>
+        </div><div class="party-row flex-row">
+            <div class="party-pkmn hidden"></div><div class="party-pkmn hidden"></div><div class="party-pkmn hidden"></div>
+        </div>
+        </section>
+
+        <section id="inventory" class="hidden flex-col">
+        <h2>Inventory</h2>
+        <div id="content-inventory" class="collapsible"></div>
+        </section>
+
+        <section id="pokemon-storage" class="hidden flex-col">
+        <h2>Pokemon Storage</h2>
+        <div id="content-storage" class="collapsible"></div>
+        </section>
+
+        <section id="pokedex" class="hidden flex-col">
+        <h2>Pokedex</h2>
+        <div id="content-pokedex" class="collapsible"></div>
+        </section>
+
+        <section id="stats" class="hidden flex-col">
+        <h2>Stats</h2>
+        <div id="content-stats" class="collapsible"></div>
+        </section>
+
+        <section id="settings" class="hidden flex-col">
+        <h2>Settings</h2>
+        <div id="content-settings" class="collapsible"></div>
+        </section>
+
+        <section id="about" class="flex-col">
+        <h2>About</h2>
+        <div id="content-about" class="collapsible"></div>
+        </section>
+        
+        <div id="popup-container-soft" class="popup-container hidden"></div>
+        <div id="popup-container-hard" class="popup-container hidden"></div>
+        <div id="popup-box" class="normal-popup hidden"></div>
+        <div id="special-popup" class="hidden"></div>
+        
+    </body>
+</html>

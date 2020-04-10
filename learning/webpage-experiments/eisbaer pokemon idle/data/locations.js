@@ -1,0 +1,68 @@
+var data_locations = [
+    {
+        "id": 0,
+        "name": "Your house",
+        "type": "minor",
+        "actions": [
+            0, 1, 2
+        ],
+        "pokemon": null,
+        "trainers": null
+    },
+    {
+        "id": 1,
+        "name": "Pallet Town",
+        "type": "city",
+        "actions": [
+            3, 4, 5, 6, 7
+        ],
+        "pokemon": null,
+        "trainers": null
+    },
+    {
+        "id": 2,
+        "name": "Your Rival's House",
+        "type": "minor",
+        "actions": [
+            8, 2
+        ],
+        "pokemon": null,
+        "trainers": null
+    },
+    {
+        "id": 3,
+        "name": "Professor Oak's Laboratory",
+        "type": "minor",
+        "actions": [
+            9, 2
+        ],
+        "pokemon": null,
+        "trainers": null
+    },
+    {
+        "id": 4,
+        "name": "Route 1",
+        "type": "route",
+        "actions": [
+            10, 11, 12
+        ],
+        "pokemon": [
+            {
+                "id": 9,
+                "minLv": 2,
+                "maxLv": 4
+            }
+        ],
+        "trainers": null
+    },
+    {
+        "id": 5,
+        "name": "Viridian City",
+        "type": "city",
+        "actions": [
+            13, 14
+        ],
+        "pokemon": null,
+        "trainers": null
+    }
+];

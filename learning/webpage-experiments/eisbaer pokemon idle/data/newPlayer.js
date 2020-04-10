@@ -1,0 +1,60 @@
+var data_newPlayer = {
+    'name': null,
+    'gender': null,
+    'rivalName': null,
+    'rivalType': -1,
+    'location': 0,
+    'pokemon': [],
+    'party': [],
+    'inventory': [],
+    'money': 250,
+    'timePlayed': 0,
+    'badges': 0,
+    'pokedex': [],
+    'achievements': [],
+    'objectives': [],
+    'miniObjectives': [],
+    'unlockedActions': [],
+    'cooldowns': {
+        'trainers': [],
+        'pokemon': [],
+        'trades': []
+    },
+    'upgrades': [],
+    'normalStats': {
+        'pokemonDefeated': 0,
+        'pokemonCaptured': 0,
+        'shinyPokemonCaptured': 0,
+        'trainersDefeated': 0,
+        'pokemonFainted': 0,
+        'pokemonEvolved': 0,
+        'pokemonMaxed': 0,
+        'pokemonReleased': 0,
+        'eliteFourLosses': 0,
+        'eliteFourVictories': 0,
+        'timesHealed': 0,
+        'timesKnockedOut': 0
+    },
+    'totalStats': {
+        'pokemonDefeated': 0,
+        'pokemonCaptured': 0,
+        'shinyPokemonCaptured': 0,
+        'trainersDefeated': 0,
+        'pokemonFainted': 0,
+        'pokemonEvolved': 0,
+        'pokemonMaxed': 0,
+        'pokemonReleased': 0,
+        'eliteFourLosses': 0,
+        'eliteFourVictories': 0,
+        'timesHealed': 0,
+        'timesKnockedOut': 0,
+        'highestPokedex': 0,
+        'completedPokedexes': 0
+    },
+    'settings': {
+        'updatesPerSecond': 20,
+        'theme': 'plain',
+        'version': '0.1.1'/*,
+        'lastPokemonId': 0//*/
+    }
+};

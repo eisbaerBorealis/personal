@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<!-- Author: Jesse Howell
+ -->
+
+<html lang="en" class="theme-dark">
+
+<head>
+    <title>Elemental Critter Mound</title>
+    <meta charset="UTF-8">
+    
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/hexagons.css">
+    <link rel="stylesheet" type="text/css" href="styles/timer.css">
+
+    <script src="scripts/0-main.js"></script>
+    <script src="scripts/htmlSetup.js"></script>
+    <script src="scripts/saveManagement.js"></script>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=##-########-#"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '##-########-#');
+    </script> -->
+</head>
+
+<body>
+    <section id="loadingSection" class="layer1">
+        <h2>(loading...)</h2>
+        <div id="loadingContent"></div>
+    </section>
+    <section id="playerSection" class="layer1">
+        <h2 class="clickable">Player</h2>
+        <div id="playerContent" class="collapsible">
+            <div id="playerProfile">
+                <div id="playerImage"></div>
+                <div id="playerName">Player Name</div>
+            </div>
+            <div id="playerPreviews">
+                <div id="playerHatcheries" class="layer2">Hatchery</div>
+                <div id="playerProduction" class="layer2">Production</div>
+                <div id="playerScience" class="layer2">Science</div>
+                <div id="playerWar" class="layer2">War</div>
+                <div id="playerSave" class="layer2">Save</div>
+            </div>
+        </div>
+    </section>
+    <section id="hatcheriesSection" class="layer1">
+        <h2 class="clickable">Hatchery</h2>
+        <div id="hatcheriesContent" class="collapsible">
+            <div id="royaltyContainer">
+                <div id="kingContainer">
+                    <div class="maleText">KING</div>
+                    <div class="hexContainer hexLarge">
+                        <div class="hexagon hexLarge hexMale maleBG"></div>
+                    </div>
+                </div>
+                <!-- TO DO: Fix timer -->
+                <div id="hatcheryTimer" class="base-timer">
+                    <svg class="base-timer__svg" viewBox="-10 -10 120 120" xmlns="http://www.w3.org/2000/svg">
+                        <g class="base-timer__circle">
+                            <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45" />
+                        </g>
+                    </svg>
+                    <span>
+                        <!-- Remaining time label -->
+                    </span>
+                </div>
+                <div id="queenContainer">
+                    <div class="femaleText">QUEEN</div>
+                    <div class="hexContainer hexLarge">
+                        <div class="hexagon hexLarge hexFemale femaleBG"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="offspringContainer">
+                <div id="hatcheryUpgradeButton" class="button clickable">Upgrade</br>10 sod</div>
+                <div class="hexRowEven">
+                    <div class="hexContainer hexLarge">
+                        <div class="hexagon hexLarge hexEmpty emptyBG"></div>
+                    </div>
+                    <div class="hexContainer hexLarge">
+                        <div class="hexagon hexLarge hexEmpty emptyBG"></div>
+                    </div>
+                </div>
+                <div class="hexRowOdd">
+                    <div class="hexContainer hexLarge">
+                        <div class="hexagon hexLarge hexEmpty emptyBG"></div>
+                    </div>
+                    <div class="hexContainer hexLarge">
+                        <div class="hexagon hexLarge hexDisabled disabledBG"></div>
+                    </div>
+                    <div class="hexContainer hexLarge">
+                        <div class="hexagon hexLarge hexDisabled disabledBG"></div>
+                    </div>
+                </div>
+                <div class="hexRowEven">
+                    <div class="hexContainer hexLarge">
+                        <div class="hexagon hexLarge hexDisabled disabledBG"></div>
+                    </div>
+                    <div class="hexContainer hexLarge">
+                        <div class="hexagon hexLarge hexDisabled disabledBG"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="nextGenContainer">
+                <div id="nextKingContainer">
+                    <!-- <div class="maleText"></div> -->
+                    <div class="hexContainer hexLarge">
+                        <div class="hexagon hexLarge hexMale maleBG"></div>
+                    </div>
+                </div>
+                <div id="nextGenButton" class="button clickable">NEXT GEN</div>
+                <div id="nextQueenContainer">
+                    <!-- <div class="femaleText">QUEEN</div> -->
+                    <div class="hexContainer hexLarge">
+                        <div class="hexagon hexLarge hexFemale femaleBG"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="productionSection" class="layer1 hidden">
+        <h2 class="clickable">Production</h2>
+        <div id="productionContent" class="collapsible"></div>
+    </section>
+    <section id="scienceSection" class="layer1 hidden">
+        <h2 class="clickable">Science</h2>
+        <div id="scienceContent" class="collapsible"></div>
+    </section>
+    <section id="warSection" class="layer1 hidden">
+        <h2 class="clickable">War</h2>
+        <div id="warContent" class="collapsible"></div>
+    </section>
+    <section id="prestigeSection" class="layer1 hidden">
+        <h2 class="clickable">Prestige</h2>
+        <div id="prestigeContent" class="collapsible"></div>
+    </section>
+    <section id="achievementsSection" class="layer1">
+        <h2 class="clickable">Achievements</h2>
+        <div id="achievementsContent" class="collapsible"></div>
+    </section>
+    <section id="statsSection" class="layer1">
+        <h2 class="clickable">Stats</h2>
+        <div id="statsContent" class="collapsible"></div>
+    </section>
+    <section id="howtoSection" class="layer1">
+        <h2 class="clickable">How To Play</h2>
+        <div id="howtoContent" class="collapsible"></div>
+    </section>
+    <section id="aboutSection" class="layer1">
+        <h2 class="clickable">Settings/About</h2>
+        <div id="aboutContent" class="collapsible"></div>
+    </section>
+    <section id="loreSection" class="layer1">
+        <h2 class="clickable">Lore</h2>
+        <div id="loreContent" class="collapsible"></div>
+    </section>
+</body>
+
+</html>

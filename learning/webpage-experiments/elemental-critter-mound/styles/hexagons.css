@@ -1,0 +1,77 @@
+/* https://jtauber.github.io/articles/css-hexagon.html */
+.hexMale {
+    --hex-color: var(--color-male);
+}
+
+.hexFemale {
+    --hex-color: var(--color-female);
+}
+
+.hexDisabled {
+    --hex-color: var(--color-disabled);
+}
+
+.hexEmpty {
+    --hex-color: var(--color-empty);
+}
+
+.hexLarge {
+    --hex: 100px;
+}
+
+.hexagon {
+    width: var(--hex);
+    height: calc(var(--hex) * 15 / 26);
+    margin-top: calc(var(--hex) * 15 / 52);
+    position: relative;
+}
+
+.hexagon:before {
+    content: " ";
+    width: 0px;
+    height: 0px;
+    border-bottom: calc(var(--hex) * 15 / 52) solid var(--hex-color);
+    border-left: calc(var(--hex) / 2) solid transparent;
+    border-right: calc(var(--hex) / 2) solid transparent;
+    position: absolute;
+    top: calc(var(--hex) * -15 / 52);
+}
+
+.hexagon:after {
+    content: " ";
+    width: 0px;
+    border-top: calc(var(--hex) * 15 / 52) solid var(--hex-color);
+    border-left: calc(var(--hex) / 2) solid transparent;
+    border-right: calc(var(--hex) / 2) solid transparent;
+    position: absolute;
+    bottom: calc(var(--hex) * -15 / 52);
+}
+
+.hexContainer {
+    padding: calc(var(--hex) / 20)
+             calc(var(--hex) * 1.8 / 20)
+             calc(var(--hex) * (15 / 52 + 1 / 20))
+             calc(var(--hex) * 1.8 / 20);
+    border-radius: 50%;
+}
+
+.selected {
+    box-shadow: 0 0 calc(var(--hex) / 4) var(--color-selected-glow);
+    background: var(--color-selected-bg);
+}
+
+.hexRowEven, .hexRowOdd {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* margin-bottom: calc(var(--hex) * -15 / 52); */
+    margin-bottom: -25px;
+}
+
+/* .hexRowOdd {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+} */
+
+/* Another thing to try: https://css-tricks.com/snippets/css/hexagon-with-shadow/ */

@@ -1,0 +1,305 @@
+/** Author: Jesse Howell
+ * 
+ *  
+ */
+
+ /* Possible fonts 
+    Merienda
+    Neucha
+    Aclonica
+    Audiowide
+    Kelly Slab
+    Syncopate
+    Frijole
+    Spicy Rice
+    Trade Winds
+    Freckle Face
+    Iceland
+    Walter Turncoat
+    Finger Paint
+    Dekko
+    Metamorphous
+ */
+
+.theme-dark {
+    --color-background: #000000;
+    --color-primary: #2a2438;
+    --color-layer1: #423a55;
+    --color-layer2: #5c5470;
+    /* --color-layer3: #2a2438; */
+    /* --color-font-main: #dbd8e3; */
+    --color-font-header: #c4a116;
+    --color-font-main: #ae9fd4;
+    --color-male: #406ab8;
+    --color-female: #ba41b4;
+    --color-selected-glow: #00ff0088;
+    --color-selected-bg: #00ff0044;
+    --color-disabled: #333333;
+    --color-empty: #555555;
+    --color-button-primary: #008800;
+}
+
+html {
+    background-color: var(--color-background);
+    color: var(--color-font-main);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    /* max-width: 600px; */
+    width: auto;
+    /* margin: 0px auto; */
+    background-color: var(--color-primary);
+    /* padding: 50px 125px 50px 100px; */
+    padding: 50px 125px;
+    /* height: auto; */
+    /* min-height: 100%; */
+    border-radius: 50px;
+    flex-basis: 600px;
+}
+
+section {
+    min-width: 600px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    /* color: #38761d; */
+    font-family: "Playfair Display", serif;
+    font-size: 18pt;
+    margin: 5px;
+    font-weight: bold;
+}
+
+h2 {
+    color: var(--color-font-header);
+    font-size: 20pt;
+    font-weight: normal;
+    font-family: "Playfair Display", serif;
+    margin: 5px;
+}
+
+h3 {
+    color: #38761d;
+    font-size: 11pt;
+    font-weight: bold;
+    margin: 10px 0px 5px 25px;
+}
+
+h5 {
+    font-size: 8pt;
+    margin: 1px 0px;
+    font-weight: normal;
+}
+
+.clickable:hover {
+    cursor: pointer;
+}
+
+ul {
+    margin: 5px 10px;
+    font-size: 11pt;
+    padding: 5px 5px 5px 25px;
+}
+
+p {
+    font-size: 10pt;
+    margin: 0px 25px;
+}
+
+.referenceContact {
+    display: inline-block;
+    margin-left: 25px;
+}
+
+.collapsible {
+    /* display: none; */
+    margin: 5px;
+}
+
+.collapsed {
+    display: none;
+}
+
+.layer1 {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: var(--color-layer1);
+    border-radius: 30px;
+    padding: 15px;
+    /* margin: 10px 0px; */
+    height: auto;
+    box-shadow: 3px 5px 5px #111111;
+}
+
+.layer2 {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: var(--color-layer2);
+    border-radius: 15px;
+    height: auto;
+    width: auto;
+    min-width: 350px;
+    margin-bottom: 5px;
+    padding: 5px;
+    align-items: center;
+}
+
+.maleBG {
+    background-color: var(--color-male);
+}
+
+.maleText {
+    color: var(--color-male);
+}
+
+.femaleBG {
+    background-color: var(--color-female);
+}
+
+.femaleText {
+    color: var(--color-female);
+}
+
+.disabledBG {
+    background-color: var(--color-disabled);
+}
+
+.emptyBG {
+    background-color: var(--color-empty);
+}
+
+.button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-button-primary);
+    padding: 5px 10px;
+    border-radius: 10px;
+    width: fit-content;
+    text-align: center;
+}
+
+/* .flexRowCenter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.flexColCenter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */
+
+#loadingSection {
+    text-align: center;
+}
+
+#playerContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#playerProfile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#playerImage {
+    background-image: url('../assets/images/temp-profile.jpg');
+    background-repeat: no-repeat;
+    background-size: 150px 150px;
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+}
+
+#playerName {
+    margin: 5px;
+}
+
+#playerPreviews {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    padding-left: 15px;
+}
+
+#hatcheriesContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#royaltyContainer, #nextGenContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-width: 50%;
+    justify-content: space-evenly;
+}
+
+#kingContainer, #queenContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#hatcheryTimer {
+    margin-top: 20px;
+}
+
+#offspringContainer {
+    margin-top: 25px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#hatcheryUpgradeButton {
+    /* width: 100px; */
+    margin-bottom: 10px;
+}
+
+#nextGenButton {
+    margin: 10px;
+}
+
+/* .hidden {
+    display: none;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+table {
+    width: 80%;
+    margin: 0px auto;
+}
+
+.center-image {
+    margin: 0px auto;
+}
+
+img {
+    max-width: 300px;
+    margin: 0px auto;
+} */

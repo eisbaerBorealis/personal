@@ -1,5 +1,6 @@
 function loadData() {
-    console.log('EisDebug @ saveManagement.js, addPlayerHTML() called.');
+    // console.log('EisDebug @ saveManagement.js, addPlayerHTML() called.');
+    eisDebug(2, 'EisDebug @ saveManagement.js, addPlayerHTML() called.');
 }
 
 function updateAchievements() {

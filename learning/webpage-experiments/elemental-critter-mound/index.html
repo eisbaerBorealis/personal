@@ -8,31 +8,44 @@
 <head>
     <title>Elemental Critter Mound</title>
     <meta charset="UTF-8">
-    
+
+    <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="styles/style.css">
     <link rel="stylesheet" type="text/css" href="styles/hexagons.css">
     <link rel="stylesheet" type="text/css" href="styles/timer.css">
 
+    <!-- UTILITIES -->
     <script src="scripts/0-main.js"></script>
-    <script src="scripts/htmlSetup.js"></script>
-    <script src="scripts/saveManagement.js"></script>
-    
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=##-########-#"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+    <script src="scripts/1-html.js"></script>
+    <script src="scripts/2-saves.js"></script>
+    <script src="scripts/3-api.js"></script>
+    <script src="scripts/4-animation.js"></script>
+    <script src="scripts/5-debug.js"></script>
 
-        gtag('config', '##-########-#');
-    </script> -->
+    <!-- CLASSES -->
+    <script src="scripts/Critter.js"></script>
+    <script src="scripts/GameEngine.js"></script>
+    <script src="scripts/Hatchery.js"></script>
+    <script src="scripts/Player.js"></script>
 </head>
 
 <body>
-    <section id="loadingSection" class="layer1">
-        <h2>(loading...)</h2>
-        <div id="loadingContent"></div>
+    <section id="saveSection" class="layer1">
+        <div id="loadPlayerDiv">
+            <h2>Load save</h2>
+            <div id="loadPlayerImage"></div>
+            <div id="loadPlayerName">loading...</div>
+            <div id="loadPlayerButton" class="button disabled">Load Player</div>
+            <div id="attemptReloadButton" class="button clickable warnButton hidden">Attempt Reload</div>
+        </div>
+        <div id="newPlayerDiv">
+            <h2>New game</h2>
+            <div id="newPlayerImage"></div>
+            <div id="newPlayerName">Character name:</br><input name="newName"></div>
+            <div id="newPlayerButton" class="button clickable">New Player</div>
+        </div>
     </section>
+
     <section id="playerSection" class="layer1">
         <h2 class="clickable">Player</h2>
         <div id="playerContent" class="collapsible">
@@ -49,9 +62,11 @@
             </div>
         </div>
     </section>
+
     <section id="hatcheriesSection" class="layer1">
         <h2 class="clickable">Hatchery</h2>
         <div id="hatcheriesContent" class="collapsible">
+
             <div id="royaltyContainer">
                 <div id="kingContainer">
                     <div class="maleText">KING</div>
@@ -77,8 +92,9 @@
                     </div>
                 </div>
             </div>
+
             <div id="offspringContainer">
-                <div id="hatcheryUpgradeButton" class="button clickable">Upgrade</br>10 sod</div>
+                <div id="hatcheryUpgradeButton" class="button disabled">Upgrade</br>10 sod</div>
                 <div class="hexRowEven">
                     <div class="hexContainer hexLarge">
                         <div class="hexagon hexLarge hexEmpty emptyBG"></div>
@@ -114,7 +130,7 @@
                         <div class="hexagon hexLarge hexMale maleBG"></div>
                     </div>
                 </div>
-                <div id="nextGenButton" class="button clickable">NEXT GEN</div>
+                <div id="nextGenButton" class="button disabled">NEXT GEN</div>
                 <div id="nextQueenContainer">
                     <!-- <div class="femaleText">QUEEN</div> -->
                     <div class="hexContainer hexLarge">
@@ -124,42 +140,55 @@
             </div>
         </div>
     </section>
+
     <section id="productionSection" class="layer1 hidden">
         <h2 class="clickable">Production</h2>
         <div id="productionContent" class="collapsible"></div>
     </section>
+
     <section id="scienceSection" class="layer1 hidden">
         <h2 class="clickable">Science</h2>
         <div id="scienceContent" class="collapsible"></div>
     </section>
+
     <section id="warSection" class="layer1 hidden">
         <h2 class="clickable">War</h2>
         <div id="warContent" class="collapsible"></div>
     </section>
+
     <section id="prestigeSection" class="layer1 hidden">
         <h2 class="clickable">Prestige</h2>
         <div id="prestigeContent" class="collapsible"></div>
     </section>
+
     <section id="achievementsSection" class="layer1">
         <h2 class="clickable">Achievements</h2>
         <div id="achievementsContent" class="collapsible"></div>
     </section>
+
     <section id="statsSection" class="layer1">
         <h2 class="clickable">Stats</h2>
         <div id="statsContent" class="collapsible"></div>
     </section>
+
     <section id="howtoSection" class="layer1">
         <h2 class="clickable">How To Play</h2>
         <div id="howtoContent" class="collapsible"></div>
     </section>
+
     <section id="aboutSection" class="layer1">
         <h2 class="clickable">Settings/About</h2>
         <div id="aboutContent" class="collapsible"></div>
     </section>
+
     <section id="loreSection" class="layer1">
         <h2 class="clickable">Lore</h2>
         <div id="loreContent" class="collapsible"></div>
     </section>
+
+    <div id="popupGray" class="hidden">
+        <div id="popupContainer"></div>
+    </div>
 </body>
 
 </html>

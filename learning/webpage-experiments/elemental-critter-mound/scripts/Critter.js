@@ -24,7 +24,12 @@ class Critter {
         this.finalAgility      = this.baseAgility;
         this.finalIntelligence = this.baseIntelligence;
 
+        this.score;
         this.updateFinalStats();
+
+        this.location = '';
+
+        thePlayer.addCritter(this);
     }
 
     updateFinalStats() {
@@ -62,8 +67,47 @@ class Critter {
                     }
                     break;
                 default:
-                    console.log('EisError: defaulted in updateFinalStats for mutations[i].stat.');
+                    // console.log('EisError: defaulted in updateFinalStats for mutations[i].stat.');
+                    eisDebug(1, 'EisError: defaulted in updateFinalStats for mutations[i].stat.');
             }            
         }
+
+        this.score = (this.finalVitality + this.finalStrength + this.finalAttack +
+                    this.finalDefense + this.finalAgility + this.finalIntelligence) / 6;
+        this.score = Math.floor(this.score * 10) / 10;
+    }
+
+    setIsFemale(newIsFemale) {
+        this.isFemale = newIsFemale;
+    }
+
+    setLocation(newLocation) {
+        this.location = newLocation;
+    }
+
+    getBaseStats() {
+        return [
+            this.baseVitality,
+            this.baseStrength,
+            this.baseAttack,
+            this.baseDefense,
+            this.baseAgility,
+            this.baseIntelligence
+        ];
+    }
+
+    static randomStat(stat1, stat2, mutationRate, mutationShift) {
+        let mutationValue = (Math.random() * 2 - 1) * mutationRate * (stat1 + stat2) / 2;
+
+        let lowerStat = stat1;
+        if(stat1 > stat2) {
+            lowerStat = stat2;
+        }
+
+        let mutationBase = Math.random() * Math.abs(stat1-stat2) + lowerStat;
+
+        mutationShift = (stat1 + stat2) / 2 * mutationShift;
+
+        return Math.floor(mutationBase + mutationShift + mutationValue + 0.5);
     }
 }

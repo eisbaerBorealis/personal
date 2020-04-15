@@ -37,6 +37,9 @@
     --color-disabled: #333333;
     --color-empty: #555555;
     --color-button-primary: #008800;
+    --color-button-warn: #884200;
+    --color-button-disabled: #777777;
+    --color-popup: #423a55;
 }
 
 html {
@@ -187,20 +190,46 @@ p {
     text-align: center;
 }
 
-/* .flexRowCenter {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.disabled {
+    background-color: var(--color-button-disabled);
 }
 
-.flexColCenter {
+.disabled:hover {
+    cursor: default;
+}
+
+.warnButton {
+    background-color: var(--color-button-warn);
+}
+
+#saveSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#loadPlayerDiv, #newPlayerDiv {
     display: flex;
     flex-direction: column;
     align-items: center;
-} */
+}
 
-#loadingSection {
+#loadPlayerImage, #newPlayerImage {
+    background-image: url('../assets/images/temp-profile.jpg');
+    background-repeat: no-repeat;
+    background-size: 150px 150px;
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+}
+
+#loadPlayerName, #newPlayerName {
     text-align: center;
+    height: 40px;
+    margin: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 #playerContent {
@@ -278,11 +307,35 @@ p {
     margin: 10px;
 }
 
-/* .hidden {
-    display: none;
+#popupGray {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #55555588;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.center {
+#popupContainer {
+    background-color: var(--color-popup);
+    padding: 50px;
+}
+
+#popupX {
+    width: fit-content;
+    margin-left: auto;
+    margin-bottom: 20px;
+    color: var(--color-button-warn);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/*.center {
     text-align: center;
 }
 

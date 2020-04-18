@@ -16,7 +16,7 @@ class GameEngine {
         this.ticksPerSecond = 20;
         this.battle = null;
 
-        this.paused = true;
+        this.paused = false;
 
         this.tickInterval = setInterval(() => {
             this.doTick();
@@ -37,7 +37,7 @@ class GameEngine {
             }
         }
 
-        if(!paused) {
+        if(!this.paused) {
             for(let i = 0; i < thePlayer.getHatcheries().length; i++) {
                 thePlayer.getHatcheries()[i].doTick();
             }

@@ -29,7 +29,7 @@ class Critter {
 
         this.location = '';
 
-        thePlayer.addCritter(this);
+        // thePlayer.addCritter(this);
     }
 
     updateFinalStats() {
@@ -81,6 +81,10 @@ class Critter {
         this.isFemale = newIsFemale;
     }
 
+    getIsFemale() {
+        return this.isFemale;
+    }
+
     setLocation(newLocation) {
         this.location = newLocation;
     }
@@ -96,6 +100,34 @@ class Critter {
         ];
     }
 
+    getFinalStats() {
+        return [
+            this.finalVitality,
+            this.finalStrength,
+            this.finalAttack,
+            this.finalDefense,
+            this.finalAgility,
+            this.finalIntelligence
+        ];
+    }
+
+    getHexInfo() {
+        return [
+            this.id,
+            this.score,
+            this.finalVitality,
+            this.finalStrength,
+            this.finalAttack,
+            this.finalDefense,
+            this.finalAgility,
+            this.finalIntelligence
+        ];
+    }
+
+    getId() {
+        return this.id;
+    }
+
     static randomStat(stat1, stat2, mutationRate, mutationShift) {
         let mutationValue = (Math.random() * 2 - 1) * mutationRate * (stat1 + stat2) / 2;
 
@@ -109,5 +141,31 @@ class Critter {
         mutationShift = (stat1 + stat2) / 2 * mutationShift;
 
         return Math.floor(mutationBase + mutationShift + mutationValue + 0.5);
+    }
+
+    static getCritterObj(oldCritter) {
+        let returnCritter = null;
+
+        if(oldCritter !== null) {
+            thePlayer.addCritter(new Critter(oldCritter.id, oldCritter.generation, oldCritter.type,
+                [oldCritter.baseVitality, oldCritter.baseStrength, oldCritter.baseAttack,
+                    oldCritter.baseDefense, oldCritter.baseAgility, oldCritter.baseIntelligence],
+                oldCritter.mutations));
+            returnCritter = thePlayer.critters[thePlayer.critters.length-1];
+
+            returnCritter.isFemale = oldCritter.isFemale;
+            returnCritter.finalVitality = oldCritter.finalVitality;
+            returnCritter.finalStrength = oldCritter.finalStrength;
+            returnCritter.finalAttack = oldCritter.finalAttack;
+            returnCritter.finalDefense = oldCritter.finalDefense;
+            returnCritter.finalAgility = oldCritter.finalAgility;
+            returnCritter.finalIntelligence = oldCritter.finalIntelligence;
+            returnCritter.score = oldCritter.score;
+            returnCritter.location = oldCritter.location;
+        } else {
+            eisDebug(2, 'EisDebug, oldCritter is null');
+        }
+
+        return returnCritter;
     }
 }

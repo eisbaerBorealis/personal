@@ -21,27 +21,6 @@
     Metamorphous
  */
 
-.theme-dark {
-    --color-background: #000000;
-    --color-primary: #2a2438;
-    --color-layer1: #423a55;
-    --color-layer2: #5c5470;
-    /* --color-layer3: #2a2438; */
-    /* --color-font-main: #dbd8e3; */
-    --color-font-header: #c4a116;
-    --color-font-main: #ae9fd4;
-    --color-male: #406ab8;
-    --color-female: #ba41b4;
-    --color-selected-glow: #00ff0088;
-    --color-selected-bg: #00ff0044;
-    --color-disabled: #333333;
-    --color-empty: #555555;
-    --color-button-primary: #008800;
-    --color-button-warn: #884200;
-    --color-button-disabled: #777777;
-    --color-popup: #423a55;
-}
-
 html {
     background-color: var(--color-background);
     color: var(--color-font-main);
@@ -54,14 +33,9 @@ html {
 
 body {
     font-family: 'Nunito', sans-serif;
-    /* max-width: 600px; */
     width: auto;
-    /* margin: 0px auto; */
     background-color: var(--color-primary);
-    /* padding: 50px 125px 50px 100px; */
     padding: 50px 125px;
-    /* height: auto; */
-    /* min-height: 100%; */
     border-radius: 50px;
     flex-basis: 600px;
 }
@@ -72,7 +46,6 @@ section {
 }
 
 h1 {
-    /* color: #38761d; */
     font-family: "Playfair Display", serif;
     font-size: 18pt;
     margin: 5px;
@@ -280,7 +253,7 @@ p {
     justify-content: space-evenly;
 }
 
-#kingContainer, #queenContainer {
+#kingContainer, #queenContainer, #nextKingContainer, #nextQueenContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -292,7 +265,7 @@ p {
 
 #offspringContainer {
     margin-top: 25px;
-    margin-bottom: 40px;
+    margin-bottom: 55px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -301,6 +274,21 @@ p {
 #hatcheryUpgradeButton {
     /* width: 100px; */
     margin-bottom: 10px;
+}
+
+.moveOffspringContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    /* margin: 0px 30px 20px; */
+    margin-bottom: 20px;
+    padding: 0px 30px;
+    /* flex-wrap: wrap; */
+}
+
+.moveOffspringContainer > .button {
+    margin: 0px 10px;
 }
 
 #nextGenButton {
@@ -328,31 +316,12 @@ p {
     width: fit-content;
     margin-left: auto;
     margin-bottom: 20px;
-    color: var(--color-button-warn);
+    color: white;
+    background-color: var(--color-button-warn);
+    padding: 7px;
+    border-radius: 5px;
 }
 
 .hidden {
     display: none !important;
 }
-
-/*.center {
-    text-align: center;
-}
-
-.right {
-    text-align: right;
-}
-
-table {
-    width: 80%;
-    margin: 0px auto;
-}
-
-.center-image {
-    margin: 0px auto;
-}
-
-img {
-    max-width: 300px;
-    margin: 0px auto;
-} */

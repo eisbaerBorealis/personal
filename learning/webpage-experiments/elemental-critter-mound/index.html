@@ -11,6 +11,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/themes.css">
     <link rel="stylesheet" type="text/css" href="styles/hexagons.css">
     <link rel="stylesheet" type="text/css" href="styles/timer.css">
 
@@ -71,7 +72,9 @@
                 <div id="kingContainer">
                     <div class="maleText">KING</div>
                     <div class="hexContainer hexLarge">
-                        <div class="hexagon hexLarge hexMale maleBG"></div>
+                        <div class="hexagon hexLarge hexMale maleBG">
+                            <div class="hexagonText"></div>
+                        </div>
                     </div>
                 </div>
                 <!-- TO DO: Fix timer -->
@@ -79,6 +82,17 @@
                     <svg class="base-timer__svg" viewBox="-10 -10 120 120" xmlns="http://www.w3.org/2000/svg">
                         <g class="base-timer__circle">
                             <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45" />
+                            <path
+                                id="base-timer-path-remaining"
+                                stroke-dasharray="283"
+                                class="base-timer__path-remaining ${remainingPathColor}"
+                                d="
+                                M 50, 70
+                                m -45, 0
+                                a 45,45 0 1,0 90,0
+                                a 45,45 0 1,0 -90,0
+                                "
+                            ></path>
                         </g>
                     </svg>
                     <span>
@@ -88,7 +102,9 @@
                 <div id="queenContainer">
                     <div class="femaleText">QUEEN</div>
                     <div class="hexContainer hexLarge">
-                        <div class="hexagon hexLarge hexFemale femaleBG"></div>
+                        <div class="hexagon hexLarge hexFemale femaleBG">
+                            <div class="hexagonText"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -97,51 +113,82 @@
                 <div id="hatcheryUpgradeButton" class="button disabled">Upgrade</br>10 sod</div>
                 <div class="hexRowEven">
                     <div class="hexContainer hexLarge">
-                        <div class="hexagon hexLarge hexEmpty emptyBG"></div>
+                        <div class="hexagon hexLarge hexDisabled disabledBG">
+                            <div class="hexagonText"></div>
+                        </div>
                     </div>
                     <div class="hexContainer hexLarge">
-                        <div class="hexagon hexLarge hexEmpty emptyBG"></div>
+                        <div class="hexagon hexLarge hexDisabled disabledBG">
+                            <div class="hexagonText"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="hexRowOdd">
                     <div class="hexContainer hexLarge">
-                        <div class="hexagon hexLarge hexEmpty emptyBG"></div>
+                        <div class="hexagon hexLarge hexDisabled disabledBG">
+                            <div class="hexagonText"></div>
+                        </div>
                     </div>
                     <div class="hexContainer hexLarge">
-                        <div class="hexagon hexLarge hexDisabled disabledBG"></div>
+                        <div class="hexagon hexLarge hexDisabled disabledBG">
+                            <div class="hexagonText"></div>
+                        </div>
                     </div>
                     <div class="hexContainer hexLarge">
-                        <div class="hexagon hexLarge hexDisabled disabledBG"></div>
+                        <div class="hexagon hexLarge hexDisabled disabledBG">
+                            <div class="hexagonText"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="hexRowEven">
                     <div class="hexContainer hexLarge">
-                        <div class="hexagon hexLarge hexDisabled disabledBG"></div>
+                        <div class="hexagon hexLarge hexDisabled disabledBG">
+                            <div class="hexagonText"></div>
+                        </div>
                     </div>
                     <div class="hexContainer hexLarge">
-                        <div class="hexagon hexLarge hexDisabled disabledBG"></div>
+                        <div class="hexagon hexLarge hexDisabled disabledBG">
+                            <div class="hexagonText"></div>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div class="moveOffspringContainer">
+                <div id="moveToNextGen" class="button disabled">Prince/Princess</div>
+                <div id="moveToMine" class="button disabled">Mine</div>
+                <div id="moveToFarm" class="button disabled">Farm</div>
+            </div>
+            <div class="moveOffspringContainer">
+                <!-- <div id="moveToCarry" class="button disabled">Carry</div> -->
+                <div id="moveToFactory" class="button disabled">Factory</div>
+                <div id="moveToArmy" class="button disabled">Army</div>
+                <div id="moveToDiscard" class="button disabled">Discard</div>
+            </div>
+
             <div id="nextGenContainer">
                 <div id="nextKingContainer">
-                    <!-- <div class="maleText"></div> -->
+                    <div class="maleText">PRINCE</div>
                     <div class="hexContainer hexLarge">
-                        <div class="hexagon hexLarge hexMale maleBG"></div>
+                        <div class="hexagon hexLarge hexMale maleBG">
+                            <div class="hexagonText"></div>
+                        </div>
                     </div>
                 </div>
                 <div id="nextGenButton" class="button disabled">NEXT GEN</div>
                 <div id="nextQueenContainer">
-                    <!-- <div class="femaleText">QUEEN</div> -->
+                    <div class="femaleText">PRINCESS</div>
                     <div class="hexContainer hexLarge">
-                        <div class="hexagon hexLarge hexFemale femaleBG"></div>
+                        <div class="hexagon hexLarge hexFemale femaleBG">
+                            <div class="hexagonText"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="productionSection" class="layer1 hidden">
+    <section id="productionSection" class="layer1">
         <h2 class="clickable">Production</h2>
         <div id="productionContent" class="collapsible"></div>
     </section>
@@ -186,6 +233,10 @@
         <div id="loreContent" class="collapsible"></div>
     </section>
 
+    <!-- TO DO
+        Remove closePopup on gray area
+        Make X fancy red
+        Possible: move popupContainer outside of popupGray -->
     <div id="popupGray" class="hidden">
         <div id="popupContainer"></div>
     </div>

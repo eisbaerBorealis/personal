@@ -45,6 +45,8 @@ class Player {
 
     setNewHatchery() {
         this.hatcheries.push(new Hatchery());
+        // thePlayer.addCritter(this.hatcheries[0].king);
+        // thePlayer.addCritter(this.hatcheries[0].queen);
     }
 
     savePlayer() {
@@ -54,12 +56,20 @@ class Player {
     loadPlayer() {
         let playerData = JSON.parse(localStorage.ecmPlayerJSON);
 
-        this.critters = playerData.critters;
+        this.hatcheries = [];
+        for(let i = 0; i < playerData.hatcheries.length; i++) {
+            this.hatcheries.push(Hatchery.getHatcheryObj(playerData.hatcheries[i]));
+        }
+
         this.resources = playerData.resources;
         this.science = playerData.science;
         this.war = playerData.war;
         this.stats = playerData.stats;
         this.settings = playerData.settings;
+    }
+
+    newRoyalty() {
+        this.hatcheries[0].newRoyalty();
     }
 
     setName(newName) {
@@ -101,11 +111,14 @@ class Player {
                 case 'hatchery':
                     this.hatcheries[0].removeCritter(id);
                     break;
+                case 'prince':
+                    break;
+                case 'princess':
+                    break;
                 case 'debug':
                     break;
                 default:
-                    // console.log('EisDebug @ Player.removeCritter(), defaulted in switch statement');
-                    eisDebug(1, 'EisError @ Player.removeCritter(), defaulted in switch statement');
+                    eisDebug(1, 'EisError @ Player.removeCritter(), defaulted in switch statement: ' + this.critters[index].location);
             }
 
             // remove from Player.critters
@@ -114,8 +127,50 @@ class Player {
             }
             this.critters.pop();
         } else {
-            // console.log('EisError @ Player: could not remove critter; id ' + id + ' not found.');
             eisDebug(1, 'EisError @ Player: could not remove critter; id ' + id + ' not found.');
         }
+    }
+
+    getCritterById(id) {
+        let returnCritter = null;
+        for(i = 0; i < this.critters.length; i++) {
+            if(this.critters[i].getId() === id) {
+                returnCritter = this.critters[i];
+                i = this.critters.length;
+            }
+        }
+        return returnCritter;
+    }
+
+    getKingStats() {
+        return this.hatcheries[0].getKingHexInfo();
+    }
+
+    getQueenStats() {
+        return this.hatcheries[0].getQueenHexInfo();
+    }
+
+    getNestSize() {
+        return this.hatcheries[0].getNestSize();
+    }
+
+    getNestCritters() {
+        return this.hatcheries[0].getNest();
+    }
+
+    getSelected() {
+        return this.hatcheries[0].getSelected();
+    }
+
+    getEnabledButtons() {
+        return this.hatcheries[0].getEnabledButtons();
+    }
+
+    discardSelected() {
+        let critters = this.hatcheries[0].getSelectedCritters();
+        for(let i = 0; i < critters.length; i++) {
+            this.removeCritter(critters[i].id);
+        }
+        this.hatcheries[0].clearSelected();
     }
 }

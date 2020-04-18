@@ -17,5 +17,29 @@ https://css-tricks.com/how-to-create-an-animated-countdown-timer-with-html-css-a
 /* The SVG path that displays the timer's progress */
 .base-timer__path-elapsed {
     stroke-width: 20px;
-    stroke: var(--color-primary);
+    stroke: var(--color-button-timer-empty);
+    /* stroke: var(--color-button-timer-fill); */
 }
+
+.base-timer__path-remaining {
+    /* Just as thick as the original ring */
+    stroke-width: 20px;
+  
+    /* Rounds the line endings to create a seamless circle */
+    stroke-linecap: round;
+  
+    /* Makes sure the animation starts at the top of the circle */
+    transform: rotate(90deg);
+    transform-origin: center;
+  
+    /* One second aligns with the speed of the countdown timer */
+    transition: 1s linear all;
+  
+    /* Allows the ring to change color when the color value updates */
+    stroke: var(--color-button-timer-fill);
+  }
+  
+  .base-timer__svg {
+    /* Flips the svg and makes the animation to move left-to-right */
+    /* transform: scaleX(-1); */
+  }

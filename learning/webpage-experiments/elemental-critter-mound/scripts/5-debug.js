@@ -6,7 +6,7 @@
 var verboseLevel = 1;
 
 function eisDebug(level, message) {
-    if(level >= verboseLevel) {
+    if(level <= verboseLevel) {
         console.log(message);
     }
 }

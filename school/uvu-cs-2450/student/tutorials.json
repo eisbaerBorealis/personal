@@ -1,0 +1,9 @@
+{
+    "levels":
+    {
+        "level-1" : "Welcome to the abacus! To use the abacus simply click on a bead. The abacus's value will update accordingly. Each column from right to left represents a new place such as 1, 10, 100, etc. The beads on top are worth 5 and the beads on the bottom are worth 1. As you use the abacus you will find that there are three modes. In Practice mode you can play around with the abacus and learn how to better use it. Exercise mode allows you to attempt to solve problems that slowly get harder as you learn. Interpret mode lets you interpret the abacus with the beads in different positions.",
+		"level-2" : "Welcome to Level 2. In this level you will be introduced to subtraction via the abacus. To Subtract using the abacus simply set the abacus to the first number and remove the second number's worth of beads. For example to solve 20 - 10 you would move two beads in the 10's column up and then move 1 back down.",
+		"level-3" : "Welcome to Level 3. In this level you will be introduced to negative numbers. In order to deal with negative numbers simply subtract until you hit 0. Then hit the negative positive toggle button so that the abacus knows the number is now negative. After the toggle is set add the remaining number of beads back to the abacus."
+    }
+}
+

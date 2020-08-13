@@ -17,6 +17,7 @@ function addControls() {
     for(let i = 0; i < buildings.length; i++) {
         let newBuildDiv = document.createElement('div');
         newBuildDiv.classList.add('building');
+        newBuildDiv.classList.add('unselected');
         newBuildDiv.classList.add('clickable');
 
         let newSymbolDiv = document.createElement('div');
@@ -30,21 +31,27 @@ function addControls() {
 
         newSymbolDiv.innerHTML = buildings[i].symbol;
         newTitleDiv.innerHTML = buildings[i].name;
+
+        newBuildDiv.onclick = function() {
+            changeSelection(i);
+        };
     }
+}
 
-    // let gridDiv = document.getElementById('grid');
+function changeSelection(newSelection) {
+    if(newSelection === selection) {
+        selection = -1;
+        document.getElementsByClassName('building')[newSelection].classList.remove('selected');
+        document.getElementsByClassName('building')[newSelection].classList.add('unselected');
+    } else {
+        if(selection !== -1) {
+            document.getElementsByClassName('building')[selection].classList.remove('selected');
+            document.getElementsByClassName('building')[selection].classList.add('unselected');
+        }
 
-    //     gridDiv.innerHTML = '';
-    //     for(let i = 0; i < this.size; i++) {
-    //         let newColumnDiv = document.createElement('div');
-    //         newColumnDiv.setAttribute('class', 'gridColumn');
-    //         gridDiv.append(newColumnDiv);
+        document.getElementsByClassName('building')[newSelection].classList.add('selected');
+        document.getElementsByClassName('building')[newSelection].classList.remove('unselected');
 
-    //         for(let j = 0; j < this.size; j++) {
-    //             let newGridContentDiv = document.createElement('div');
-    //             newGridContentDiv.classList.add('gridContent');
-    //             newGridContentDiv.classList.add('clickable');
-    //             newColumnDiv.append(newGridContentDiv);
-    //         }
-    //     }
+        selection = newSelection;
+    }
 }

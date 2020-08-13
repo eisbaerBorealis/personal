@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html lang="en" class="theme-dark">
+
+<head>
+    <title>Unnamed Shrinking Incremental Game</title>
+    <meta charset="UTF-8">
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/themes.css">
+
+    <!-- UTILITIES -->
+    <script src="scripts/0-main.js"></script>
+    <script src="scripts/1-interface.js"></script>
+
+    <!-- CLASSES -->
+    <script src="scripts/GameEngine.js"></script>
+    <script src="scripts/Grid.js"></script>
+    <script src="scripts/GridContent.js"></script>
+    <script src="scripts/Player.js"></script>
+    <script src="scripts/Timer.js"></script>
+
+    <!-- ASSETS -->
+    <script src="assets/data//buildings.js"></script>
+    <script src="assets/data//items.js"></script>
+
+</head>
+
+<body>
+
+    <section id="mainSection" class="layer1">
+        <h2>Game</h2>
+        <div id="mainTop">
+            <div id="grid"></div>
+            <div id="timer"></div>
+        </div>
+        <div id="mainBottom">
+            <div id="controls">
+                <div id="selectionAbout"></div>
+                <div id="selection">
+                    <div id="buildingList"></div>
+                    <div id="selectionDisplay"></div>
+                </div>
+            </div>
+            <div id="report"></div>
+        </div>
+    </section>
+
+    <section id="howToSection" class="layer1">
+        <h2>How to Play</h2>
+        <p>
+            Short version: choose a building, choose the input/outputs, and then place it
+            in the world. Make sure the proper items are going in through the proper
+            buildings. Use conveyor belts to get everything back to your base. The area
+            will shrink after the round ends.
+        </p>
+    </section>
+
+    <section id="aboutSection" class="layer1">
+        <h2>About</h2>
+        <p>
+            An entry for the 2020 Incremental Game Jam
+                (https://incrementalgamejam.dsolver.ca/home).
+            Created by a team of developers: Crimson406, eisbaerBorealis, amd Embi.
+        </p>
+        <p>
+            This is a very basic prototype.
+        </p>
+    </section>
+
+</body>
+
+</html>

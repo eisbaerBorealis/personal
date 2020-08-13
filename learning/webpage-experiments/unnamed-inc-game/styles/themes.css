@@ -1,0 +1,21 @@
+.theme-dark {
+    --color-background: #000000;
+    --color-primary: #333333;
+    --color-layer1: #555555;
+    --color-layer2: #777777;
+    /* --color-layer3: #2a2438; */
+    /* --color-font-main: #dbd8e3; */
+    --color-font-header: #c4a116;
+    --color-font-main: #dddddd;
+    --color-font-hex: #000000;
+    --color-selected-glow: #00ff0088;
+    --color-selected-bg: #00ff0044;
+    --color-disabled: #333333;
+    --color-empty: #555555;
+    --color-button-primary: #008800;
+    --color-button-warn: #884200;
+    --color-button-disabled: #777777;
+    --color-button-timer-empty: #2a2438;
+    --color-button-timer-fill: #008800;
+    --color-popup: #423a55;
+}

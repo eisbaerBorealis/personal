@@ -92,7 +92,8 @@ h2 {
 
 #mainBottom {
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
 }
 
 #controls {
@@ -134,4 +135,80 @@ h2 {
     margin-right: 10px;
     color: black;
     font-weight: 900;
+}
+
+#selectionDisplay {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#ioLeft {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#ioMiddle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#ioTop {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#ioCenter {
+    padding: 30px;
+    border-radius: 40%;
+    background-color: #dddddd;
+}
+
+#ioBottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#ioRight {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.io-button {
+    text-align: center;
+    width: 15px;
+    padding: 3px;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.input-button {
+    background-color: hsl(200, 100%, 75%);
+    color: hsl(200, 100%, 25%);
+}
+
+.output-button {
+    background-color: hsl(25, 100%, 75%);
+    color: hsl(25, 100%, 25%);
+}
+
+.input-selected {
+    background-color: hsl(200, 100%, 50%);
+    color: hsl(200, 100%, 25%);
+}
+
+.output-selected {
+    background-color: hsl(25, 100%, 50%);
+    color: hsl(25, 100%, 25%);
 }

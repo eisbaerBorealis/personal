@@ -1,14 +1,18 @@
 
 var selection = -1;
 var directions = {
-    'NI': null,
-    'NO': null,
-    'EI': null,
-    'EO': null,
-    'SI': null,
-    'SO': null,
-    'WI': null,
-    'WO': null
+    'inputs': {
+        'north': null,
+        'east': null,
+        'south': null,
+        'west': null
+    },
+    'outputs': {
+        'north': null,
+        'east': null,
+        'south': null,
+        'west': null
+    }
 };
 
 function addControls() {
@@ -36,6 +40,75 @@ function addControls() {
             changeSelection(i);
         };
     }
+
+    // I/O and display
+    let newIODiv = document.createElement('div');
+    newIODiv.setAttribute('id', 'west-output-button');
+    newIODiv.classList.add('clickable');
+    newIODiv.classList.add('io-button');
+    newIODiv.classList.add('disabled');
+    newIODiv.innerHTML = 'O';
+    document.getElementById('ioLeft').append(newIODiv);
+
+    newIODiv = document.createElement('div');
+    newIODiv.setAttribute('id', 'west-input-button');
+    newIODiv.classList.add('clickable');
+    newIODiv.classList.add('io-button');
+    newIODiv.classList.add('disabled');
+    newIODiv.innerHTML = 'I';
+    document.getElementById('ioLeft').append(newIODiv);
+
+    newIODiv = document.createElement('div');
+    newIODiv.setAttribute('id', 'north-input-button');
+    newIODiv.classList.add('clickable');
+    newIODiv.classList.add('io-button');
+    newIODiv.classList.add('disabled');
+    newIODiv.innerHTML = 'I';
+    document.getElementById('ioTop').append(newIODiv);
+
+    newIODiv = document.createElement('div');
+    newIODiv.setAttribute('id', 'north-output-button');
+    newIODiv.classList.add('clickable');
+    newIODiv.classList.add('io-button');
+    newIODiv.classList.add('disabled');
+    newIODiv.innerHTML = 'O';
+    document.getElementById('ioTop').append(newIODiv);
+
+    newIODiv = document.createElement('div');
+    newIODiv.setAttribute('id', 'selection-display');
+    document.getElementById('ioCenter').append(newIODiv);
+
+    newIODiv = document.createElement('div');
+    newIODiv.setAttribute('id', 'south-output-button');
+    newIODiv.classList.add('clickable');
+    newIODiv.classList.add('io-button');
+    newIODiv.classList.add('disabled');
+    newIODiv.innerHTML = 'O';
+    document.getElementById('ioBottom').append(newIODiv);
+
+    newIODiv = document.createElement('div');
+    newIODiv.setAttribute('id', 'south-input-button');
+    newIODiv.classList.add('clickable');
+    newIODiv.classList.add('io-button');
+    newIODiv.classList.add('disabled');
+    newIODiv.innerHTML = 'I';
+    document.getElementById('ioBottom').append(newIODiv);
+
+    newIODiv = document.createElement('div');
+    newIODiv.setAttribute('id', 'east-input-button');
+    newIODiv.classList.add('clickable');
+    newIODiv.classList.add('io-button');
+    newIODiv.classList.add('disabled');
+    newIODiv.innerHTML = 'I';
+    document.getElementById('ioRight').append(newIODiv);
+
+    newIODiv = document.createElement('div');
+    newIODiv.setAttribute('id', 'east-output-button');
+    newIODiv.classList.add('clickable');
+    newIODiv.classList.add('io-button');
+    newIODiv.classList.add('disabled');
+    newIODiv.innerHTML = 'O';
+    document.getElementById('ioRight').append(newIODiv);
 }
 
 function changeSelection(newSelection) {
@@ -54,4 +127,13 @@ function changeSelection(newSelection) {
 
         selection = newSelection;
     }
+    updateAllIOButtons();
+}
+
+function updateAllIOButtons() {
+
+}
+
+function updateIOButton(buttonDiv, isDisabled, isInput) {
+    
 }

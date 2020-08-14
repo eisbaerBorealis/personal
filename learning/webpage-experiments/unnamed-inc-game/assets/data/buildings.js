@@ -1,16 +1,4 @@
 var buildings = [
-    // {
-    //     'name': '',
-    //     'description': '',
-    //     'symbol': '',
-    //     'cost': 0,
-    //     'maxInputs': 0,
-    //     'maxOutputs': 0,
-    //     'input': [],
-    //     'processes': [],
-    //     'output': []
-    // }
-
     {
         'name': 'Base',
         'description': 'Accepts items for credits.',
@@ -81,7 +69,7 @@ var buildings = [
         'name': 'Remove',
         'description': 'Click on the grid to remove a building.',
         'symbol': 'X',
-        'cost': 'N/A',
+        'cost': null,
         'maxInputs': 0,
         'maxOutputs': 0
     }

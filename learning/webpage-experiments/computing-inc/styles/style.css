@@ -1,0 +1,327 @@
+/** Author: Jesse Howell
+ * 
+ *  
+ */
+
+ /* Possible fonts 
+    Merienda
+    Neucha
+    Aclonica
+    Audiowide
+    Kelly Slab
+    Syncopate
+    Frijole
+    Spicy Rice
+    Trade Winds
+    Freckle Face
+    Iceland
+    Walter Turncoat
+    Finger Paint
+    Dekko
+    Metamorphous
+ */
+
+html {
+    background-color: var(--color-background);
+    color: var(--color-font-main);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    width: auto;
+    background-color: var(--color-primary);
+    padding: 50px 125px;
+    border-radius: 50px;
+    flex-basis: 600px;
+}
+
+section {
+    min-width: 600px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-family: "Playfair Display", serif;
+    font-size: 18pt;
+    margin: 5px;
+    font-weight: bold;
+}
+
+h2 {
+    color: var(--color-font-header);
+    font-size: 20pt;
+    font-weight: normal;
+    font-family: "Playfair Display", serif;
+    margin: 5px;
+}
+
+h3 {
+    color: #38761d;
+    font-size: 11pt;
+    font-weight: bold;
+    margin: 10px 0px 5px 25px;
+}
+
+h5 {
+    font-size: 8pt;
+    margin: 1px 0px;
+    font-weight: normal;
+}
+
+.clickable:hover {
+    cursor: pointer;
+}
+
+ul {
+    margin: 5px 10px;
+    font-size: 11pt;
+    padding: 5px 5px 5px 25px;
+}
+
+p {
+    font-size: 10pt;
+    margin: 0px 25px;
+}
+
+.referenceContact {
+    display: inline-block;
+    margin-left: 25px;
+}
+
+.collapsible {
+    /* display: none; */
+    margin: 5px;
+}
+
+.collapsed {
+    display: none;
+}
+
+.layer1 {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: var(--color-layer1);
+    border-radius: 30px;
+    padding: 15px;
+    /* margin: 10px 0px; */
+    height: auto;
+    box-shadow: 3px 5px 5px #111111;
+}
+
+.layer2 {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: var(--color-layer2);
+    border-radius: 15px;
+    height: auto;
+    width: auto;
+    min-width: 350px;
+    margin-bottom: 5px;
+    padding: 5px;
+    align-items: center;
+}
+
+.maleBG {
+    background-color: var(--color-male);
+}
+
+.maleText {
+    color: var(--color-male);
+}
+
+.femaleBG {
+    background-color: var(--color-female);
+}
+
+.femaleText {
+    color: var(--color-female);
+}
+
+.disabledBG {
+    background-color: var(--color-disabled);
+}
+
+.emptyBG {
+    background-color: var(--color-empty);
+}
+
+.button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-button-primary);
+    padding: 5px 10px;
+    border-radius: 10px;
+    width: fit-content;
+    text-align: center;
+}
+
+.disabled {
+    background-color: var(--color-button-disabled);
+}
+
+.disabled:hover {
+    cursor: default;
+}
+
+.warnButton {
+    background-color: var(--color-button-warn);
+}
+
+#saveSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#loadPlayerDiv, #newPlayerDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#loadPlayerImage, #newPlayerImage {
+    background-image: url('../assets/images/temp-profile.jpg');
+    background-repeat: no-repeat;
+    background-size: 150px 150px;
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+}
+
+#loadPlayerName, #newPlayerName {
+    text-align: center;
+    height: 40px;
+    margin: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#playerContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#playerProfile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#playerImage {
+    background-image: url('../assets/images/temp-profile.jpg');
+    background-repeat: no-repeat;
+    background-size: 150px 150px;
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+}
+
+#playerName {
+    margin: 5px;
+}
+
+#playerPreviews {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    padding-left: 15px;
+}
+
+#hatcheriesContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#royaltyContainer, #nextGenContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-width: 50%;
+    justify-content: space-evenly;
+}
+
+#kingContainer, #queenContainer, #nextKingContainer, #nextQueenContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#hatcheryTimer {
+    margin-top: 20px;
+}
+
+#offspringContainer {
+    margin-top: 25px;
+    margin-bottom: 55px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#hatcheryUpgradeButton {
+    /* width: 100px; */
+    margin-bottom: 10px;
+}
+
+.moveOffspringContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    /* margin: 0px 30px 20px; */
+    margin-bottom: 20px;
+    padding: 0px 30px;
+    /* flex-wrap: wrap; */
+}
+
+.moveOffspringContainer > .button {
+    margin: 0px 10px;
+}
+
+#nextGenButton {
+    margin: 10px;
+}
+
+#popupGray {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #55555588;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#popupContainer {
+    background-color: var(--color-popup);
+    padding: 50px;
+}
+
+#popupX {
+    width: fit-content;
+    margin-left: auto;
+    margin-bottom: 20px;
+    color: white;
+    background-color: var(--color-button-warn);
+    padding: 7px;
+    border-radius: 5px;
+}
+
+.hidden {
+    display: none !important;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<!-- Author: Jesse Howell
+ -->
+
+<html lang="en" class="theme-dark">
+
+<head>
+    <title>Computing Incremental</title>
+    <meta charset="UTF-8">
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/themes.css">
+
+    <!-- UTILITIES -->
+    <script src="scripts/0-main.js"></script>
+    <script src="scripts/1-html.js"></script>
+    <script src="scripts/2-saves.js"></script>
+    <script src="scripts/3-api.js"></script>
+    <script src="scripts/4-animation.js"></script>
+    <script src="scripts/5-debug.js"></script>
+
+    <!-- CLASSES -->
+    <script src="scripts/Critter.js"></script>
+    <script src="scripts/GameEngine.js"></script>
+    <script src="scripts/Hatchery.js"></script>
+    <script src="scripts/Player.js"></script>
+</head>
+
+<body>
+    <div id="main">
+
+
+        <section id="saveSection" class="layer1">
+            <div id="loadPlayerDiv">
+                <h2>Load save</h2>
+                <div id="loadPlayerImage"></div>
+                <div id="loadPlayerName">loading...</div>
+                <div id="loadPlayerButton" class="button disabled">Load Player</div>
+                <div id="attemptReloadButton" class="button clickable warnButton hidden">Attempt Reload</div>
+            </div>
+            <div id="newPlayerDiv">
+                <h2>New game</h2>
+                <div id="newPlayerImage"></div>
+                <div id="newPlayerName">Character name:</br><input name="newName"></div>
+                <div id="newPlayerButton" class="button clickable">New Player</div>
+            </div>
+        </section>
+    </div>
+
+    <!-- TO DO
+        Remove closePopup on gray area
+        Make X fancy red
+        Possible: move popupContainer outside of popupGray -->
+    <!-- <div id="popupGray" class="hidden">
+        <div id="popupContainer"></div>
+    </div> -->
+</body>
+
+</html>

@@ -1,0 +1,195 @@
+Strings
+
+
+Like many of the generation of "seasoned" programmers, my career in coding began with 
+number crunching. Most of the time my FORTRAN programs just emitted numbers 
+accompanied by terse labels. As I stood in line at the university computing center to 
+submit my deck of punched cards to the IBM OS/360 expediters (as they were called), I 
+would feel sorry for the COBOL programmers who hefted decks 10-20 times the size of 
+mine. "The poor things", I would mutter to myself. "Their hundreds of cards only print a 
+silly report while my less-than-one-inch deck solves a system of differential equations. I 
+hope I never have to learn that stupid language!" I didn't. But when it came time to report 
+my findings in a more formal way, I had to get out a typewriter.
+
+Don't get me wrong. I'm pleased and proud to never have written a single line of 
+COBOL, but FORTRAN IV's string handling capabilities were nothing to write home 
+about, manually or electronically. No string data type, no dynamic memory allocation, no 
+string nothing.  When I left school to embark on a career as a "scientific programmer", I 
+found that business required at least as much text and data processing than mathematics, 
+and found myself wanting a more suitable programming language. And if you want the 
+whole truth, let me admit that most of the projects at my first job used COBOL for I/O.
+
+Back to BASIC's
+
+When once I needed to do some sophisticated string manipulation, someone suggested I 
+use SNOBOL. "Sure, why not? It's just another programming language", I thought. Ha! I 
+just wasn't ready for such a weird syntax. Then I remembered having run across BASIC 
+in one of my college classes. Like most "real programmers", I had dismissed it as a toy, 
+but boy, I certainly could have used a + operator for concatenation or a MID$() for 
+searching right about then! But BASIC wasn't available in our environment, and besides, 
+C was becoming the language of choice almost everywhere, so I quickly learned the joys 
+of null-terminated arrays of char. And malloc(). And realloc(). And memory 
+leaks.
+
+So here we are programming in Internet Time and have now, with C++ and Java, come 
+full circle to what BASIC provided originally: strings that manage their own memory. 
+What took so long? I wish I knew.
+
+Java provides two string classes: String and StringBuffer. Both are defined in the 
+package java.lang, and both represent sequences of char (a 16-bit Unicode character). 
+The key difference between the two classes is that String objects are immutable, and 
+hence can be easily pooled and shared. Whenever you use a string literal (characters 
+between pairs of double quotes), the Java Virtual Machine checks first to see if it has 
+appeared previously. If not, it stores it in the string pool, and returns a reference to it. The 
+next time you use that literal, the JVM just gives you its reference back, so all 
+occurrences of a particular string literal refer to a single String instance. You can even 
+request a reference for a string built at runtime, as the program in Figure 1 illustrates. The 
+variable s2 refers to the same object as s1, since the compiler can determine at compile 
+time that the character sequences are the same. A new object is explicitly created for s3, 
+so the references are distinct. (Let this be a lesson on how not to create strings from 
+literals - if there is no need for a distinct object, don't use new). s4 is also a unique 
+object since its value is determined at runtime. To force a runtime check into the string 
+pool, use intern(), as I did for s5.
+
+The String class comes with the usual methods for searching and extracting substrings, 
+changing case (for locales where case applies), and converting strings to numbers. Here's 
+a grep-like program that extracts lines from a text file that contain a given string:
+
+import java.io.*;
+
+class Search
+{
+    public static void main(String[] args)
+        throws IOException
+    {
+        // Read Standard Input:
+        BufferedReader in =
+            new BufferedReader(
+                new InputStreamReader(System.in));
+
+        // Process each line:
+        String line;
+        while ((line = in.readLine()) != null)
+            if (line.indexOf(args[0]) >= 0)
+                System.out.println(line);
+    }
+}
+
+The indexOf method returns the 0-based index where its argument appears in its string, 
+or returns -1 if it's not there. Like many of String's methods, there is also version of 
+indexOf that specifies the search start position as well (i.e., indexOf(String str, 
+int fromIndex)), so you can find multiple instances within a single line. There is also 
+a lastIndexOf method for searching from the right, and startsWith and endsWith 
+methods, which are special cases of the indexOf and lastIndexOf, respectively.
+
+Executing Search.java on its own source searching for the string "read" gives the 
+following output:
+
+while ((line = in.readLine()) != null)
+
+That's because indexOf is case-sensitive, as you would expect, so the lines that contain 
+the substring "Read" don't qualify. To extract lines without regard to case, I'll have to 
+convert both the search string and each line to the same case (see Figure 2). Although 
+there is an equalsIgnoreCase method in the String class, that won't help here since 
+it compares entire strings and I'm looking for a substring. This time the output is as 
+follows:
+
+C:> java Search2 read <Search.java
+        BufferedReader in =
+            new BufferedReader(
+                new InputStreamReader(System.in));
+        while ((line = in.readLine()) != null)
+
+The program in Figure 3 reads standard input and uses indexOf and the substring 
+method to replace all occurrences of the string in args[0] with the string in args[1]. 
+The output in Figure 3 comes from the following command line:
+
+C:> java Replace in $$$ <Replace.java 
+
+Both String and StringBuffer are thread-safe: String because its instances are 
+immutable, and StringBuffer because its mutator methods are synchronized (hence 
+String is more efficient from a thread overhead point of view). While most of the time 
+String does the job, StringBuffer is more efficient if you need to append to a string 
+repeatedly. In fact StringBuffer is used internally whenever you use the + 
+concatenation operator with instances of String. The expression a + b + c, for 
+example is equivalent to the following expression:
+
+new StringBuffer(a).append(b).append(c).toString();
+
+Using StringBuffer instead of String can sometimes bring noticeable gains in 
+efficiency. To see this, replace the body of the inner while loop in Figure 3 with the 
+following:
+
+            {
+                StringBuffer temp = new StringBuffer(newLine);
+                newLine = temp.replace(pos2, pos2 + fromLen,
+                                       args[1]).toString();
+                pos1 = pos2 + toLen;
+            }
+
+Running javap -c Replace (the byte-code disassembler) both before and after the 
+change reveals that the StringBuffer version generates 11 fewer byte code 
+instructions. StringBuffer.replace works within a single buffer, allocating 
+memory only when necessary. Since the creation of the substrings is not needed in the 
+second version, the code is more efficient. For further optimization, if you know the 
+largest a StringBuffer will ever need to grow, you can allocate it once and for all 
+with the method StringBuffer.ensureCapacity(int minimumCapacity). 
+The loop above would be even simpler if StringBuffer had an indexOf operator, 
+since it could just declare newLine as a StringBuffer and do without temp 
+altogether. Too bad the Java library folks didn't include it.
+
+The program in Figure 4 illustrates the method String.charAt in determining 
+whether a string is a palindrome (i.e., whether it reads the same backward as it does 
+forward). If String had a reverse method, like StringBuffer does, you might be 
+tempted to use it to just compare a string to its reversal, but that would be much less 
+efficient than using Palindrome.isSymmetric.
+
+Palindromes are more interesting and readable if they can have whitespace and 
+punctuation, which you then ignore when testing for symmetry (such strings are called 
+imperfect palindromes). The program in Figure 5 does just that by using 
+StringBuffer.deleteCharAt in Palindrome2.normalize to strip out non-
+letters (via Character.isLetter) before calling isSymmetric. It also changes 
+each character to lower case so the comparison will be case-insensitive. The logic is a 
+little tricky: notice that the variable i is incremented only if the character is not deleted. 
+Since the length of the string can change, I have to call s.length() explicitly every 
+time the loop iterates, instead of caching it like I did in Figure 4. And once again, I have 
+to traverse the string one character at a time searching for non-letters since 
+StringBuffer does not have an indexOf method.
+
+Tokenizing
+
+Much of the time a program that processes text needs to extract tokens. Java provides a 
+class in the java.util package, StringTokenizer for this purpose. In its simplest 
+application, a StringTokenizer object extracts tokens delimited by white space from 
+a string. The program in Figure 6 places up to 256 space-delimited tokens from the file 
+tokens.dat in Figure 7 into an array, converts them to lower case, and sorts them with 
+the Arrays.sort algorithm. (I'll say more about java.util.Arrays next month). After 
+initializing a StringTokenizer with the string to parse, the hasMoreTokens 
+method will return true if there are any tokens left to extract, and nextToken will 
+return the next one as a String. You can call StringTokenizer.countTokens 
+at any time if you want to know how many tokens are left without advancing the 
+tokenization position.
+
+White-space-only delimiters are not useful very often, however. The output in Figure 6, 
+for example, contains unwanted punctuation. To extract only alphanumeric tokens, you 
+can give a StringTokenizer an optional string representing the delimiters to ignore 
+during tokenization, as I did with the string delims in Figure 8. This behaves pretty 
+much the same as strtok() from the standard C library, except that the string is not 
+altered in the process. And like strtok(), nextToken can take an optional string 
+argument so you can change the set of delimiters with each call.
+
+Yet another usage of StringTokenizer extracts the delimiters themselves, one 
+character at a time. In Figure 9, I give the StringTokenizer constructor a third 
+argument of true, which tells the object that I only want the delimiters back. I use this 
+behavior to count the number of vowels in the input file.
+
+Summary
+
+Java's string classes provide most of what you need for everyday text processing: 
+substring searching and construction, case conversion, and basic token parsing. I hope 
+you managed to pick up on a bit of irony in this article, however. I began by talking about 
+number crunching, yet I've carefully avoided talking about formatting numeric I/O. 
+There's a good reason, which you'll see next month when I explain locales and Java's 
+formatting classes. (Yes formatting is in separate classes, not in format strings!)
+
+

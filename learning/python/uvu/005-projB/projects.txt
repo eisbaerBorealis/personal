@@ -1,0 +1,7 @@
+j1,Sorter,Paris
+j2,Punch,Rome
+j3,Reader,Athens
+j4,Console,Athens
+j5,Collator,London
+j6,Terminal,Oslo
+j7,Tape,London

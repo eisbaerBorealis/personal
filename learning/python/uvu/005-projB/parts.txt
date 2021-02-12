@@ -1,0 +1,6 @@
+p1,Nut,Red,12,London
+p2,Bolt,Green,17,Paris
+p3,Screw,Blue,17,Rome
+p4,Screw,Red,14,London
+p5,Cam,Blue,12,Paris
+p6,Cog,Red,19,London

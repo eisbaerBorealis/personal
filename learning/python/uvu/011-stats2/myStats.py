@@ -12,8 +12,9 @@ def getUniformData(uniformSize, a, b):
     return uniformData
 
 # method by Mitchell Dom
-def getWeibullData(weibullSize, a, shape):
-    weibull_data = stats.exponweib.rvs(a, shape, size=weibullSize)
+def getWeibullData(weibullSize, scale, shape):
+    # weibull_data = stats.exponweib.rvs(a, shape, size=weibullSize)
+    weibull_data = stats.exponweib.rvs(1.0, shape, scale=scale, size=weibullSize)
     return weibull_data
 
 # method by Jacob Ray

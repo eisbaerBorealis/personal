@@ -15,6 +15,8 @@ class StatsGui:
 
         self.simCanvas = None
         self.simVar = None
+
+        self.compareFigures = None
     
     def openIntro(self):
         width = 200
@@ -164,7 +166,63 @@ class StatsGui:
         frameChildren[8]['state'] = 'disabled'
 
     def open4x4(self):
-        print('Debug, open4x4()')
+        width = 1070
+        height = 690
+
+        self.introMaster.destroy()
+
+        self.compareMaster = Tk()
+
+        xPos = int((self.compareMaster.winfo_screenwidth() - width) / 2)
+        yPos = int((self.compareMaster.winfo_screenheight() - height) / 2 * 0.85)
+        self.compareMaster.geometry(str(width) + "x" + str(height))
+        self.compareMaster.geometry("+" + str(xPos) + "+" + str(yPos))
+
+        Label(self.compareMaster, text='Exponential').grid(row = 0, column = 1, pady = 5)
+        Label(self.compareMaster, text='Uniform').grid(row = 0, column = 2, pady = 5)
+        Label(self.compareMaster, text='Weibull').grid(row = 0, column = 3, pady = 5)
+        Label(self.compareMaster, text='Inverse\nTriangle').grid(row = 0, column = 4, pady = 5)
+
+        tempCanvas = Canvas(self.compareMaster, width = 12, height = 50)
+        tempCanvas.grid(row = 1, column = 0, padx = (7, 0))
+        tempCanvas.create_text(6, 50, text = "Original", angle = 90, anchor = "w")
+        
+        tempCanvas = Canvas(self.compareMaster, width = 12, height = 50)
+        tempCanvas.grid(row = 2, column = 0, padx = (7, 0))
+        tempCanvas.create_text(6, 50, text = "x̅ = 5", angle = 90, anchor = "w")
+        
+        tempCanvas = Canvas(self.compareMaster, width = 12, height = 50)
+        tempCanvas.grid(row = 3, column = 0, padx = (7, 0))
+        tempCanvas.create_text(6, 50, text = "x̅ = 30", angle = 90, anchor = "w")
+        
+        tempCanvas = Canvas(self.compareMaster, width = 12, height = 50)
+        tempCanvas.grid(row = 4, column = 0, padx = (7, 0))
+        tempCanvas.create_text(6, 50, text = "x̅ = 100", angle = 90, anchor = "w")
+
+        self.compareFigures = list()
+        for x in range(16):
+            compareFigure = Figure(figsize = (2.5, 1.5), dpi = 100)
+            self.compareFigures.append(compareFigure)
+            FigureCanvasTkAgg(compareFigure, master = self.compareMaster).get_tk_widget().grid(row = x // 4 + 1, column = x % 4 + 1, padx = 5, pady = 5)
+
+        for x in range(4):
+            # print("Debug, this should appear 4 times")
+            data = getExponData(50000, 1)
+            simPlot = self.compareFigures[x * 4 + 0].gca()
+            simPlot.hist(data, bins = BIN_COUNT)
+
+            data = getUniformData(50000, 0, 5)
+            simPlot = self.compareFigures[x * 4 + 1].gca()
+            simPlot.hist(data, bins = BIN_COUNT)
+
+            data = getWeibullData(50000, 1, 1.5)
+            simPlot = self.compareFigures[x * 4 + 2].gca()
+            simPlot.hist(data, bins = BIN_COUNT)
+
+            data = getInverseTriangleData(50000, 0, 5)
+            simPlot = self.compareFigures[x * 4 + 3].gca()
+            simPlot.hist(data, bins = BIN_COUNT)
+
 
     def updateEntries(self):
         print('Debug, updateEntries()')

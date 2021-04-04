@@ -1,0 +1,40 @@
+COMMAND LINE
+------------
+$ .\xargv one '@argfile.dat' two
+
+RESULTS
+-------
+32 items:
+
+one
+we
+will
+sell
+no
+soda
+now
+is
+the
+time
+for
+all
+carbon-based
+units
+where
+no
+one
+has
+gone
+before
+to
+come
+to
+the
+aid
+of
+their
+sector
+before
+its
+time
+two

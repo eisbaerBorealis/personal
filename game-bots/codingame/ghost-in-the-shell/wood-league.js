@@ -1,118 +1,227 @@
 /**
  * eisbaerBorealis' AI code for Ghost in the Cell, Wood 3 League
  * 
- * VERSION 1.0.5 ish
+ * VERSION 1.1.6
+ *    Got through Wood 3 and Wood 2 and to position 37
+ *    of Wood 1, all using the rules from Wood 3.
+ *    But it's time to redo all the logic to include new rules.
  **/
 
-const factoryCount = parseInt(readline()); // the number of factories
-const linkCount = parseInt(readline()); // the number of links between factories
-var factoryLookup = {};
-for (let i = 0; i < linkCount; i++) {
-    var inputs = readline().split(' ');
-    const factory1 = parseInt(inputs[0]);
-    const factory2 = parseInt(inputs[1]);
-    const distance = parseInt(inputs[2]);
-
-    if(factoryLookup[factory1.toString()] == null) {
-        factoryLookup[factory1.toString()] = {};
-    }
-    if(factoryLookup[factory2.toString()] == null) {
-        factoryLookup[factory2.toString()] = {};
-    }
-    factoryLookup[factory1.toString()][factory2.toString()] = distance;
-    factoryLookup[factory2.toString()][factory1.toString()] = distance;
-}
-
-let myFactories = {};
-
-let round = 1;
-
-// game loop
-while (true) {
-    // console.error('\tEisDEBUG: Begin round ' + round);
-    const entityCount = parseInt(readline()); // the number of entities (e.g. factories and troops)
-    
-    let bestTarget = -1;
-    let bestTargetPop = 1000;
-
-    let bestArmy = 0;
-    let mainBaseIndex = -1;
-
-    let gameFactories = [];
-    let gameTroops = [];
-    for (let i = 0; i < entityCount; i++) {
-        var inputs = readline().split(' ');
-        const entityId = parseInt(inputs[0]);
-        const entityType = inputs[1];
-        const arg1 = parseInt(inputs[2]);
-        const arg2 = parseInt(inputs[3]);
-        const arg3 = parseInt(inputs[4]);
-        const arg4 = parseInt(inputs[5]);
-        const arg5 = parseInt(inputs[6]);
-
-        if(entityType == 'FACTORY') {
-            gameFactories.push({
-                'id': entityId,
-                'owner': arg1,
-                'pop': arg2,
-                'prod': arg3,
-                'nextPop': arg2
-            });
-            if(arg1 == 1 && arg2 > bestArmy) {
-                mainBaseIndex = entityId;
-                bestArmy = arg2;
+ const factoryCount = parseInt(readline()); // the number of factories
+ const linkCount = parseInt(readline()); // the number of links between factories
+ 
+ var factories = {};
+ 
+ for (let i = 0; i < linkCount; i++) {
+     var inputs = readline().split(' ');
+     const factory1 = parseInt(inputs[0]);
+     const factory2 = parseInt(inputs[1]);
+     const distance = parseInt(inputs[2]);
+ 
+     if(factories[factory1.toString()] === undefined) {
+         factories[factory1.toString()] = {};
+         factories[factory1.toString()].distances = {};
+     }
+     if(factories[factory2.toString()] === undefined) {
+         factories[factory2.toString()] = {};
+         factories[factory2.toString()].distances = {};
+     }
+     factories[factory1.toString()].distances[factory2.toString()] = distance;
+     factories[factory2.toString()].distances[factory1.toString()] = distance;
+ }
+ 
+ var idealBase = -1;
+ 
+ let round = 1;
+ 
+ // game loop
+ while (true) {
+     // console.error('\tEisDEBUG: Begin round ' + round);
+     const entityCount = parseInt(readline()); // the number of entities (e.g. factories and troops)
+ 
+     let enemyCount = 0;
+     let neutralCount = 0
+     let myCount = 0
+ 
+     let gameTroops = [];
+ 
+     for (let i = 0; i < entityCount; i++) {
+         var inputs = readline().split(' ');
+         const entityId = parseInt(inputs[0]);
+         const entityType = inputs[1];
+         const arg1 = parseInt(inputs[2]); // owner (-1, 0, 1) // owner (-1, 0, 1)
+         const arg2 = parseInt(inputs[3]); // # of cyborgs     // home of troop
+         const arg3 = parseInt(inputs[4]); // production (0-3) // target of troop
+         const arg4 = parseInt(inputs[5]); //                  // cyborgs in troop
+         const arg5 = parseInt(inputs[6]); //                  // turns until troop arrives
+ 
+         if(entityType == 'FACTORY') {
+             factory = factories[i.toString()];
+             factory.owner = arg1;
+             factory.pop = arg2;
+             factory.prod = arg3;
+             factory.nextPop = factory.pop;
+ 
+             switch(factory.owner) {
+                 case -1:
+                     enemyCount++;
+                     break;
+                 case 0:
+                     neutralCount++;
+                     break;
+                 case 1:
+                     myCount++;
+                     break;
+                 default:
+                     console.error('ERROR: impossible switch case (' + factory.owner + ')');
+             }
+         } else {
+             gameTroops.push({
+                 'id': entityId,
+                 'owner': arg1,
+                 'target': arg3,
+                 'pop': arg4,
+                 'time': arg5
+             });
+         }
+     }
+ 
+     if(idealBase === -1) {
+         console.error('idealBase is -1, trying to fix...');
+         let shortestDistance = 1000000;
+ 
+         for(let i = 0; i < factoryCount; i++) {
+             factory = factories[i.toString()];
+             if(factory.owner !== -1 && factory.prod > 1) {
+                 let totalDistance = 0;
+                 for(let j = 0; j < factoryCount; j++) {
+                     if(factory.distances[j.toString()] !== undefined) {
+                         totalDistance += factory.distances[j.toString()];
+                     }
+                 }
+                 if(shortestDistance > totalDistance) {
+                     shortestDistance = totalDistance;
+                     idealBase = i;
+                     console.error('New ideal base! ID: ' + idealBase + ', distance: ' + shortestDistance);
+                 } else {
+                 }
+             }
+         }
+     }
+ 
+     for(let i = 0; i < gameTroops.length; i++) {
+         troop = gameTroops[i];
+         factory = factories[troop.target.toString()];
+         if(troop != undefined && factory != undefined) {
+            if(troop.owner !== factory.owner) {
+                factory.nextPop -= troop.pop;
+            } else {
+                factory.nextPop += troop.pop;
             }
-        } else {
-            gameTroops.push({
-                'id': entityId,
-                'owner': arg1,
-                'target': arg3,
-                'pop': arg4
-            });
+         }
+     }
+ 
+     let nextMove = '';
+     let army = -1;
+ 
+     for(let i = 0; i < factoryCount; i++) {
+         let biggestArmy = -1;
+         factory = factories[i.toString()];
+         if(factory.owner === 1 && factory.pop > biggestArmy) {
+             biggestArmy = factory.pop;
+             army = i;
+         }
+     }
+ 
+     console.error('idealBase is ' + idealBase);
+ 
+     if(factories[idealBase.toString()] !== undefined && factories[idealBase.toString()].owner !== 1) {
+         console.error('Moving everything to take the ideal base');
+         if(factories[army.toString()].pop > 3) {
+            nextMove = 'MOVE ' + army + ' ' + idealBase + ' ' + (factories[army.toString()].pop - 3);
+         }
+     } else {
+         let bestTarget = null;
+         let bestTargetID = -1;
+ 
+         for(let i = 0; i < factoryCount; i++) {
+             factory = factories[i.toString()];
+             if(factory.owner !== 1) {
+                 if(bestTarget === null) {
+                     if(factory.nextPop > -1 && factory.nextPop < factories[army.toString()].pop / 2) {
+                         bestTargetID = i;
+                         bestTarget = factory;
+                     }
+                 } else {
+                     if(factory.nextPop > -1 && factory.nextPop < factories[army.toString()].pop / 2
+                             && factory.prod > factories[bestTargetID.toString()].prod) {
+                         bestTargetID = i;
+                         bestTarget = factory;
+                     }
+                 }
+             }
+         }
+         if(bestTargetID !== -1 && factories[army.toString()].pop > 1) {
+             console.error('Moving everything to attack the best target');
+
+            let armySize = 1;
+            let basePop = factories[army.toString()].pop;
+            if(basePop > 10) {
+                armySize = Math.floor(basePop / 2);
+            } else {
+                armySize = basePop - 3;
+            }
+            if(armySize > 0) {
+             nextMove = 'MOVE ' + army + ' ' + bestTargetID + ' ' + armySize;
+            }
+         }
+     }
+ 
+     if(nextMove === '') {
+         let bestBoostID = -1;
+         let bestBoostPop = 10;
+         for(let i = 0; i < factoryCount; i++) {
+             factory = factories[i.toString()];
+             if(i != idealBase && factory.owner === 1 && factory.pop > bestBoostPop) {
+                 bestBoostPop = factory.pop;
+                 bestBoostID = i;
+             }
+         }
+         if(bestBoostID !== -1 && idealBase != -1) {
+             console.error('Giving a boost to the ideal base');
+             nextMove = 'MOVE ' + bestBoostID + ' ' + idealBase + ' ' + (factories[bestBoostID.toString()].pop - 5);
+         }
+     }
+
+     if(neutralCount === 0) {
+        let weakestEnemy = -1;
+        for(let i = 0; i < factoryCount; i++) {
+            factory = factories[i.toString()];
+            if(factory.owner === -1 && (weakestEnemy === -1 || factory.pop < factories[weakestEnemy.toString()].pop)) {
+                weakestEnemy = i;
+            }
         }
-    }
-
-    for(let i = 0; i < gameTroops.length; i++) {
-        for(let j = 0; j < gameFactories.length; j++) {
-            if(gameFactories[j].id === gameTroops[i].target) {
-                gameFactories[j].nextPop -= gameTroops[i];
+        if(weakestEnemy != -1 && factories[weakestEnemy.toString()].pop < factories[idealBase.toString()].pop / 2) {
+            console.error('Go for the kill!');
+            let armySize = 1;
+            let basePop = factories[idealBase.toString()].pop;
+            if(basePop > 27) {
+                armySize = basePop - 25;
+            } else {
+                armySize = basePop - 3;
+            }
+            if(factories[idealBase.toString()].owner === 1 && armySize > 0) {
+                nextMove = 'MOVE ' + idealBase + ' ' + weakestEnemy + ' ' + armySize;
             }
         }
-    }
-    mainBaseId = gameFactories[mainBaseIndex].id
-
-    let nextMove = '';
-
-    for(let i = 0; i < gameFactories.length; i++) {
-        if(gameFactories[i].owner != 1) {
-            if(gameFactories[i].nextPop == 0) {
-                if(mainBaseId != -1) {
-                    nextMove = 'MOVE ' + mainBaseId + ' ' + gameFactories[i].id + ' 2'
-                    gameFactories[mainBaseIndex].pop -= 2;
-                }
-            } else if(gameFactories[i].pop < bestTargetPop){
-                bestTargetPop = gameFactories[i].pop;
-                bestTarget = gameFactories[i].id
-            }
-        } else {
-            if(nextMove == '' && gameFactories[i].id != mainBaseId && gameFactories[i].pop >= 10) {
-                let troopCount = 7;
-                if(gameFactories[i].pop >= 20) {
-                    troopCount = gameFactories[i].pop - 5;
-                }
-                nextMove = 'MOVE ' + gameFactories[i].id + ' ' + mainBaseId + ' ' + troopCount;
-            }
-        }
-    }
-
-    if(gameFactories[mainBaseIndex].pop / 2 > bestTargetPop && bestTarget != -1 && mainBaseId != -1) {
-        nextMove = 'MOVE ' + mainBaseId + ' ' + bestTarget + ' ' + (bestTargetPop + 2);
-    } 
-    if(nextMove == '') {
-        nextMove = 'WAIT';
-    }
-
-    console.log(nextMove);
-
-    round++;
-}
+     }
+ 
+     if(nextMove === '') {
+         console.error('Waiting...');
+         nextMove = 'WAIT';
+     }
+ 
+     console.log(nextMove);
+ 
+     round++;
+ }

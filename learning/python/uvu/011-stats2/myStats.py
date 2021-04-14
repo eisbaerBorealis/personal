@@ -1,6 +1,7 @@
 import random
 import scipy.stats as stats
 import matplotlib.pyplot as plt
+import numpy as np
 
 def getExponData(exponSize, exponLambda = 1):
     exponData = stats.expon.rvs(scale = (1 / exponLambda), size = exponSize)
@@ -51,3 +52,19 @@ def animateHistogram(data):
         plt.draw()
         plt.pause(0.0001)
     plt.show(block = True)
+
+# method by Mitchell Dom
+def average_array(original_array, size):
+    if isinstance(original_array, np.ndarray):
+        original_array = original_array.tolist()
+    temp_array = []
+    final_array = []
+    while len(original_array) > 0:
+        temp_array.append(original_array.pop(0))
+        if len(temp_array) % size == 0:
+            final_array.append(sum(temp_array) / len(temp_array))
+            temp_array.clear()
+    # if len(temp_array) > 0:
+    #     final_array.append(sum(temp_array) / len(temp_array))
+    #     temp_array.clear()
+    return final_array

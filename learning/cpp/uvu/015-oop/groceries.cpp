@@ -97,6 +97,15 @@ struct Item {
     public:
         Item(int new_item_id, string new_description, double new_price) :
                  item_id{new_item_id}, description{new_description}, price{new_price}{}
+        int getID() {
+            return item_id;
+        }
+        string getDescription() {
+            return description;
+        }
+        double getPrice() {
+            return price;
+        }
     private:
         int item_id;
         string description;
@@ -181,8 +190,12 @@ class Order {
         string print_order() const {
             string items = "Order Detail:";
             for(int i = 0; i < line_items.size(); i++) {
-                
-                items += "\n\tItem " + line_items.at(i)->item_id;
+                int item_id = line_items.at(i)->item_id;
+                int item_index = find_item_idx(item_id);
+                string item_name = items.at(item_index)->getDescription();
+                double item_price = items.at(item_index)->getPrice();
+
+                items += "\n\tItem " + item_id + ": \"" + item_name + "\", " + line_items.at(i)->qty + " @ " + item_price;
             }
 
             return "";
@@ -267,27 +280,58 @@ void read_orders(string filename) {
 }
 
 int find_cust_idx(int cust_id) {
-    int return_id = -1;
+    int return_idx = -1;
 
     for(int i = 0; i < customers.size(); i++) {
-        if() {
-
+        if(customers.at(i)->getID == cust_id) {
+            return_idx = i;
+            i = customers.size();
         }
     }
 
-    return return_id;
+    return return_idx;
 }
 
 int find_item_idx(int item_id) {
+    int return_idx = -1;
 
+    for(int i = 0; i < items.size(); i++) {
+        if(items.at(i)->getID == cust_id) {
+            return_idx = i;
+            i = items.size();
+        }
+    }
+
+    return return_idx;
+}
+
+string dollarToString(double dollar) {
+    string dollarStr = dollar.to_string();
+    int decimal = dollarStr.find(".");
+    if(decimal == string::npos) {
+        dollarStr += ".00";
+    } else {
+        int missing = 2 - (dollarStr.size() - decimal);
+        if(missing < 0) {
+            dollarStr = dollarStr.substr(0, dollarStr.size() + missing);
+        } else {
+            for(int i = 0; i < missing; i++) {
+                dollarStr += "0";
+            }
+        }
+    }
 }
 
 int main() {
     std::cout << "Started main() of groceries.cpp." << std::endl;
 
-    read_customers("customers.txt");
-    read_items("items.txt");
-    read_orders("orders.txt");
-    for (const auto& order: orders)
-        std::cout << order.print_order() << std::endl;
+    // read_customers("customers.txt");
+    // read_items("items.txt");
+    // read_orders("orders.txt");
+    // for (const auto& order: orders)
+    //     std::cout << order.print_order() << std::endl;
+    std::cout << "dollarToString(243) becomes " << dollarToString(243) << std::endl;
+    std::cout << "dollarToString(243.1) becomes " << dollarToString(243.1) << std::endl;
+    std::cout << "dollarToString(243.19) becomes " << dollarToString(243.19) << std::endl;
+    std::cout << "dollarToString(243.19763) becomes " << dollarToString(243.19763) << std::endl;
 }

@@ -68,3 +68,6 @@ def average_array(original_array, size):
     #     final_array.append(sum(temp_array) / len(temp_array))
     #     temp_array.clear()
     return final_array
+
+def shapiro_test(data):
+    return stats.shapiro(data)[1]

@@ -1,0 +1,14 @@
+-----seq.py:-----
+perf_counter: 55.722 seconds
+process_time: 5.522 seconds
+bytes downloaded: 3,110,197 and 232 flags
+
+-----fprocess.py-----
+perf_counter: 24.577 seconds
+process_time: 0.172 seconds
+bytes downloaded: 3,110,197 and 232 flags
+
+-----fthread.py-----
+perf_counter: 31.423 seconds
+process_time: 6.271 seconds
+bytes downloaded: 3,110,197 and 232 flags

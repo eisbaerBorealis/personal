@@ -10,7 +10,7 @@ from myStats import *
 BIN_COUNT     = 100
 BIN_COUNT_5   = 80 # 80
 BIN_COUNT_30  = 20 # 20
-BIN_COUNT_100 = 10 # 20
+BIN_COUNT_100 = 10 # 10
 
 class StatsGui:
     def __init__(self):
@@ -70,8 +70,8 @@ class StatsGui:
             frameChildren[5]['state'] = 'enabled'
             frameChildren[5].delete(0, 'end')
             frameChildren[5].insert(0, '1')
-            frameChildren[7]['state'] = 'disabled'
             frameChildren[7].delete(0, 'end')
+            frameChildren[7]['state'] = 'disabled'
             frameChildren[8]['state'] = 'enabled'
         elif distChoice == "Uniform":
             frameChildren = self.simMaster.winfo_children()[1].winfo_children()
@@ -220,26 +220,22 @@ class StatsGui:
         # simPlot.axes.set_ylim(top=425)
         simPlot.axes.set_xlim((-1, 5))
         simPlot.hist(data, bins = BIN_COUNT, density = True)
-        # simPlot.plot(expo_norm, stats.norm.pdf(expo_norm, 1, 1), color = "yellow")
         simPlot.plot(expo_norm, stats.norm.pdf(expo_norm, np.mean(data), math.sqrt(np.var(data))), color = "red")
 
         data = getUniformData(50000, 0, 5)
         simPlot = self.compareFigures[1].gca()
         simPlot.hist(data, bins = BIN_COUNT, density = True)
-        # simPlot.plot(unif_norm, stats.norm.pdf(unif_norm, 2.5, 1), color = "yellow")
         simPlot.plot(unif_norm, stats.norm.pdf(unif_norm, np.mean(data), math.sqrt(np.var(data))), color = "red")
 
         data = getWeibullData(50000, 1, 1.5)
         simPlot = self.compareFigures[2].gca()
         simPlot.axes.set_xlim((0, 3))
         simPlot.hist(data, bins = BIN_COUNT, density = True)
-        # simPlot.plot(unif_norm, stats.norm.pdf(unif_norm, 1, 1), color = "yellow")
         simPlot.plot(unif_norm, stats.norm.pdf(unif_norm, np.mean(data), math.sqrt(np.var(data))), color = "red")
 
         data = getInverseTriangleData(50000, 0, 5)
         simPlot = self.compareFigures[3].gca()
         simPlot.hist(data, bins = BIN_COUNT, density = True)
-        # simPlot.plot(unif_norm, stats.norm.pdf(unif_norm, 2.5, 1), color = "yellow")
         simPlot.plot(unif_norm, stats.norm.pdf(unif_norm, np.mean(data), math.sqrt(np.var(data))), color = "red")
 
         # row two
@@ -253,20 +249,17 @@ class StatsGui:
         data = average_array(getUniformData(50000, 0, 5), x)
         simPlot = self.compareFigures[5].gca()
         simPlot.hist(data, bins = BIN_COUNT_5, density = True)
-        # simPlot.plot(unif_norm, stats.norm.pdf(unif_norm, 2.5, 1), color = "yellow")
         simPlot.plot(unif_norm, stats.norm.pdf(unif_norm, np.mean(data), math.sqrt(np.var(data))), color = "red")
 
         data = average_array(getWeibullData(50000, 1, 1.5), x)
         simPlot = self.compareFigures[6].gca()
         simPlot.axes.set_xlim((0, 3))
         simPlot.hist(data, bins = BIN_COUNT_5, density = True)
-        # simPlot.plot(unif_norm, stats.norm.pdf(unif_norm, 1, 1), color = "yellow")
         simPlot.plot(unif_norm, stats.norm.pdf(unif_norm, np.mean(data), math.sqrt(np.var(data))), color = "red")
 
         data = average_array(getInverseTriangleData(50000, 0, 5), x)
         simPlot = self.compareFigures[7].gca()
         simPlot.hist(data, bins = BIN_COUNT_5, density = True)
-        # simPlot.plot(unif_norm, stats.norm.pdf(unif_norm, 2.5, 1), color = "yellow")
         simPlot.plot(unif_norm, stats.norm.pdf(unif_norm, np.mean(data), math.sqrt(np.var(data))), color = "red")
 
         # row three
@@ -280,20 +273,17 @@ class StatsGui:
         data = average_array(getUniformData(50000, 0, 5), x)
         simPlot = self.compareFigures[9].gca()
         simPlot.hist(data, bins = BIN_COUNT_30, density = True)
-        # simPlot.plot(unif_norm, stats.norm.pdf(unif_norm, 2.5, 1), color = "yellow")
         simPlot.plot(unif_norm, stats.norm.pdf(unif_norm, np.mean(data), math.sqrt(np.var(data))), color = "red")
 
         data = average_array(getWeibullData(50000, 1, 1.5), x)
         simPlot = self.compareFigures[10].gca()
         simPlot.axes.set_xlim((0, 3))
         simPlot.hist(data, bins = BIN_COUNT_30, density = True)
-        # simPlot.plot(unif_norm, stats.norm.pdf(unif_norm, 1, 1), color = "yellow")
         simPlot.plot(unif_norm, stats.norm.pdf(unif_norm, np.mean(data), math.sqrt(np.var(data))), color = "red")
 
         data = average_array(getInverseTriangleData(50000, 0, 5), x)
         simPlot = self.compareFigures[11].gca()
         simPlot.hist(data, bins = BIN_COUNT_30, density = True)
-        # simPlot.plot(unif_norm, stats.norm.pdf(unif_norm, 2.5, 1), color = "yellow")
         simPlot.plot(unif_norm, stats.norm.pdf(unif_norm, np.mean(data), math.sqrt(np.var(data))), color = "red")
 
         # row four

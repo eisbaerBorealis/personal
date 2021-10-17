@@ -1,0 +1,53 @@
+var svg = `
+<svg  class="quilt-002" height="400" width="400">
+
+    <polygon
+        points="0,0 400,0 400,400 0,400"
+        style="fill:var(--color0);stroke-width:0"/>
+
+    <polygon 
+        points="150,100 250,100 300,150 300,250 250,300 150,300 100,250 100,150"
+        style="fill:var(--color3);stroke-width:0"/>
+
+    <polygon 
+        points="200,200 150,150 150,100 200,150 200,250 250,300 250,250 200,200 150,200 100,250 150,250 250,150 300,150 250,200"
+        style="fill:var(--color1);stroke-width:0"/>
+    
+    <polygon 
+        points="200,200 200,150 250,100 250,150 150,250 150,300 200,250 200,200 150,150 100,150 150,200 250,200 300,250 250,250"
+        style="fill:var(--color2);stroke-width:0"/>
+
+    <polygon 
+        points="50,50 150,50 100,100 100,250 50,200"
+        style="fill:var(--color4);stroke-width:0"/>
+    <polygon 
+        points="200,50 350,50 350,150 300,100 150,100"
+        style="fill:var(--color4);stroke-width:0"/>
+    <polygon 
+        points="300,150 350,200 350,350 250,350 300,300"
+        style="fill:var(--color4);stroke-width:0"/>
+    <polygon 
+        points="50,250 100,300 250,300 200,350 50,350"
+        style="fill:var(--color4);stroke-width:0"/>
+
+    <polygon 
+        points="200,0 250,50 200,50 100,150 100,100"
+        style="fill:var(--color5);stroke-width:0"/>
+    <polygon 
+        points="250,100 300,100 400,200 350,250 350,200"
+        style="fill:var(--color5);stroke-width:0"/>
+    <polygon 
+        points="150,350 200,350 300,250 300,300 200,400"
+        style="fill:var(--color5);stroke-width:0"/>
+    <polygon 
+        points="0,200 50,150 50,200 150,300 100,300"
+        style="fill:var(--color5);stroke-width:0"/>
+    
+    <polygon 
+        points="0,0 50,0 75,25 75,50 50,50 50,75 25,75 0,50"
+        style="fill:var(--color6);stroke-width:0"/>
+    <polygon 
+        points="400,400 350,400 325,375 325,350 350,350 350,325 375,325 400,350"
+        style="fill:var(--color6);stroke-width:0"/>
+</svg>
+`;

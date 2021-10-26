@@ -38,3 +38,17 @@ body {
     --color5: #ffbb00;
     --color6: #00ab25;
 }
+
+.quilt-003 {
+    --color0: #ffffff;
+    --color1: #7a7fff;
+    --color2: #0000ff;
+    --color3: #00007d;
+}
+
+.quilt-004 {
+    --color0: #ffffff;
+    --color2: #0000ff;
+    --color3: #00007d;
+    --line: #88888888;
+}

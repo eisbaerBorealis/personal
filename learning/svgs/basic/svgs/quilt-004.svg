@@ -1,5 +1,14 @@
-var svg = `
-<svg  class="quilt-004" height="610" width="610">
+<svg  xmlns="http://www.w3.org/2000/svg" class="quilt-004" height="610" width="610">
+
+    <style>
+        .quilt-004 {
+            --color0: #ffffff;
+            --color1: #7a7fff;
+            --color2: #0000ff;
+            --color3: #00007d;
+            --line: #88888888;
+        }
+    </style>
 
     <polygon
         points="0,0 610,0 610,610 0,610"
@@ -145,4 +154,3 @@ var svg = `
     </g>
 
 </svg>
-`;

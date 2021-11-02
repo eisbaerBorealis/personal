@@ -1,0 +1,71 @@
+/** Author: Jesse Howell
+ * 
+ *  
+ */
+
+html {
+    background-color: black;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-dark {
+    --color0: #ffffff;
+    --color1: #7a7fff;
+    --color2: #0000ff;
+    --color3: #00007d;
+    --line: #88888888;
+}
+
+.clickable:hover {
+    cursor: pointer;
+}
+
+.timer-svg {
+    border-radius: 30px;
+}
+
+.timer-circle-back {
+    stroke-width: 80px;
+    stroke: gray;
+    fill: none;
+}
+
+#timer-path {
+    stroke-width: 75px;
+    /* stroke: red; */
+    fill: none;
+    transform-origin: 200px 200px;
+    transform: rotate(-90deg)
+               scaleX(-1);
+}
+
+.timer-prep {
+    stroke: #cc0000;
+}
+
+.timer-task {
+    stroke: #00cc00;
+}
+
+/* https://www.fontspace.com/digital-7-font-f7087 */
+#time-text {
+    font-size: 50px;
+    fill: black;
+}
+
+#task-text {
+    font-size: 50px;
+    fill: black;
+}

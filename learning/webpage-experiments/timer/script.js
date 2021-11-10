@@ -1,5 +1,6 @@
 const TICKS_PER_SEC = 40;
 const CIRC_LEN = 754;
+const IDLE_CIRC_LEN = 1005;
 
 var paused = false;
 var state = 'init';
@@ -7,6 +8,8 @@ var tasksLeft = [];
 var currTask = -1;
 var maxTime = -1;
 var countdown = 0;
+var idleCount = 0;
+var idleWarning = false;
 
 (function() {
     'use strict';
@@ -44,7 +47,14 @@ function start() {
 }
 
 function togglePause() {
+    console.log('  eisDEBUG: togglePause()');
     paused = !paused;
+    idleCount = 0;
+    if(idleWarning) {
+        idleWarning = false;
+        // remove idle ring
+        updateIdleTimer();
+    }
 }
 
 function resetTasks() {
@@ -117,6 +127,18 @@ function doTick() {
             default:
                 console.error('ERROR: default in switch statement for doTick().');
         }
+    } else {
+        idleCount++;
+        if(idleCount > 60 * 3 * TICKS_PER_SEC) {
+            if(!idleWarning) {
+                idleWarning = true;
+            }
+            if(idleCount > 60 * 5 * TICKS_PER_SEC) {
+                togglePause();
+            }
+
+            updateIdleTimer();
+        }
     }
 }
 
@@ -128,13 +150,24 @@ function updateTimer() {
     } else {
         arclength = CIRC_LEN * countdown / maxTime;
     }
-    let dasharray = Math.floor(arclength) + ' ' + CIRC_LEN;
-//if(countdown % 40 === 0){console.log('  eisDEBUG updateTimer(): dasharrayis ' + dasharray);}
+    let dasharray = (arclength) + ' ' + CIRC_LEN;
     document
             .getElementById('timer-path')
             .setAttribute('stroke-dasharray', dasharray);
 
     document.getElementById('time-text').innerHTML = getTimeText(countdown / TICKS_PER_SEC);
+}
+
+function updateIdleTimer() {
+    let arclength = IDLE_CIRC_LEN * (1 - idleCount / (60 * 5 * TICKS_PER_SEC));
+
+    if(idleCount === 0) {
+        arclength = 0;
+    }
+    let dasharray = (arclength) + ' ' + IDLE_CIRC_LEN;
+    document
+            .getElementById('idle-timer-path')
+            .setAttribute('stroke-dasharray', dasharray);
 }
 
 function getTimeText(seconds) {

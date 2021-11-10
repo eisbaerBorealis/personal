@@ -51,6 +51,15 @@ body {
                scaleX(-1);
 }
 
+#idle-timer-path {
+    stroke-width: 5px;
+    stroke: #0000cc;
+    fill: none;
+    transform-origin: 200px 200px;
+    transform: rotate(-90deg)
+               scaleX(-1);
+}
+
 .timer-prep {
     stroke: #cc0000;
 }

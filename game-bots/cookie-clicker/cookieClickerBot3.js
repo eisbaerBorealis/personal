@@ -23,7 +23,7 @@ var miscSettings = {};
 var countdowns = {};
 
 var roundCount = 0;
-var gameState = '';
+var gameState = '(none)';
 
 (function() {
     'use strict';
@@ -59,13 +59,13 @@ function startup() {
     Game.prefs.wobbly = 0;
     Game.prefs.focus = 0;
     Game.volume = 0;
-    
+
     // Add the bot window
     addCSS();
     addWindow();
-  
+
     // initialize which game mode to use
-    chooseMode();
+    updateState();
 
     // start up the main doRound function 20 times per second
     miscSettings.mainLoopInterval = setInterval(doRound, 50);
@@ -76,7 +76,7 @@ function startup() {
 function doRound() {
     roundCount++;
     doClicks();
-    
+
     if(roundCount % 20 === 0) {
         doGoldenClicks();
         doRandomAchievements();
@@ -92,10 +92,10 @@ function doRound() {
 
 function updateState() {
     let oldState = gameState;
-  
+
     if(gameState === "speedbaking" && (((Game.T / 30) > 900) || Game.Achievements["Speed baking III"].won === 1)) {
         gameState = 'preprestige';
-    } else if(Game.Achievements["Speed baking III"].won === 0 && (Game.T / 30) < 900) {
+    } else if(!botSettings.clicking && Game.Achievements["Speed baking III"].won === 0 && (Game.T / 30) < 900) {
         gameState = 'speedbaking';
     } else if(Game.Achievements["True Neverclick"].won === 0 && Game.cookieClicks === 0 && !botSettings.clicking) {
         gameState = 'noclick';
@@ -114,16 +114,16 @@ function updateState() {
         gameState = "normal";
     }
     // seasonal, garden, normal, prestige, preprestige
-    
+
     if(oldState !== gameState) {
-        console.log('gameState changed from ' + oldState + ' to ' + gameState;
+        console.log('gameState changed from ' + oldState + ' to ' + gameState);
     }
 }
 
 function doClicks() {
     if(botSettings.clicking && gameState !== 'noclick' && gameState !== 'noclick&hardcore' && gameState !== 'preprestige') {
         Game.ClickCookie();
-      
+
         if(gameState === 'speedbaking') {
             for(let i = 0; i < 9; i++) {
                 Game.ClickCookie();
@@ -133,13 +133,17 @@ function doClicks() {
 }
 
 function doGoldenClicks() {
-    if(Game.shimmers.length > 0) {
-        if(Game.Achievements["Fading luck"].won === 0) {
-            if(Game.shimmers[0].life < 10) {
+    if(botSettings.golden && Game.shimmers.length > 0) {
+        if(gameState === 'speedbaking') {
+            Game.shimmers[0].pop();
+        } else if(Game.Achievements["Fading luck"].won === 0) {
+            // if(Game.shimmers[0].life < 10) {
+            if(Game.shimmers[0].life < 11) {
                 Game.shimmers[0].pop();
             }
         } else {
             Game.shimmers[0].pop();
+            console.log('pop!');
         }
     }
 }
@@ -155,6 +159,7 @@ function doRandomAchievements() {
     if(Game.Achievements["Cookie-dunker"].won === 0) {
         miscSettings.leftWindowHeight = document.getElementById("backgroundLeftCanvas").getAttribute("height");
         document.getElementById("backgroundLeftCanvas").setAttribute("height", "100");
+        console.log('Cookie Dunker: miscSettings.leftWindowHeight is ' + miscSettings.leftWindowHeight);
     } else if(miscSettings.leftWindowHeight !== undefined) {
         document.getElementById("backgroundLeftCanvas").setAttribute("height", miscSettings.leftWindowHeight);
         miscSettings.leftWindowHeight = undefined;
@@ -171,6 +176,7 @@ function doRandomAchievements() {
 /* BOT OPTIONS */
 function addCSS() {
     let style = document.createElement('style');
+    // style.type = 'text/css';
     style.type = 'text/css';
 
     style.innerHTML =
@@ -178,12 +184,14 @@ function addCSS() {
             + 'display: flex;'
             + 'flex-direction: column;'
             + 'position: fixed;'
-            + 'right: 10px;'
-            + 'bottom: 0px;'
+            // + 'right: 10px;'
+            + 'left: 5px;'
+            + 'bottom: 35px;'
             + 'background-color: #3d3d85;'
             + 'padding: 5px;'
             + 'border-radius: 15px 15px 0px 0px;'
-            + 'min-width: 99px; }'
+            + 'min-width: 99px; '
+            + 'z-index: 5;}'
         + '#optionsBody {'
             + 'display: none;'
             + 'flex-direction: column; }'
@@ -207,6 +215,7 @@ function addCSS() {
         ;
 
     document.getElementsByTagName('head')[0].appendChild(style);
+    // console.log('EisDEBUG: finished adding CSS');
 }
 
 function addWindow() {
@@ -214,8 +223,22 @@ function addWindow() {
                   + '<div id="optionsTitle">Bot Options</div>'
                   + '<div id="optionsBody">';
 
+    botHtml += '<div id="toggleClicking" class="botButton inactiveButton">Main Cookie</div>';
+    botHtml += '<div id="toggleGolden" class="botButton inactiveButton">Golden</div>';
+    botHtml += '<div id="toggleUpgrades" class="botButton inactiveButton">Upgrades</div>';
+    botHtml += '<div id="toggleBuildings" class="botButton inactiveButton">Buildings</div>';
+    botHtml += '<div id="toggleSeasons" class="botButton inactiveButton">Seasons</div>';
+    botHtml += '<div id="toggleGarden" class="botButton inactiveButton">Garden</div>';
+    botHtml += '<div id="toggleDragon" class="botButton inactiveButton">Dragon</div>';
+    botHtml += '<div id="togglePrestige" class="botButton inactiveButton">Prestige</div>';
+    botHtml += '<div id="toggleSugarlumps" class="botButton inactiveButton">Sugar Lumps</div>';
+
+    botHtml += '</div></div>';
+    document.getElementsByTagName('body')[0].insertAdjacentHTML('beforeend', botHtml);
+
+    // console.log('EisDEBUG: finished adding Window HTML');
+
     botSettings.clicking = false;
-    botHtml += '<div id="toggleClicking" class="botButton activeButton">Main Cookie</div>';
     document.getElementById('toggleClicking').onclick = function() {
         console.log('EisDEBUG: Main Cookie option pressed');
         botSettings.clicking = !botSettings.clicking;
@@ -224,7 +247,6 @@ function addWindow() {
     };
 
     botSettings.golden = false;
-    botHtml += '<div id="toggleGolden" class="botButton activeButton">Golden</div>';
     document.getElementById('toggleGolden').onclick = function() {
         console.log('EisDEBUG: Golden option pressed');
         botSettings.golden = !botSettings.golden;
@@ -233,7 +255,6 @@ function addWindow() {
     };
 
     botSettings.upgrades = false;
-    botHtml += '<div id="toggleUpgrades" class="botButton activeButton">Upgrades</div>';
     document.getElementById('toggleUpgrades').onclick = function() {
         console.log('EisDEBUG: Upgrades option pressed');
         botSettings.upgrades = !botSettings.upgrades;
@@ -242,7 +263,6 @@ function addWindow() {
     };
 
     botSettings.buildings = false;
-    botHtml += '<div id="toggleBuildings" class="botButton activeButton">Buildings</div>';
     document.getElementById('toggleBuildings').onclick = function() {
         console.log('EisDEBUG: Buildings option pressed');
         botSettings.buildings = !botSettings.buildings;
@@ -251,7 +271,6 @@ function addWindow() {
     };
 
     botSettings.seasons = false;
-    botHtml += '<div id="toggleSeasons" class="botButton activeButton">Seasons</div>';
     document.getElementById('toggleSeasons').onclick = function() {
         console.log('EisDEBUG: Seasons option pressed');
         botSettings.seasons = !botSettings.seasons;
@@ -260,7 +279,6 @@ function addWindow() {
     };
 
     botSettings.garden = false;
-    botHtml += '<div id="toggleGarden" class="botButton activeButton">Garden</div>';
     document.getElementById('toggleGarden').onclick = function() {
         console.log('EisDEBUG: Garden option pressed');
         botSettings.garden = !botSettings.garden;
@@ -269,7 +287,6 @@ function addWindow() {
     };
 
     botSettings.dragon = false;
-    botHtml += '<div id="toggleDragon" class="botButton activeButton">Dragon</div>';
     document.getElementById('toggleDragon').onclick = function() {
         console.log('EisDEBUG: Dragon option pressed');
         botSettings.dragon = !botSettings.dragon;
@@ -278,7 +295,6 @@ function addWindow() {
     };
 
     botSettings.prestige = false;
-    botHtml += '<div id="togglePrestige" class="botButton activeButton">Prestige</div>';
     document.getElementById('togglePrestige').onclick = function() {
         console.log('EisDEBUG: Prestige option pressed');
         botSettings.prestige = !botSettings.prestige;
@@ -287,15 +303,12 @@ function addWindow() {
     };
 
     botSettings.sugarlumps = false;
-    botHtml += '<div id="togglePrestige" class="botButton activeButton">Sugar Lumps</div>';
     document.getElementById('toggleSugarlumps').onclick = function() {
         console.log('EisDEBUG: Sugar Lumps option pressed');
         botSettings.sugarlumps = !botSettings.sugarlumps;
         document.getElementById('toggleSugarlumps').classList.toggle('activeButton');
         document.getElementById('toggleSugarlumps').classList.toggle('inactiveButton');
     };
-    
-  
-    botHtml += '</div></div>';
-    document.getElementsByTagName('body')[0].insertAdjacentHTML('beforeend', botHtml);
+
+    console.log('EisDEBUG: finished adding buttons');
 }

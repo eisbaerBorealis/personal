@@ -1,0 +1,148 @@
+var svg = `
+<svg  class="quilt-004" height="610" width="610">
+
+    <polygon
+        points="0,0 610,0 610,610 0,610"
+        style="fill:var(--color0);stroke-width:0"/>
+
+    <g style="stroke:var(--line);stroke-width:0">
+        <line x1="179"  y1="0" x2="305"  y2="126" />
+        <line x1="431"  y1="0" x2="305"  y2="126" />
+        <line x1="431"  y1="0" x2="431"  y2="179" />
+        <line x1="610"  y1="179" x2="431"  y2="179" />
+        <line x1="610"  y1="179" x2="484"  y2="305" />
+        <line x1="610"  y1="431" x2="484"  y2="305" />
+        <line x1="610"  y1="431" x2="431"  y2="431" />
+        <line x1="431"  y1="610" x2="431"  y2="431" />
+        <line x1="431"  y1="610" x2="305"  y2="484" />
+        <line x1="179"  y1="610" x2="305"  y2="484" />
+        <line x1="179"  y1="610" x2="179"  y2="431" />
+        <line x1="0"  y1="431" x2="179"  y2="431" />
+        <line x1="0"  y1="431" x2="126"  y2="305" />
+        <line x1="0"  y1="179" x2="126"  y2="305" />
+        <line x1="0"  y1="179" x2="179"  y2="179" />
+        <line x1="179"  y1="0" x2="179"  y2="179" />
+    </g>
+    
+    <g style="fill:var(--color3);stroke-width:0">
+        <polygon
+            points="179,0 219,40 219,97 179,57"/>
+        <polygon
+            points="431,0 391,40 391,97 431,57"/>
+        <polygon
+            points="610,179 570,219 514,219 553,179"/>
+        <polygon
+            points="610,431 570,391 514,391 553,431"/>
+        <polygon
+            points="431,610 391,570 391,513 431,553"/>
+        <polygon
+            points="179,610 219,570 219,513 179,553"/>
+        <polygon
+            points="0,431 40,391 96,391 57,431"/>
+        <polygon
+            points="0,179 40,219 96,219 57,179"/>
+            
+        <polygon
+            points="179,179 219,179 219,219 179,219"/>
+        <polygon
+            points="305,126 334,155 305,183 276,155"/>
+        <polygon
+            points="391,179 431,179 431,219 391,219"/>
+        <polygon
+            points="455,276 484,305 455,334 427,305"/>
+        <polygon
+            points="391,391 391,431 431,431 431,391"/>
+        <polygon
+            points="305,427 334,455 305,484 276,455"/>
+        <polygon
+            points="179,391 219,391 219,431 179,431"/>
+        <polygon
+            points="155,276 183,305 155,334 126,305"/>
+    </g>
+
+    <g style="fill:var(--color2);stroke-width:0">
+        <polygon
+            points="269,219 305,183 341,219"/>
+        <polygon
+            points="341,219 391,219 391,269"/>
+        <polygon
+            points="391,269 427,305 391,341"/>
+        <polygon
+            points="391,341 391,391 341,391"/>
+        <polygon
+            points="341,391 305,427 269,391"/>
+        <polygon
+            points="269,391 219,391 219,341"/>
+        <polygon
+            points="219,341 183,305 219,269"/>
+        <polygon
+            points="219,269 219,219 269,219"/>
+
+        <polygon
+            points="219,97 248,68 248,125"/>
+        <polygon
+            points="248,125 276,96 276,155"/>
+        <polygon
+            points="362,125 334,96 334,155"/>
+        <polygon
+            points="391,97 362,68 362,125"/>
+        <polygon
+            points="391,97 431,97 391,137"/>
+        <polygon
+            points="391,137 431,137 391,179"/>
+        <polygon
+            points="431,219 471,179 471,219"/>
+        <polygon
+            points="471,219 514,179 514,219"/>
+        <polygon
+            points="514,219 543,248 485,248"/>
+        <polygon
+            points="485,248 514,276 455,276"/>
+        <polygon
+            points="455,334 514,334 485,362"/>
+        <polygon
+            points="485,362 543,362 514,391"/>
+        <polygon
+            points="471,391 514,431 514,391"/>
+        <polygon
+            points="431,391 471,431 471,391"/>
+        <polygon
+            points="391,473 431,473 391,431"/>
+        <polygon
+            points="391,513 431,513 391,473"/>
+        <polygon
+            points="391,513 362,542 362,485"/>
+        <polygon
+            points="362,485 334,514 334,455"/>
+        <polygon
+            points="219,513 248,542 248,485"/>
+        <polygon
+            points="248,485 276,514 276,455"/>
+        <polygon
+            points="219,473 179,473 219,431"/>
+        <polygon
+            points="219,513 179,513 219,473"/>
+        <polygon
+            points="139,391 96,431 96,391"/>
+        <polygon
+            points="179,391 139,431 139,391"/>
+        <polygon
+            points="125,362 67,362 96,391"/>
+        <polygon
+            points="155,334 96,334 125,362"/>
+        <polygon
+            points="125,248 96,276 155,276"/>
+        <polygon
+            points="96,219 67,248 125,248"/>
+        <polygon
+            points="139,219 96,179 96,219"/>
+        <polygon
+            points="179,219 139,179 139,219"/>
+        <polygon
+            points="219,137 179,137 219,179"/>
+        <polygon
+            points="219,97 179,97 219,137"/>
+    </g>
+
+</svg>
+`;

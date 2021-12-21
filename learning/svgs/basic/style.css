@@ -1,0 +1,54 @@
+/** Author: Jesse Howell
+ * 
+ *  
+ */
+
+html {
+    background-color: black;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.quilt-001 {
+    --color1: #499fe1;
+    --color2: #245aa0;
+    --color3: #1e3350;
+    --color4: #4e7a9b;
+    --color5: #bfe5fa;
+    --color6: #499fe1;
+}
+
+.quilt-002 {
+    --color0: #ffffff;
+    --color1: #523400;
+    --color2: #755c02;
+    --color3: #ffdd00;
+    --color4: #ffff00;
+    --color5: #ffbb00;
+    --color6: #00ab25;
+}
+
+.quilt-003 {
+    --color0: #ffffff;
+    --color1: #7a7fff;
+    --color2: #0000ff;
+    --color3: #00007d;
+}
+
+.quilt-004 {
+    --color0: #ffffff;
+    --color2: #0000ff;
+    --color3: #00007d;
+    --line: #88888888;
+}

@@ -1,0 +1,32 @@
+/** Author: Jesse Howell
+ * 
+ *  
+ */
+
+html {
+    background-color: black;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.fish {
+    --color1main: #ffff00;
+    --color1bord: #c2c200;
+    --color2main: #0000ff;
+    --color2bord: #0000a1;
+    --color3main: #008000;
+    --color3bord: #006100;
+    --color4main: #fff4b6;
+    --color4bord: #b6ae83;
+}

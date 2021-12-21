@@ -1,5 +1,5 @@
 
-const GAME_VERSION = '0.2.1';
+const GAME_VERSION = '0.0.1';
 const TICKS_PER_SEC = 20;
 const NAME_REGEX = /(\w ?)+/g;
 
@@ -28,7 +28,7 @@ function startup() {
 
 	reloadFailCount = 0;
     thePlayer = new Player();
-    thePlayer.setNewHatchery();
+    // thePlayer.setNewHatchery();
     newPlayerWarning = false;
     
 	if(localStorage.ecmPlayerJSON === undefined) {

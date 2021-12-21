@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<!-- Author: Jesse Howell
+
+https://css-tricks.com/how-to-create-an-animated-countdown-timer-with-html-css-and-javascript/
+https://codepen.io/jakob-e/pen/bgBegJ
+
+ -->
+
+<html lang="en" class="theme-dark">
+
+<head>
+    <title>New Day</title>
+    <meta charset="UTF-8">
+
+    <script src="script.js"></script>
+    <script src="tasks.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="timer">
+<!-- Length = 2πr = 2 * π * 120 = 753.6 -->
+        <svg class="timer-svg" width="400" height="450">
+            <rect x="0" y="0" width="400" height="450" style="fill:white" />
+            <circle class="timer-circle-back" cx="200" cy="200" r="120" />
+
+            <path
+                id="timer-path"
+                class="timer-task"
+                stroke-dasharray="0 754"
+                d="
+                    M 200, 200
+                    m -120, 0
+                    a 120,120 0 1,0 240,0
+                    a 120,120 0 1,0 -240,0
+                ">
+            </path>
+
+            <path
+                id="idle-timer-path"
+                stroke-dasharray="0 1005"
+                d="
+                    M 200, 200
+                    m -160, 0
+                    a 160,160 0 1,0 320,0
+                    a 160,160 0 1,0 -320,0
+                ">>
+            </path>
+
+            <text id="time-text" class="clickable" x="200" y="206" dominant-baseline="middle" text-anchor="middle"></text>
+            <text id="task-text" x="200" y="410" dominant-baseline="middle" text-anchor="middle"></text>
+
+            <polygon id="play-btn" class="clickable"
+                style="fill:green; stroke-width:0"
+                points="170,150 250,200 170,250"/>
+        </svg>
+</div>
+</body>
+
+</html>

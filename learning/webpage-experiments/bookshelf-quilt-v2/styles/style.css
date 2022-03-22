@@ -1,0 +1,12 @@
+:root {
+    --main-width: 900px;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+.clickable:hover {
+    cursor: pointer;
+}

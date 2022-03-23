@@ -1,3 +1,7 @@
 function updateRedrawCountdown() {
+
+}
+
+function resetRedrawCountdown() {
     
 }

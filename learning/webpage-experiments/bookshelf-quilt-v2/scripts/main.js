@@ -13,8 +13,12 @@
 function startup() {
     console.log('  eisDEBUG: startup()');
 
-    theQuilt = new Quilt();
+    setupEvents();
 
-    randomizeBooks();
-    updateRedrawCountdown();
+    theQuilt = new Quilt();
+}
+
+function setupEvents() {
+    console.log('  eisDEBUG: setupEvents()');
+    // on window resize, reset redraw countdown
 }

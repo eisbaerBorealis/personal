@@ -1,6 +1,14 @@
-const TICKS_PER_SEC = 40;
 const QUILT_SVG_ID = 'quilt';
 const REDRAW_SVG_ID = 'redraw';
+const SPINNER_BACK_SVG_ID = 'spinner-back';
+const SPINNER_SVG_ID = 'spinner';
+
+const TICKS_PER_SEC = 40;
+const COUNTDOWN_BASE = 3000;
+
+const SPINNER_RADIUS = getComputedStyle(document.documentElement).getPropertyValue('--spinner-radius');
+const SPINNER_WIDTH = getComputedStyle(document.documentElement).getPropertyValue('--spinner-width');
+const SPINNER_CIRCUM = SPINNER_RADIUS * 2 * Math.PI;
 
 var NUM_ROWS = 5;
 var NUM_COLUMNS = 3;
@@ -15,7 +23,7 @@ var BOOK_WIDTHS = [1.0, 1.5];
 var HEIGHT_WEIGHTS = [];
 var WIDTH_WEIGHTS = [2, 1];
 
-var pauseInterval;
-var resizingCountdown = 3000;
+var pauseInterval = null;
+var resizingCountdown = 0;
 
 var theQuilt = null;

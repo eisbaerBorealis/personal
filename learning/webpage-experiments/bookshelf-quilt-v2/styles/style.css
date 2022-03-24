@@ -1,6 +1,7 @@
-/* :root {
-    --main-width: 900px;
-} */
+:root {
+    --spinner-radius: 50;
+    --spinner-width: 20;
+}
 
 html, body {
     height: 100%;
@@ -26,6 +27,27 @@ html, body {
     position: absolute;
     left: 0px;
     top: 0px;
+    background-color: var(--color-pause-background);
+}
+
+#spinner {
+    r: var(--spinner-radius);
+    stroke-width: calc(var(--spinner-width) * 0.90);
+    stroke: var(--color-spinner);
+    fill: none;
+    /* transform-origin: var(--clock-center-x) var(--clock-center-y); */
+    transform: rotate(-90deg);
+}
+
+#spinner-back {
+    r: var(--spinner-radius);
+    stroke-width: var(--spinner-width);
+    stroke: var(--color-spinner-background);
+    fill: none;
+}
+
+.hidden {
+    display: none;
 }
 
 /* .clickable:hover {

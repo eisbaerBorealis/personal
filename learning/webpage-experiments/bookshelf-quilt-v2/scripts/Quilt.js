@@ -1,6 +1,6 @@
 class Quilt {
     constructor() {
-        console.log('  eisDEBUG: Quilt constructor');
+        // console.log('  eisDEBUG: Quilt constructor');
         
         this.shelves = [];
 
@@ -36,7 +36,7 @@ class Quilt {
                 let randWidth = this.getRandomWidth(remainingSpace);
                 let randHeight = this.getRandomHeight();
                 
-                console.log('     eisDEBUG: adding a book');
+                // console.log('     eisDEBUG: adding a book');
                 bookshelf.push({'w': randWidth, 'h': randHeight});
                 remainingSpace -= randWidth;
 
@@ -47,7 +47,7 @@ class Quilt {
                     debugWidthCounter[1]++;
                 }
             }
-            console.log('   eisDEBUG: adding a bookshelf (remainingSpace is ' + remainingSpace + ')');
+            // console.log('   eisDEBUG: adding a bookshelf (remainingSpace is ' + remainingSpace + ')');
             this.shelves.push(bookshelf);
         }
         // console.log('  eisDEBUG: printed bookshelf:');

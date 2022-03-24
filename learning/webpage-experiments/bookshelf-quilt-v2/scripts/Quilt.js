@@ -13,6 +13,7 @@ class Quilt {
 
     randomizeBooks() {
         console.log('  eisDEBUG: Quilt.randomizeBooks()');
+        let debugWidthCounter = [0, 0];
 
         if(HEIGHT_WEIGHTS.length > 0) {
             this.heightWeights = setWeightsByArray(HEIGHT_WEIGHTS);
@@ -29,7 +30,6 @@ class Quilt {
         let minWidth = Math.min(...BOOK_WIDTHS);
         for(let i = 0; i < NUM_ROWS * NUM_COLUMNS; i++) {
         // for(let i = 0; i < 1; i++) {
-            // console.log('   eisDEBUG: minWidth is ' + minWidth + ' and SHELF_WIDTH is ' + SHELF_WIDTH);
             let bookshelf = [];
             let remainingSpace = SHELF_WIDTH;
             while(remainingSpace >= minWidth) {
@@ -39,12 +39,20 @@ class Quilt {
                 console.log('     eisDEBUG: adding a book');
                 bookshelf.push({'w': randWidth, 'h': randHeight});
                 remainingSpace -= randWidth;
+
+                // DEBUG
+                if(randWidth === 1) {
+                    debugWidthCounter[0]++;
+                } else {
+                    debugWidthCounter[1]++;
+                }
             }
             console.log('   eisDEBUG: adding a bookshelf (remainingSpace is ' + remainingSpace + ')');
             this.shelves.push(bookshelf);
         }
-        console.log('  eisDEBUG: printed bookshelf:');
-        this.printBookshelf();
+        // console.log('  eisDEBUG: printed bookshelf:');
+        // this.printBookshelf();
+        console.log('    eisDEBUG: debugWidthCounter is ' + debugWidthCounter);
     }
 
     getRandomHeight() {
@@ -54,7 +62,6 @@ class Quilt {
     getRandomWidth(max) {
         let width = max + 1;
         while(width > max) {
-            // console.log('     eisDEBUG: getRandomWidth(), width is ' + width + ', max is ' + max);
             width = randomByWeightedArray(BOOK_WIDTHS, this.widthWeights);
         }
         return width;
@@ -63,6 +70,41 @@ class Quilt {
     redraw() {
         console.log('  eisDEBUG: Quilt.redraw()');
 
+        let w = getWindowWidth();
+        let h = getWindowHeight();
+        let shelfW = (w - (WOOD_WIDTH * (NUM_COLUMNS + 1))) / NUM_COLUMNS;
+        let shelfH = (h - (WOOD_WIDTH * (NUM_ROWS + 1))) / NUM_ROWS;
+        let shelfIndex = 0;
+
+        document.getElementById(QUILT_SVG_ID).setAttribute('width', w);
+        document.getElementById(QUILT_SVG_ID).setAttribute('height', h);
+        document.getElementById(REDRAW_SVG_ID).setAttribute('width', w);
+        document.getElementById(REDRAW_SVG_ID).setAttribute('height', h);
+
+        let svgHTML = '';
+
+        for(let i = 0; i < NUM_ROWS; i++) {
+            for(let j = 0; j < NUM_COLUMNS; j++) {
+                let shelfX = WOOD_WIDTH + j * (shelfW + WOOD_WIDTH);
+                let shelfY = WOOD_WIDTH + i * (shelfH + WOOD_WIDTH);
+                svgHTML += '\n  <rect class="svg-shelf" y=' + shelfY + ' x=' + shelfX + ' width=' + shelfW + ' height=' + shelfH + ' />';
+
+                let shelf = this.shelves[shelfIndex];
+                let bookX = shelfX;
+                for(let k = 0; k < shelf.length; k++) {
+                    // add a book
+                    let bookW = (shelf[k].w / SHELF_WIDTH) * shelfW;
+                    let bookH = (shelf[k].h / SHELF_HEIGHT) * shelfH;
+                    let space = shelfH - bookH;
+                    svgHTML += '\n    <rect class="svg-book" y=' + (shelfY + space) + ' x=' + bookX + ' width=' + bookW + ' height=' + bookH + ' />';
+
+                    bookX += bookW;
+                }
+                shelfIndex++;
+            }
+        }
+
+        document.getElementById(QUILT_SVG_ID).innerHTML = svgHTML;
     }
 
     printBookshelf() {

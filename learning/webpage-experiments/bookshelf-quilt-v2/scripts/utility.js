@@ -33,25 +33,27 @@ function setWeightsByCount(count) {
 }
 
 function getWindowWidth() {
-    return 0;
+    return window.innerWidth;
 }
 
 function getWindowHeight() {
-    return 0;
+    return window.innerHeight;
 }
 
 function randomByWeightedArray(values, weights) {
-    // let returnVal = values[0];
     let random = Math.random(); // returns a number between 0 and 1
     let index = 0;
     while(weights[index] < random) {
         index++;
     }
 
-    // console.log('    eisDEBUG: randomByWeightedArray returning ' + values[index]);
     return values[index];
 }
 
-function roundByTwo(num) {
-    return Math.floor(num * 100) / 100;
+function roundByThree(num) {
+    return Math.floor(num * 1000) / 1000;
+}
+
+function getRandomColorHex() {
+    
 }

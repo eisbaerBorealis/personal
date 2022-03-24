@@ -1,12 +1,33 @@
-:root {
+/* :root {
     --main-width: 900px;
-}
+} */
 
 html, body {
     height: 100%;
     width: 100%;
+    margin: 0px;
 }
 
-.clickable:hover {
-    cursor: pointer;
+#quilt {
+    background-color: var(--color-wood);
 }
+
+.svg-shelf {
+    fill: var(--color-background);
+}
+
+.svg-book {
+    stroke-width: 1px;
+    stroke: var(--color-book-border);
+    fill: none;
+}
+
+#redraw {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+/* .clickable:hover {
+    cursor: pointer;
+} */

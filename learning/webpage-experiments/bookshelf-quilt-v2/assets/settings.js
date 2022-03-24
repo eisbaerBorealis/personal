@@ -1,11 +1,12 @@
 const TICKS_PER_SEC = 40;
 const QUILT_SVG_ID = 'quilt';
+const REDRAW_SVG_ID = 'redraw';
 
 var NUM_ROWS = 5;
 var NUM_COLUMNS = 3;
 var SHELF_WIDTH = 8;
-var SHELF_HEIGHT = 10;
-var WOOD_WIDTH = 20;
+var SHELF_HEIGHT = 20;
+var WOOD_WIDTH = 10;
 
 var BOOK_HEIGHTS = [11, 12, 13, 14, 15, 16, 17, 18];
 var BOOK_WIDTHS = [1.0, 1.5];

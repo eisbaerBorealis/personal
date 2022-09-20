@@ -62,6 +62,20 @@ function normalFishing(newCount) {
     }, 100);
 }
 
+function explore() {
+    let countDown = 0;
+    let exploreInterval = setInterval(() => {
+        if(Number(document.getElementById('stamina').innerHTML.replace(/,/g, '')) > 0) {
+            if(countDown > 0) {
+                countDown--;
+            } else {
+                document.getElementsByClassName('explorebtn')[0].click()
+                countDown = 2 + Math.floor(Math.random() * 3);
+            }
+        }
+    }, 200)
+}
+
 /* Completed Tests
 function mealwormTest() {
     let testInterval = setInterval(() => {

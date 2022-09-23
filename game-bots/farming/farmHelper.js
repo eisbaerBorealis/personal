@@ -21,8 +21,8 @@ function mealwormFishing(newCount) {
     }, 100);
 }
 
-function normalFishing(newCount) {
-    let count = newCount;
+function normalFishing(min, max) {
+    let count = Math.floor(Math.random() * (max - min + 1) + min);
     let fishOn = false;
     let fishCountDown = 0;
     console.log('DEBUG: starting normalFishing with count ' + count);
@@ -173,6 +173,48 @@ function normalFishingOLD1(newCount) {
             clearInterval(fishingInterval);
         }
     }, 100);
+}
+
+function normalFishingOLD1(newCount) {
+    let count = newCount;
+    let fishOn = false;
+    let fishCountDown = 0;
+    console.log('DEBUG: starting normalFishing with count ' + count);
+    
+    let fishingInterval = setInterval(() => {
+        if(fishOn) {
+            fishCountDown--;
+            if(fishCountDown <= 0) {
+                // console.log('    DEBUG: fishCountDown is ' + fishCountDown);
+                if(Math.random() > 0.4) {
+                    count--;
+                    fishOn = false;
+                    console.log('  DEBUG: Caught a fish! Remaining count: ' + count);
+                    fishCountDown = 17;
+                    document.getElementsByClassName('fishcaught')[0].click();
+                }
+            }// else {console.log('    DEBUG: fishCountDown is ' + fishCountDown);}
+        } else {
+            let fishes = document.getElementsByClassName('fish');
+            for(let i = 0; i < fishes.length; i++) {
+                let fish = fishes[i];
+                if(fish.style.display !== 'none' && fish.style.opacity > 0.3) {
+                    if(Math.random() > 0.8) {
+                        fishOn = true;
+                        // console.log('  DEBUG: Hooked a fish!');
+                        fish.click();
+                        fishCountDown = 15 + Math.floor(Math.random() * 10);
+                        // console.log('    DEBUG: new fishCountDown is ' + fishCountDown);
+                    }
+                }
+            }
+        }
+
+        if(count <= 0) {
+            console.log('DEBUG: caught enough fish!');
+            clearInterval(fishingInterval);
+        }
+    }, 50);
 }
 
 // */

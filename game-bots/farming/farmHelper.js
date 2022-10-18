@@ -66,7 +66,7 @@ function normalFishing(min, max) {
 function explore() {
     let countDown = 0;
     let exploreInterval = setInterval(() => {
-        if(Number(document.getElementById('stamina').innerHTML.replace(/,/g, '')) > 0) {
+        if(document.getElementById('stamina') !== null && Number(document.getElementById('stamina').innerHTML.replace(/,/g, '')) > 0) {
             if(countDown > 0) {
                 countDown--;
             } else {

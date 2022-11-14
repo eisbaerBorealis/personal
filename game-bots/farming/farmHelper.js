@@ -8,8 +8,12 @@ function mealwormFishing(newCount) {
             if(fish.style.display !== 'none' && fish.style.opacity > 0.3) {
                 if(Math.random() > 0.87) { // 0.85?
                     count--;
-                    console.log('  DEBUG: Caught a fish! Remaining count: ' + count);
                     fish.click();
+                    if(count < 10 ||
+                        (count < 100 && count % 10 === 0) ||
+                        (count % 20 === 0)){
+                        console.log('  DEBUG: Caught a fish! Remaining count: ' + count);
+                    }
                 }
             }
         }
@@ -35,7 +39,11 @@ function normalFishing(min, max) {
                 if(Math.random() > 0.4) {
                     count--;
                     fishOn = false;
-                    console.log('  DEBUG: Caught a fish! Remaining count: ' + count);
+                    if(count < 10 ||
+                        (count < 100 && count % 10 === 0) ||
+                        (count % 20 === 0)){
+                        console.log('  DEBUG: Caught a fish! Remaining count: ' + count);
+                    }
                     fishCountDown = 17;
                     document.getElementsByClassName('fishcaught')[0].click();
                 }
@@ -63,10 +71,11 @@ function normalFishing(min, max) {
     }, 50);
 }
 
-function explore() {
+function explore(newMinStam) {
     let countDown = 0;
+    let minStam = newMinStam;
     let exploreInterval = setInterval(() => {
-        if(document.getElementById('stamina') !== null && Number(document.getElementById('stamina').innerHTML.replace(/,/g, '')) > 0) {
+        if(document.getElementById('stamina') !== null && Number(document.getElementById('stamina').innerHTML.replace(/,/g, '')) > minStam) {
             if(countDown > 0) {
                 countDown--;
             } else {
@@ -74,7 +83,46 @@ function explore() {
                 countDown = 2 + Math.floor(Math.random() * 3);
             }
         }
-    }, 200)
+    }, 197)
+}
+
+function farm() {
+    let countDown = 0;
+    let state = 'wait'; // plant, harvest
+
+    let farmInterval = setInterval(() => {
+        switch(state) {
+            case 'wait':
+                // if class c-progress-bar-fill has style width 100%, start harvest countdown
+                if(document.getElementsByClassName('c-progress-bar-fill')[0].style.width == "100%") {
+                    console.log('    DEBUG: progress bar is 100%!');
+                    state = 'harvest';
+                    countDown = Math.floor(Math.random() * 7 + 1);
+                }
+                break;
+            case 'plant':
+                if(countDown <= 0){
+                    document.getElementsByClassName('plantallbtn')[0].click();
+                    console.log('DEBUG: Planted all seeds!');
+                    state = 'wait';
+                } else {
+                    countDown--;
+                }
+                break;
+            case 'harvest':
+                if(countDown <= 0){
+                    document.getElementsByClassName('harvestallbtn')[0].click();
+                    console.log('    DEBUG: Harvested all crops!');
+                    state = 'plant';
+                    countDown = Math.floor(Math.random() * 1 + 1);
+                } else {
+                    countDown--;
+                }
+                break;
+            default:
+                console.error('  DEBUG: ERROR: default in switch statement (farm()).');
+        }
+    }, 497)
 }
 
 /* Completed Tests

@@ -2,7 +2,7 @@ import pathlib
 
 def main():
     filePath = pathlib.Path(__file__).parent.absolute()
-    fileName = "input-001b.txt"
+    fileName = "input-001.txt"
     numwords = ["1", "2", "3", "4", "5", "6", "7", "8", "9",
                 "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
 

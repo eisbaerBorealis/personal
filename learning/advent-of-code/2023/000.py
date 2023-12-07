@@ -3,7 +3,7 @@ import re
 
 def main():
     filePath = pathlib.Path(__file__).parent.absolute()
-    fileName = "input-001a.txt"
+    fileName = "input-000.txt"
 
     try:
         fp = open(str(filePath) + "/" + fileName, 'r')

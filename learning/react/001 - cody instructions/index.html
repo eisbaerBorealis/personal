@@ -1,0 +1,117 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>React Test</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <!-- from https://codydhowell.com/instructions/ -->
+<script type="text/babel">
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 1
+    }
+  }
+
+  incrementCounter = () => {
+    this.setState({count: this.state.count + 1});
+  }
+
+  render() {
+    return (
+      <main className="container">
+        <h1>Lorem Ipsum</h1>
+        <p>Hello, world!</p>
+        <p onClick={this.incrementCounter}>Count: {this.state.count} (click on me)</p>
+        <p>{this.state.count % 3 === 0 && ("The count is divisible by 3!")}</p>
+        <p>{this.state.count % 5 === 0 && ("The count is divisible by 5!")}</p>
+        <PartTwo inputString="this text was given in the App class and passed to the PartTwo class"/>
+        <PartThree />
+      </main>
+    );
+  }
+}
+
+class PartTwo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
+  }
+
+  render() {
+    return (
+      <main className="container">
+        <h1>Part Two!!</h1>
+        <p>{this.props.inputString}</p>
+      </main>
+    );
+  }
+}
+
+class PartThree extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      textString: ""
+    }
+  }
+  
+  updateTextInput = () => {
+    let value = document.querySelector('#textInput').value;
+    console.log('eisDEBUG: textInput is ' + value);
+    this.setState({textString: value});
+    console.log('eisDEBUG: after setState');
+  }
+
+  render() {    
+    console.log('eisDEBUG: this.state.textString is ' + this.state.textString);
+
+    return (
+      <main className="container">
+        <h1>Part Three!!</h1>
+        <input id="textInput" type="text" name="textInput" onChange={this.updateTextInput}/>
+        (comma separated)
+        <InputToList input={this.state.textString}/>
+      </main>
+    );
+  }
+}
+
+class InputToList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      strings: []
+    }
+  }
+
+  render() {
+    let inputArray = this.props.input.split(',');
+    let displayArray = [];
+      for(let i = 0; i < inputArray.length; i++) {
+        displayArray.push(<li> {inputArray[i]}</li>)
+      }
+
+    return (
+      <main className="container">
+        <ul>
+          {displayArray}
+        </ul>
+      </main>
+    );
+  }
+}
+
+ReactDOM.render(<App />, document.querySelector('#react-container')); 
+</script>
+</head>
+
+<body>
+  <div id='react-container' ></div>
+</body>
+
+</html>

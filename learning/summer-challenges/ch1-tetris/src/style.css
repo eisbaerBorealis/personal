@@ -1,0 +1,13 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.svgGrid {
+  stroke-width: 1;
+  stroke: #333333;
+}

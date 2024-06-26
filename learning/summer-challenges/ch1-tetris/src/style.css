@@ -1,13 +1,58 @@
-html, body {
+html, body, #root, #appDiv {
   height: 100%;
   width: 100%;
   margin: 0px;
+}
+
+#appDiv {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: var(--color-main-background);
+}
+
+#uiSVG {
+  position: fixed;
+}
+
+#gameDiv {
+  z-index: 1;
 }
 
 .svgGrid {
   stroke-width: 1;
   stroke: #333333;
+}
+
+.svgKey {
+  fill: none;
+  stroke-width: 3;
+  stroke: #000000;
+}
+
+#boardSvgBackground {
+  fill: var(--color-board-background);
+}
+
+#uiSvgBackground {
+  fill: var(--color-ui-background);
+}
+
+.svgTextPixelBig {
+  font-family: EisbaerPixels, Arial;
+  font-size: 30px;
+}
+
+.svgTextPixelSmall {
+  font-family: EisbaerPixels, Arial;
+  font-size: 12px;
+}
+
+.svgTextPlain {
+  font-family: Arial;
+  font-size: 24px;
+}
+.svgTextPlainSmall {
+  font-family: Arial;
+  font-size: 16px;
 }

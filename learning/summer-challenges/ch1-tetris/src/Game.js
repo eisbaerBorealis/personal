@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import {initializeSVG} from './graphics.js';
+// import {initializeSVG} from './graphics.js';
+import * as graphics from './graphics.js';
+import * as api from './api.js';
 
 class Game extends Component {
   constructor(props) {
@@ -17,7 +19,9 @@ componentDidMount() {
   this.interval = setInterval(this.doTick, 50);
   console.log('eisDEBUG: Game.componentDidMount()');
   console.log('eisDEBUG: this.state.counter is ' + this.state.counter);
-  initializeSVG();
+  // initializeSVG();
+  graphics.initializeBoardSVG();
+  graphics.initializeUISVG();
 }
 
 componentWillUnmount() {
@@ -35,13 +39,13 @@ doTick() {
   }
 }
 
-  render() {
-    return (
-      <div id="gameDiv">
-        <svg id="gameSVG" width="300" height="600" xmlns="http://www.w3.org/2000/svg"></svg>
-      </div>
-    );
-  }
+render() {
+  return (
+    <div id="gameDiv">
+      <svg id="gameSVG" width="300" height="600" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+  );
+}
 
 };
 

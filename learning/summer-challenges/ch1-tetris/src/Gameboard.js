@@ -16,11 +16,7 @@ class Gameboard {
   
   newNextPiece() {
     console.log('eisDEBUG: Gameboard.newNextPiece()');
-    // this.nextPiece = 'z';
     
-    // for(let i = 0; i < 10; i++) {
-    //   console.log('  eisDEBUG: random number is ' + Math.floor(Math.random() * 7));
-    // }
     let nextRand = Math.floor(Math.random() * 7);
     switch(nextRand) {
       case 0:
@@ -48,6 +44,8 @@ class Gameboard {
         console.log('ERROR: default switch in Gameboard.newNextPiece()');
         this.nextPiece = 'o';
     }
+
+    // this.nextPiece = 'z'; // i j l o s t z
   }
 
   newPiece() {
@@ -70,8 +68,94 @@ class Gameboard {
   }
 
   checkPlace(type, rotation, x, y) {
-    console.log('eisDEBUG: Gameboard.checkPlace()');
+    // console.log('eisDEBUG: Gameboard.checkPlace()');
+    console.log('eisDEBUG: Gameboard.checkPlace() with ' + type + ', ' + rotation + ', ' + x + ', and ' + y);
     let isClear = true;
+
+    let piece = type + rotation;
+
+    // up-left
+    if(piece.match(/(j0)|(l3)/g)){
+      if(x <= 0 || y < 1 || this.board[y-1][x-1] !== null) {
+        isClear = false;
+        console.log('  eisDEBUG: Gameboard.checkPlace() failed on up-left');
+      }
+    }
+
+    // up
+    if(piece.match(/(i1)|(j1)|(j3)|(l1)|(l3)|(s1)|(t0)|(t1)|(t3)|(z1)/g)){
+      if(x < 0 || x > 9 || y < 1 || this.board[y-1][x] !== null) {
+        isClear = false;
+        console.log('  eisDEBUG: Gameboard.checkPlace() failed on up');
+      }
+    }
+
+    // up-right
+    if(piece.match(/(j1)|(l0)/g)){
+      if(x > 8 || y < 1 || this.board[y-1][x+1] !== null) {
+        isClear = false;
+        console.log('  eisDEBUG: Gameboard.checkPlace() failed on up-right');
+      }
+    }
+
+    // left
+    if(piece.match(/(i0)|(j0)|(j2)|(l0)|(l2)|(t0)|(t2)|(t3)|(z0)|(z1)/g)){
+      if(x < 0 || y < 0 || y > 19 || this.board[y][x-1] !== null) {
+        isClear = false;
+        console.log('  eisDEBUG: Gameboard.checkPlace() failed on left');
+      }
+    }
+
+    // right
+    if(piece.match(/(i0)|(j0)|(j2)|(l0)|(l2)|(o0)|(s0)|(s1)|(t0)|(t1)|(t2)/g)){
+      if(x > 8 || y < 0 || y > 19 || this.board[y][x+1] !== null) {
+        isClear = false;
+        console.log('  eisDEBUG: Gameboard.checkPlace() failed on right');
+      }
+    }
+
+    // right-right
+    if(piece.match(/(i0)/g)){
+      if(x > 7 || y < 0 || y > 19 || this.board[y][x+2] !== null) {
+        isClear = false;
+        console.log('  eisDEBUG: Gameboard.checkPlace() failed on right-right');
+      }
+    }
+
+    // down-left
+    if(piece.match(/(j3)|(l2)|(s0)|(z1)/g)){
+      if(x < 1 || y > 18 || this.board[y+1][x-1] !== null) {
+        isClear = false;
+        console.log('  eisDEBUG: Gameboard.checkPlace() failed on down-left');
+      }
+    }
+
+    // down
+    if(piece.match(/(i1)|(j1)|(j3)|(l1)|(l3)|(o0)|(s0)|(t1)|(t2)|(t3)|(z0)/g)){
+      if(x < 0 || x > 9 || y > 18 || this.board[y+1][x] !== null) {
+        isClear = false;
+        console.log('  eisDEBUG: Gameboard.checkPlace() failed on down');
+      }
+    }
+
+    // down-right
+    if(piece.match(/(j2)|(l1)|(o0)|(s1)|(z0)/g)){
+      if(x > 8 || y > 18 || this.board[y+1][x+1] !== null) {
+        isClear = false;
+        console.log('  eisDEBUG: Gameboard.checkPlace() failed on down-right');
+      }
+    }
+
+    // down-down
+    if(piece.match(/(i1)/g)){
+      if(x < 0 || x > 9 || y > 17 || this.board[y][x+1] !== null) {
+        isClear = false;
+        console.log('  eisDEBUG: Gameboard.checkPlace() failed on down-down');
+      }
+    }
+
+
+
 
     return isClear;
   }
@@ -79,6 +163,59 @@ class Gameboard {
   removePiece(type, rotation, x, y) {
     console.log('eisDEBUG: Gameboard.removePiece()');
 
+    let piece = type + rotation;
+
+    graphics.clearBlock(x, y);
+    
+    // up-left
+    if(piece.match(/(j0)|(l3)/g)){
+      graphics.clearBlock(x-1, y-1);
+    }
+
+    // up
+    if(piece.match(/(i1)|(j1)|(j3)|(l1)|(l3)|(s1)|(t0)|(t1)|(t3)|(z1)/g)){
+      graphics.clearBlock(x, y-1);
+    }
+
+    // up-right
+    if(piece.match(/(j1)|(l0)/g)){
+      graphics.clearBlock(x+1, y-1);
+    }
+
+    // left
+    if(piece.match(/(i0)|(j0)|(j2)|(l0)|(l2)|(t0)|(t2)|(t3)|(z0)|(z1)/g)){
+      graphics.clearBlock(x-1, y);
+    }
+
+    // right
+    if(piece.match(/(i0)|(j0)|(j2)|(l0)|(l2)|(o0)|(s0)|(s1)|(t0)|(t1)|(t2)/g)){
+      graphics.clearBlock(x+1, y);
+    }
+
+    // right-right
+    if(piece.match(/(i0)/g)){
+      graphics.clearBlock(x+2, y);
+    }
+
+    // down-left
+    if(piece.match(/(j3)|(l2)|(s0)|(z1)/g)){
+      graphics.clearBlock(x-1, y+1);
+    }
+
+    // down
+    if(piece.match(/(i1)|(j1)|(j3)|(l1)|(l3)|(o0)|(s0)|(t1)|(t2)|(t3)|(z0)/g)){
+      graphics.clearBlock(x, y+1);
+    }
+
+    // down-right
+    if(piece.match(/(j2)|(l1)|(o0)|(s1)|(z0)/g)){
+      graphics.clearBlock(x+1, y+1);
+    }
+
+    // down-down
+    if(piece.match(/(i1)/g)){
+      graphics.clearBlock(x, y+2);
+    }
   }
 
   addPiece(type, rotation, x, y) {

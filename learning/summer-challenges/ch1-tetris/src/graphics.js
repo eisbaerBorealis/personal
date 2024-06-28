@@ -80,4 +80,9 @@ export const hideStartBtn = () => {
 
 export const setBlock = (type, x, y) => {
   document.getElementById('board-' + x + '-' + y).setAttribute('class','svgBlock ' + type + 'BlockActive');
+  console.log('  eisDEBUG: graphics.setBlock, ' + x + ', ' + y);
+}
+
+export const clearBlock = (x, y) => {
+  document.getElementById('board-' + x + '-' + y).setAttribute('class','svgBlock hidden');
 }

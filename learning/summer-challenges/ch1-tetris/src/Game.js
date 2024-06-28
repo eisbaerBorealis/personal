@@ -17,7 +17,13 @@ class Game extends Component {
     
     this.doTick = this.doTick.bind(this);
     this.initializeListeners = this.initializeListeners.bind(this);
+    this.getKeyPressed = this.getKeyPressed.bind(this);
     this.apiStartGame = this.apiStartGame.bind(this);
+    this.apiUp = this.apiUp.bind(this);
+    this.apiLeft = this.apiLeft.bind(this);
+    this.apiRight = this.apiRight.bind(this);
+    this.apiDown = this.apiDown.bind(this);
+    this.apiSpace = this.apiSpace.bind(this);
   }
   
 componentDidMount() {
@@ -50,6 +56,31 @@ doTick() {
 initializeListeners() {
   console.log('eisDEBUG: initializeListeners()');
   document.getElementById('btnNewGame').addEventListener('click', this.apiStartGame);
+  document.addEventListener('keydown', this.getKeyPressed);
+}
+
+getKeyPressed(e) {
+  let key = e.keyCode;
+  console.log('eisDEBUG: getKeyPressed(), key is ' + key);
+
+  if(this.state.gameState === 1) {
+    if(key === 87 || key === 38) {
+      this.apiUp();
+    } else if(key === 65 || key === 37) {
+      this.apiLeft();
+    } else if(key === 68 || key === 39) {
+      this.apiRight();
+    } else if(key === 83 || key === 40) {
+      this.apiDown();
+    } else if(key === 32) {
+      this.apiSpace();
+    } else {
+      console.log('eisDEBUG: getKeyPressed(), key is ' + key + '; not a valid control');
+    }
+  } else {
+    console.log('  eisDEBUG: getKeyPressed(), gameState is ' + this.state.gameState);
+  }
+  
 }
 
 apiStartGame() {
@@ -58,6 +89,107 @@ apiStartGame() {
   this.state.gameBoard = new Gameboard();
   graphics.hideStartBtn();
   console.log('eisDEBUG: this.state.gameState is ' + this.state.gameState);
+  console.log('eisDEBUG: this.state.gameBoard is ' + this.state.gameBoard);
+}
+
+apiUp() {
+  console.log('eisDEBUG: apiUp()');
+
+  let newType = this.state.gameBoard.activePiece;
+  let newX = this.state.gameBoard.activeX;
+  let newY = this.state.gameBoard.activeY;
+
+  let newRotation = this.state.gameBoard.activeRotation + 1;
+  if(newType.match(/[isz]/g)){
+    console.log('  eisDEBUG: apiUp(), type matches [isz]');
+    newRotation %= 2;
+  } else if(newType.match(/[jlt]/g)){
+    console.log('  eisDEBUG: apiUp(), type matches [jlt]');
+    newRotation %= 4;
+  } else {
+    console.log('  eisDEBUG: apiUp(), type is o');
+    newRotation = 0;
+  }
+
+  if(this.state.gameBoard.checkPlace(newType, newRotation, newX, newY)) {
+    this.state.gameBoard.removePiece(newType, this.state.gameBoard.activeRotation, newX, newY);
+    this.state.gameBoard.addPiece(newType, newRotation, newX, newY);
+    console.log('    eisDEBUG: apiUp(), oldRotation is ' + this.state.gameBoard.activeRotation + ', newRotation is ' + newRotation);
+    this.state.gameBoard.activeRotation = newRotation;
+  } else {
+    console.log('  eisDEBUG: apiUp() failed');
+  }
+}
+
+apiLeft() {
+  console.log('eisDEBUG: apiLeft()');
+
+  let newType = this.state.gameBoard.activePiece;
+  let newRotation = this.state.gameBoard.activeRotation;
+  let newX = this.state.gameBoard.activeX - 1;
+  let newY = this.state.gameBoard.activeY;
+
+  if(this.state.gameBoard.checkPlace(newType, newRotation, newX, newY)) {
+    this.state.gameBoard.removePiece(newType, newRotation, newX + 1, newY);
+    this.state.gameBoard.addPiece(newType, newRotation, newX, newY);
+    this.state.gameBoard.activeX--;
+  } else {
+    console.log('  eisDEBUG: apiLeft() failed');
+  }
+}
+
+apiRight() {
+  console.log('eisDEBUG: apiRight()');
+
+  let newType = this.state.gameBoard.activePiece;
+  let newRotation = this.state.gameBoard.activeRotation;
+  let newX = this.state.gameBoard.activeX + 1;
+  let newY = this.state.gameBoard.activeY;
+
+  if(this.state.gameBoard.checkPlace(newType, newRotation, newX, newY)) {
+    this.state.gameBoard.removePiece(newType, newRotation, newX - 1, newY);
+    this.state.gameBoard.addPiece(newType, newRotation, newX, newY);
+    this.state.gameBoard.activeX++;
+  } else {
+    console.log('  eisDEBUG: apiRight() failed');
+  }
+}
+
+apiDown() {
+  console.log('eisDEBUG: apiDown()');
+
+  let newType = this.state.gameBoard.activePiece;
+  let newRotation = this.state.gameBoard.activeRotation;
+  let newX = this.state.gameBoard.activeX;
+  let newY = this.state.gameBoard.activeY + 1;
+
+  if(this.state.gameBoard.checkPlace(newType, newRotation, newX, newY)) {
+    this.state.gameBoard.removePiece(newType, newRotation, newX, newY - 1);
+    this.state.gameBoard.addPiece(newType, newRotation, newX, newY);
+    this.state.gameBoard.activeY++;
+  } else {
+    console.log('  eisDEBUG: apiDown() failed');
+  }
+}
+
+apiSpace() {
+  console.log('eisDEBUG: apiSpace()');
+
+  let newType = this.state.gameBoard.activePiece;
+  let newRotation = this.state.gameBoard.activeRotation;
+  let newX = this.state.gameBoard.activeX;
+  let newY = 19;
+
+  while(!this.state.gameBoard.checkPlace(newType, newRotation, newX, newY)) {
+    newY--;
+  }
+  
+  this.state.gameBoard.removePiece(newType, newRotation, newX, newY - 1);
+  this.state.gameBoard.addPiece(newType, newRotation, newX, newY);
+
+  this.state.gameBoard.removePiece(newType, newRotation, newX, this.state.gameBoard.activeY);
+  this.state.gameBoard.addPiece(newType, newRotation, newX, newY);
+  this.state.gameBoard.activeY = newY;
 }
 
 render() {

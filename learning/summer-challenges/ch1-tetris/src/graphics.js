@@ -78,11 +78,94 @@ export const hideStartBtn = () => {
   document.getElementById('newGameText').classList.add('hidden');
 }
 
-export const setBlock = (type, x, y) => {
-  document.getElementById('board-' + x + '-' + y).setAttribute('class','svgBlock ' + type + 'BlockActive');
-  console.log('  eisDEBUG: graphics.setBlock, ' + x + ', ' + y);
+export const setBlock = (type, x, y, isActive) => {
+  console.log('eisDEBUG: graphics.setBlock with ' + type + ', ' + x + ', ' + y + ', and ' + isActive);
+  if(isActive) {
+    document.getElementById('board-' + x + '-' + y).setAttribute('class','svgBlock ' + type + 'BlockActive');
+    console.log('  eisDEBUG: graphics.setBlock (active), ' + x + ', ' + y);
+  } else {
+    document.getElementById('board-' + x + '-' + y).setAttribute('class','svgBlock ' + type + 'BlockInactive');
+    console.log('  eisDEBUG: graphics.setBlock (inactive), ' + x + ', ' + y);
+  }
 }
 
 export const clearBlock = (x, y) => {
   document.getElementById('board-' + x + '-' + y).setAttribute('class','svgBlock hidden');
+}
+
+export const newNextPiece = (type) => {
+  for(let y = 0; y < 4; y++) {
+    for(let x = 0; x < 4; x++) {
+      // svgHTML += '<rect id="next-' + x + '-' + y + '" class="svgBlock hidden" width="30" height="30" x="' + (630+30*x) + '" y="' + (48+30*y) + '" rx="5" />';
+      document.getElementById('next-' + x + '-' + y).setAttribute('class','svgBlock hidden');
+    }
+  }
+  
+  let x = 1;
+  let y = 1;
+  let rotation = 0;
+  let piece = '' + type + rotation;
+  console.log('eisDEBUG: newNextPiece(), piece is ' + piece);
+
+  document.getElementById('next-' + (x) + '-' + (y)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+
+  // up-left
+  if(piece.match(/(j0)|(l3)/g)){
+    // graphics.setBlock(type, x-1, y-1);
+    document.getElementById('next-' + (x-1) + '-' + (y-1)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+  }
+
+  // up
+  if(piece.match(/(i1)|(j1)|(j3)|(l1)|(l3)|(s1)|(t0)|(t1)|(t3)|(z1)/g)){
+    // graphics.setBlock(type, x, y-1);
+    document.getElementById('next-' + (x) + '-' + (y-1)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+  }
+
+  // up-right
+  if(piece.match(/(j1)|(l0)/g)){
+    // graphics.setBlock(type, x+1, y-1);
+    document.getElementById('next-' + (x+1) + '-' + (y-1)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+  }
+
+  // left
+  if(piece.match(/(i0)|(j0)|(j2)|(l0)|(l2)|(t0)|(t2)|(t3)|(z0)|(z1)/g)){
+    // graphics.setBlock(type, x-1, y);
+    document.getElementById('next-' + (x-1) + '-' + (y)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+  }
+
+  // right
+  if(piece.match(/(i0)|(j0)|(j2)|(l0)|(l2)|(o0)|(s0)|(s1)|(t0)|(t1)|(t2)/g)){
+    // graphics.setBlock(type, x+1, y);
+    document.getElementById('next-' + (x+1) + '-' + (y)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+  }
+
+  // right-right
+  if(piece.match(/(i0)/g)){
+    // graphics.setBlock(type, x+2, y);
+    document.getElementById('next-' + (x+2) + '-' + (y)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+  }
+
+  // down-left
+  if(piece.match(/(j3)|(l2)|(s0)|(z1)/g)){
+    // graphics.setBlock(type, x-1, y+1);
+    document.getElementById('next-' + (x-1) + '-' + (y+1)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+  }
+
+  // down
+  if(piece.match(/(i1)|(j1)|(j3)|(l1)|(l3)|(o0)|(s0)|(t1)|(t2)|(t3)|(z0)/g)){
+    // graphics.setBlock(type, x, y+1);
+    document.getElementById('next-' + (x) + '-' + (y+1)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+  }
+
+  // down-right
+  if(piece.match(/(j2)|(l1)|(o0)|(s1)|(z0)/g)){
+    // graphics.setBlock(type, x+1, y+1);
+    document.getElementById('next-' + (x+1) + '-' + (y+1)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+  }
+
+  // down-down
+  if(piece.match(/(i1)/g)){
+    // graphics.setBlock(type, x, y+2);
+    document.getElementById('next-' + (x) + '-' + (y+2)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+  }
 }

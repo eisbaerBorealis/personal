@@ -45,6 +45,8 @@ class Gameboard {
         this.nextPiece = 'o';
     }
 
+    graphics.newNextPiece(this.nextPiece);
+
     // this.nextPiece = 'z'; // i j l o s t z
   }
 
@@ -52,7 +54,7 @@ class Gameboard {
     this.activeX = 4;
     this.activeY = 0;
     this.activePiece = this.nextPiece;
-    this.rotation = this.nextRotation;
+    this.activeRotation = this.nextRotation;
 
     if(this.activePiece === 'j' || this.activePiece === 'l' || this.activePiece === 't') {
       this.activeY = 1;
@@ -73,6 +75,14 @@ class Gameboard {
     let isClear = true;
 
     let piece = type + rotation;
+
+    // center
+    // if(piece.match(/(j0)|(l3)/g)){
+      if(x < 0 || x > 9 || y < 0 || y > 19 || this.board[y][x] !== null) {
+        isClear = false;
+        console.log('  eisDEBUG: Gameboard.checkPlace() failed on center');
+      }
+    // }
 
     // up-left
     if(piece.match(/(j0)|(l3)/g)){
@@ -148,14 +158,11 @@ class Gameboard {
 
     // down-down
     if(piece.match(/(i1)/g)){
-      if(x < 0 || x > 9 || y > 17 || this.board[y][x+1] !== null) {
+      if(x < 0 || x > 9 || y > 17 || this.board[y+2][x] !== null) {
         isClear = false;
         console.log('  eisDEBUG: Gameboard.checkPlace() failed on down-down');
       }
     }
-
-
-
 
     return isClear;
   }
@@ -224,56 +231,126 @@ class Gameboard {
     let piece = type + rotation;
     console.log('  eisDEBUG: piece is ' + piece);
 
-    graphics.setBlock(type, x, y);
+    graphics.setBlock(type, x, y, true);
 
     // up-left
     if(piece.match(/(j0)|(l3)/g)){
-      graphics.setBlock(type, x-1, y-1);
+      graphics.setBlock(type, x-1, y-1, true);
     }
 
     // up
     if(piece.match(/(i1)|(j1)|(j3)|(l1)|(l3)|(s1)|(t0)|(t1)|(t3)|(z1)/g)){
-      graphics.setBlock(type, x, y-1);
+      graphics.setBlock(type, x, y-1, true);
     }
 
     // up-right
     if(piece.match(/(j1)|(l0)/g)){
-      graphics.setBlock(type, x+1, y-1);
+      graphics.setBlock(type, x+1, y-1, true);
     }
 
     // left
     if(piece.match(/(i0)|(j0)|(j2)|(l0)|(l2)|(t0)|(t2)|(t3)|(z0)|(z1)/g)){
-      graphics.setBlock(type, x-1, y);
+      graphics.setBlock(type, x-1, y, true);
     }
 
     // right
     if(piece.match(/(i0)|(j0)|(j2)|(l0)|(l2)|(o0)|(s0)|(s1)|(t0)|(t1)|(t2)/g)){
-      graphics.setBlock(type, x+1, y);
+      graphics.setBlock(type, x+1, y, true);
     }
 
     // right-right
     if(piece.match(/(i0)/g)){
-      graphics.setBlock(type, x+2, y);
+      graphics.setBlock(type, x+2, y, true);
     }
 
     // down-left
     if(piece.match(/(j3)|(l2)|(s0)|(z1)/g)){
-      graphics.setBlock(type, x-1, y+1);
+      graphics.setBlock(type, x-1, y+1, true);
     }
 
     // down
     if(piece.match(/(i1)|(j1)|(j3)|(l1)|(l3)|(o0)|(s0)|(t1)|(t2)|(t3)|(z0)/g)){
-      graphics.setBlock(type, x, y+1);
+      graphics.setBlock(type, x, y+1, true);
     }
 
     // down-right
     if(piece.match(/(j2)|(l1)|(o0)|(s1)|(z0)/g)){
-      graphics.setBlock(type, x+1, y+1);
+      graphics.setBlock(type, x+1, y+1, true);
     }
 
     // down-down
     if(piece.match(/(i1)/g)){
-      graphics.setBlock(type, x, y+2);
+      graphics.setBlock(type, x, y+2, true);
+    }
+  }
+
+  setPiece() {
+    let type = this.activePiece;
+    let piece = type + this.activeRotation;
+    let x = this.activeX;
+    let y = this.activeY;
+
+    this.board[y][x] = this.activePiece;
+    graphics.setBlock(type, x, y, false);
+
+    // up-left
+    if(piece.match(/(j0)|(l3)/g)){
+      this.board[y-1][x-1] = this.activePiece;
+      graphics.setBlock(type, x-1, y-1, false);
+    }
+
+    // up
+    if(piece.match(/(i1)|(j1)|(j3)|(l1)|(l3)|(s1)|(t0)|(t1)|(t3)|(z1)/g)){
+      this.board[y-1][x] = this.activePiece;
+      graphics.setBlock(type, x, y-1, false);
+    }
+
+    // up-right
+    if(piece.match(/(j1)|(l0)/g)){
+      this.board[y-1][x+1] = this.activePiece;
+      graphics.setBlock(type, x+1, y-1, false);
+    }
+
+    // left
+    if(piece.match(/(i0)|(j0)|(j2)|(l0)|(l2)|(t0)|(t2)|(t3)|(z0)|(z1)/g)){
+      this.board[y][x-1] = this.activePiece;
+      graphics.setBlock(type, x-1, y, false);
+    }
+
+    // right
+    if(piece.match(/(i0)|(j0)|(j2)|(l0)|(l2)|(o0)|(s0)|(s1)|(t0)|(t1)|(t2)/g)){
+      this.board[y][x+1] = this.activePiece;
+      graphics.setBlock(type, x+1, y, false);
+    }
+
+    // right-right
+    if(piece.match(/(i0)/g)){
+      this.board[y][x+2] = this.activePiece;
+      graphics.setBlock(type, x+2, y, false);
+    }
+
+    // down-left
+    if(piece.match(/(j3)|(l2)|(s0)|(z1)/g)){
+      this.board[y+1][x-1] = this.activePiece;
+      graphics.setBlock(type, x-1, y+1, false);
+    }
+
+    // down
+    if(piece.match(/(i1)|(j1)|(j3)|(l1)|(l3)|(o0)|(s0)|(t1)|(t2)|(t3)|(z0)/g)){
+      this.board[y+1][x] = this.activePiece;
+      graphics.setBlock(type, x, y+1, false);
+    }
+
+    // down-right
+    if(piece.match(/(j2)|(l1)|(o0)|(s1)|(z0)/g)){
+      this.board[y+1][x+1] = this.activePiece;
+      graphics.setBlock(type, x+1, y+1, false);
+    }
+
+    // down-down
+    if(piece.match(/(i1)/g)){
+      this.board[y+2][x] = this.activePiece;
+      graphics.setBlock(type, x, y+2, false);
     }
   }
 }

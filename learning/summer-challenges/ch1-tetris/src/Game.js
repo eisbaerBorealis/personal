@@ -169,6 +169,8 @@ apiDown() {
     this.state.gameBoard.activeY++;
   } else {
     console.log('  eisDEBUG: apiDown() failed');
+    this.state.gameBoard.setPiece();
+    this.state.gameBoard.newPiece();
   }
 }
 
@@ -178,18 +180,26 @@ apiSpace() {
   let newType = this.state.gameBoard.activePiece;
   let newRotation = this.state.gameBoard.activeRotation;
   let newX = this.state.gameBoard.activeX;
-  let newY = 19;
+  let newY = this.state.gameBoard.activeY;
 
-  while(!this.state.gameBoard.checkPlace(newType, newRotation, newX, newY)) {
-    newY--;
+  // while(!this.state.gameBoard.checkPlace(newType, newRotation, newX, newY)) {
+  //   newY--;
+  // }
+  // let bestY = newY;
+  while(newY < 20 && this.state.gameBoard.checkPlace(newType, newRotation, newX, newY)) {
+    newY++;
   }
+  newY--;
   
-  this.state.gameBoard.removePiece(newType, newRotation, newX, newY - 1);
-  this.state.gameBoard.addPiece(newType, newRotation, newX, newY);
+  // this.state.gameBoard.removePiece(newType, newRotation, newX, newY - 1);
+  // this.state.gameBoard.addPiece(newType, newRotation, newX, newY);
 
   this.state.gameBoard.removePiece(newType, newRotation, newX, this.state.gameBoard.activeY);
   this.state.gameBoard.addPiece(newType, newRotation, newX, newY);
   this.state.gameBoard.activeY = newY;
+  
+  this.state.gameBoard.setPiece();
+  this.state.gameBoard.newPiece();
 }
 
 render() {

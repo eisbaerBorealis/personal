@@ -1,3 +1,5 @@
+import * as graphics from './graphics.js';
+
 class Gameboard {
   constructor() {
     this.board = Array(20).fill().map(() => Array(10).fill(null));
@@ -85,64 +87,56 @@ class Gameboard {
     let piece = type + rotation;
     console.log('  eisDEBUG: piece is ' + piece);
 
-    document.getElementById('board-' + x + '-' + y).setAttribute('class','svgBlock ' + type + 'BlockActive');
+    graphics.setBlock(type, x, y);
 
     // up-left
-    if(piece === 'j0' || piece === 'l3'){
-      document.getElementById('board-' + (x-1) + '-' + (y-1)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+    if(piece.match(/(j0)|(l3)/g)){
+      graphics.setBlock(type, x-1, y-1);
     }
 
     // up
-    if(piece === 'i1' || piece === 'j1' || piece === 'j3' || piece === 'l1' ||
-       piece === 'l3' || piece === 's1' || piece === 't0' || piece === 't1' ||
-       piece === 't3' || piece === 'z1'){
-      document.getElementById('board-' + (x-0) + '-' + (y-1)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+    if(piece.match(/(i1)|(j1)|(j3)|(l1)|(l3)|(s1)|(t0)|(t1)|(t3)|(z1)/g)){
+      graphics.setBlock(type, x, y-1);
     }
 
     // up-right
-    if(piece === 'j1' || piece === 'l0'){
-      document.getElementById('board-' + (x+1) + '-' + (y-1)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+    if(piece.match(/(j1)|(l0)/g)){
+      graphics.setBlock(type, x+1, y-1);
     }
 
     // left
-    if(piece === 'i0' || piece === 'j0' || piece === 'j2' || piece === 'l0' ||
-       piece === 'l2' || piece === 't0' || piece === 't2' || piece === 't3' ||
-       piece === 'z0' || piece === 'z1'){
-      document.getElementById('board-' + (x-1) + '-' + (y-0)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+    if(piece.match(/(i0)|(j0)|(j2)|(l0)|(l2)|(t0)|(t2)|(t3)|(z0)|(z1)/g)){
+      graphics.setBlock(type, x-1, y);
     }
 
     // right
-    if(piece === 'i0' || piece === 'j0' || piece === 'j2' || piece === 'l0' ||
-       piece === 'l2' || piece === 'o0' || piece === 's0' || piece === 's1' ||
-       piece === 't0' || piece === 't1' || piece === 't2'){
-      document.getElementById('board-' + (x+1) + '-' + (y-0)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+    if(piece.match(/(i0)|(j0)|(j2)|(l0)|(l2)|(o0)|(s0)|(s1)|(t0)|(t1)|(t2)/g)){
+      graphics.setBlock(type, x+1, y);
     }
 
     // right-right
-    if(piece === 'i0'){
-      document.getElementById('board-' + (x+2) + '-' + (y-0)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+    if(piece.match(/(i0)/g)){
+      graphics.setBlock(type, x+2, y);
     }
 
     // down-left
-    if(piece === 'j3' || piece === 'l2' || piece === 's0' || piece === 'z1'){
-      document.getElementById('board-' + (x-1) + '-' + (y+1)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+    if(piece.match(/(j3)|(l2)|(s0)|(z1)/g)){
+      graphics.setBlock(type, x-1, y+1);
     }
 
     // down
-    if(piece === 'i1' || piece === 'j1' || piece === 'j3' || piece === 'l1' ||
-       piece === 'l3' || piece === 'o0' || piece === 's0' || piece === 't1' ||
-       piece === 't2' || piece === 't3' || piece === 'z0'){
-      document.getElementById('board-' + (x-0) + '-' + (y+1)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+    if(piece.match(/(i1)|(j1)|(j3)|(l1)|(l3)|(o0)|(s0)|(t1)|(t2)|(t3)|(z0)/g)){
+      graphics.setBlock(type, x, y+1);
     }
 
     // down-right
-    if(piece === 'j2' || piece === 'l1' || piece === 'o0' || piece === 's1' || piece === 'z0'){
-      document.getElementById('board-' + (x+1) + '-' + (y+1)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+    if(piece.match(/(j2)|(l1)|(o0)|(s1)|(z0)/g)){
+      graphics.setBlock(type, x+1, y+1);
     }
 
     // down-down
-    if(piece === 'i1'){
-      document.getElementById('board-' + (x-0) + '-' + (y+2)).setAttribute('class','svgBlock ' + type + 'BlockActive');
+    if(piece.match(/(i1)/g)){
+      graphics.setBlock(type, x, y+2);
     }
   }
 }

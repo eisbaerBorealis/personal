@@ -77,3 +77,7 @@ export const hideStartBtn = () => {
   document.getElementById('btnNewGame').classList.add('hidden');
   document.getElementById('newGameText').classList.add('hidden');
 }
+
+export const setBlock = (type, x, y) => {
+  document.getElementById('board-' + x + '-' + y).setAttribute('class','svgBlock ' + type + 'BlockActive');
+}

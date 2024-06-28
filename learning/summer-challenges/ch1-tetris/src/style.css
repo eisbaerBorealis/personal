@@ -38,21 +38,80 @@ html, body, #root, #appDiv {
   fill: var(--color-ui-background);
 }
 
-.svgTextPixelBig {
+.svgTextPixel {
   font-family: EisbaerPixels, Arial;
-  font-size: 30px;
-}
-
-.svgTextPixelSmall {
-  font-family: EisbaerPixels, Arial;
-  font-size: 12px;
 }
 
 .svgTextPlain {
   font-family: Arial;
-  font-size: 24px;
 }
-.svgTextPlainSmall {
-  font-family: Arial;
-  font-size: 16px;
+
+.svgTextWhite {
+  fill: #ffffff;
+  
+}
+
+.svgButton {
+  stroke-width: 3;
+  stroke: #ffffff;
+}
+
+.svgBlock {
+  border: 1px;
+  stroke: #ffffff;
+}
+
+.iBlockActive {
+  fill: var(--color-i-block-vibrant);
+}
+.iBlockInactive {
+  fill: var(--color-i-block-dull);
+}
+.jBlockActive {
+  fill: var(--color-j-block-vibrant);
+}
+.jBlockInactive {
+  fill: var(--color-j-block-dull);
+}
+.lBlockActive {
+  fill: var(--color-l-block-vibrant);
+}
+.lBlockInactive {
+  fill: var(--color-l-block-dull);
+}
+.oBlockActive {
+  fill: var(--color-o-block-vibrant);
+}
+.oBlockInactive {
+  fill: var(--color-o-block-dull);
+}
+.sBlockActive {
+  fill: var(--color-s-block-vibrant);
+}
+.sBlockInactive {
+  fill: var(--color-s-block-dull);
+}
+.tBlockActive {
+  fill: var(--color-t-block-vibrant);
+}
+.tBlockInactive {
+  fill: var(--color-t-block-dull);
+}
+.zBlockActive {
+  fill: var(--color-z-block-vibrant);
+}
+.zBlockInactive {
+  fill: var(--color-z-block-dull);
+}
+
+.hidden {
+  display: none;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.unclickable {
+  pointer-events: none;
 }

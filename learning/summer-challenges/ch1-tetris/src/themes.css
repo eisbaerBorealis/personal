@@ -1,29 +1,36 @@
 .theme-main {
-  --color-main-background: #222222;
+  --color-main-background:  #222222;
   --color-board-background: #000000;
-  --color-ui-background: #aaaaaa;
+  --color-ui-background:    #aaaaaa;
 
   --color-i-block-vibrant: #ccad14;
-  --color-i-block-dull: #807126;
-  --color-i-block-faint: #fce77e;
+  --color-i-block-dull:   #807126;
+  --color-i-block-faint:  #fce77e;
+  --color-i-block-dark:   #332b05;
   --color-j-block-vibrant: #51cc14;
-  --color-j-block-dull: #448026;
-  --color-j-block-faint: #a8fc7e;
+  --color-j-block-dull:   #448026;
+  --color-j-block-faint:  #a8fc7e;
+  --color-j-block-dark:   #143305;
   --color-l-block-vibrant: #14cc70;
-  --color-l-block-dull: #268053;
-  --color-l-block-faint: #7efcbd;
+  --color-l-block-dull:   #268053;
+  --color-l-block-faint:  #7efcbd;
+  --color-l-block-dark:   #05331c;
   --color-o-block-vibrant: #148fcc;
-  --color-o-block-dull: #266280;
-  --color-o-block-faint: #7ed2fc;
+  --color-o-block-dull:   #266280;
+  --color-o-block-faint:  #7ed2fc;
+  --color-o-block-dark:   #052433;
   --color-s-block-vibrant: #3314cc;
-  --color-s-block-dull: #352680;
-  --color-s-block-faint: #937efc;
+  --color-s-block-dull:   #352680;
+  --color-s-block-faint:  #937efc;
+  --color-s-block-dark:   #0d0533;
   --color-t-block-vibrant: #cc14cc;
-  --color-t-block-dull: #802680;
-  --color-t-block-faint: #fc7efc;
+  --color-t-block-dull:   #802680;
+  --color-t-block-faint:  #fc7efc;
+  --color-t-block-dark:   #330533;
   --color-z-block-vibrant: #cc1433;
-  --color-z-block-dull: #802635;
-  --color-z-block-faint: #fc7e93;
+  --color-z-block-dull:   #802635;
+  --color-z-block-faint:  #fc7e93;
+  --color-z-block-dark:   #33050d;
 }
 
 @font-face {

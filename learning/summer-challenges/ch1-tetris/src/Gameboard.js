@@ -10,8 +10,10 @@ class Gameboard {
     this.nextPiece = null;
     this.nextRotation = 0;
     console.log('eisDEBUG: Gameboard.constructor()');
+    graphics.clearBoard();
     this.newNextPiece();
     this.newPiece();
+    // this.gameOver = false;
   }
   
   newNextPiece() {
@@ -51,6 +53,7 @@ class Gameboard {
   }
 
   newPiece() {
+    let success = true;
     this.activeX = 4;
     this.activeY = 0;
     this.activePiece = this.nextPiece;
@@ -62,11 +65,14 @@ class Gameboard {
 
     if(!this.checkPlace(this.activePiece, this.activeRotation, this.activeX, this.activeY)) {
       console.log('eisDEBUG: GAME OVER!!!');
+      success = false;
     } else {
-      this.addPiece(this.activePiece, this.activeRotation, this.activeX, this.activeY);
+      // this.addPiece(this.activePiece, this.activeRotation, this.activeX, this.activeY);
+      this.newNextPiece();
     }
-
-    this.newNextPiece();
+    this.addPiece(this.activePiece, this.activeRotation, this.activeX, this.activeY);
+    // this.newNextPiece();
+    return success;
   }
 
   checkPlace(type, rotation, x, y) {
@@ -353,6 +359,10 @@ class Gameboard {
       graphics.setBlock(type, x, y+2, false);
     }
   }
+
+  // checkGameOver() {
+  //   return this.gameOver;
+  // }
 }
 
 

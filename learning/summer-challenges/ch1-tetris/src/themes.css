@@ -1,6 +1,7 @@
 .theme-main {
   --color-main-background:  #222222;
   --color-board-background: #000000;
+  --color-board-background-trans: #00000088;
   --color-ui-background:    #aaaaaa;
 
   --color-i-block-vibrant: #ccad14;

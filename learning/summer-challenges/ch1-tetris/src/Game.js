@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Gameboard from './Gameboard.js';
 import * as graphics from './graphics.js';
-// import * as api from './api.js';
 
 class Game extends Component {
   constructor(props) {
@@ -9,10 +8,10 @@ class Game extends Component {
     this.state = {
       counter: 0,
       gameState: 0, // 0-start, 1-active, 2-paused, 3-end
-      // gameBoard: new Gameboard(),
       gameBoard: null,
       isPaused: true,
-      // gameBoard: Array(20).fill().map(() => Array(10).fill(null)),
+      countdown: 20,
+      score: 0,
     };
     
     this.doTick = this.doTick.bind(this);
@@ -44,11 +43,22 @@ componentWillUnmount() {
 
 doTick() {
   // console.log('eisDEBUG: Game.doTick()');
+  // if(this.state.gameState === 1 && this.state.gameBoard.checkGameOver()) {
+  //   console.log('  eisDEBUG: doTick(); gameState is 1 and gameBoard.gameover is true');
+  //   this.state.gameState = 3;
+  //   this.state.isPaused = true;
+  // }
   if(!this.state.isPaused) {
     this.state.counter++;
   
     if(this.state.counter % 100 === 0) {
       console.log('this.state.counter is ' + this.state.counter);
+    }
+
+    this.state.countdown--;
+    if(this.state.countdown <= 0) {
+      this.apiDown();
+      this.state.countdown = 20;
     }
   }
 }
@@ -86,6 +96,7 @@ getKeyPressed(e) {
 apiStartGame() {
   console.log('eisDEBUG: Game.apiStartGame()');
   this.state.gameState = 1;
+  this.state.isPaused = false;
   this.state.gameBoard = new Gameboard();
   graphics.hideStartBtn();
   console.log('eisDEBUG: this.state.gameState is ' + this.state.gameState);
@@ -170,7 +181,12 @@ apiDown() {
   } else {
     console.log('  eisDEBUG: apiDown() failed');
     this.state.gameBoard.setPiece();
-    this.state.gameBoard.newPiece();
+    let gameOver = !this.state.gameBoard.newPiece();
+    if(gameOver) {
+      this.state.gameState = 3;
+      this.state.isPaused = true;
+      graphics.gameOver();
+    }
   }
 }
 

@@ -15,12 +15,13 @@ export const initializeBoardSVG = () => {
       svgHTML += '<rect id="board-' + x + '-' + y + '" class="svgBlock hidden" width="30" height="30" x="' + (30*x) + '" y="' + (30*y) + '" rx="5" />';
     }
   }
+  svgHTML += '<rect id="svgDarkRect" class="hidden" width="300" height="600" x="0" y="0" />';
 
   svgHTML += '<rect id="btnNewGame" class="svgButton clickable" width="200" height="50" x="50" y="275" rx="15" />';
   svgHTML += '<text id="newGameText" class="svgTextPlain svgTextWhite unclickable" font-size="24" x="83" y="308">NEW GAME</text>';
 
-  svgHTML += '<text class="svgTextPixel svgTextWhite hidden" font-size="48" x="83" y="255">GAME</text>';
-  svgHTML += '<text class="svgTextPixel svgTextWhite hidden" font-size="48" x="83" y="380">OVER</text>';
+  svgHTML += '<text id="svgGameOver1" class="svgTextPixel svgTextWhite hidden" font-size="48" x="83" y="255">GAME</text>';
+  svgHTML += '<text id="svgGameOver2" class="svgTextPixel svgTextWhite hidden" font-size="48" x="83" y="380">OVER</text>';
 
   boardSVG.innerHTML = svgHTML;
 };
@@ -76,6 +77,9 @@ export const initializeUISVG = () => {
 export const hideStartBtn = () => {
   document.getElementById('btnNewGame').classList.add('hidden');
   document.getElementById('newGameText').classList.add('hidden');
+  document.getElementById('svgGameOver1').classList.add('hidden');
+  document.getElementById('svgGameOver2').classList.add('hidden');
+  document.getElementById('svgDarkRect').classList.add('hidden');
 }
 
 export const setBlock = (type, x, y, isActive) => {
@@ -94,12 +98,7 @@ export const clearBlock = (x, y) => {
 }
 
 export const newNextPiece = (type) => {
-  for(let y = 0; y < 4; y++) {
-    for(let x = 0; x < 4; x++) {
-      // svgHTML += '<rect id="next-' + x + '-' + y + '" class="svgBlock hidden" width="30" height="30" x="' + (630+30*x) + '" y="' + (48+30*y) + '" rx="5" />';
-      document.getElementById('next-' + x + '-' + y).setAttribute('class','svgBlock hidden');
-    }
-  }
+  clearNextSquare();
   
   let x = 1;
   let y = 1;
@@ -111,61 +110,77 @@ export const newNextPiece = (type) => {
 
   // up-left
   if(piece.match(/(j0)|(l3)/g)){
-    // graphics.setBlock(type, x-1, y-1);
     document.getElementById('next-' + (x-1) + '-' + (y-1)).setAttribute('class','svgBlock ' + type + 'BlockActive');
   }
 
   // up
   if(piece.match(/(i1)|(j1)|(j3)|(l1)|(l3)|(s1)|(t0)|(t1)|(t3)|(z1)/g)){
-    // graphics.setBlock(type, x, y-1);
     document.getElementById('next-' + (x) + '-' + (y-1)).setAttribute('class','svgBlock ' + type + 'BlockActive');
   }
 
   // up-right
   if(piece.match(/(j1)|(l0)/g)){
-    // graphics.setBlock(type, x+1, y-1);
     document.getElementById('next-' + (x+1) + '-' + (y-1)).setAttribute('class','svgBlock ' + type + 'BlockActive');
   }
 
   // left
   if(piece.match(/(i0)|(j0)|(j2)|(l0)|(l2)|(t0)|(t2)|(t3)|(z0)|(z1)/g)){
-    // graphics.setBlock(type, x-1, y);
     document.getElementById('next-' + (x-1) + '-' + (y)).setAttribute('class','svgBlock ' + type + 'BlockActive');
   }
 
   // right
   if(piece.match(/(i0)|(j0)|(j2)|(l0)|(l2)|(o0)|(s0)|(s1)|(t0)|(t1)|(t2)/g)){
-    // graphics.setBlock(type, x+1, y);
     document.getElementById('next-' + (x+1) + '-' + (y)).setAttribute('class','svgBlock ' + type + 'BlockActive');
   }
 
   // right-right
   if(piece.match(/(i0)/g)){
-    // graphics.setBlock(type, x+2, y);
     document.getElementById('next-' + (x+2) + '-' + (y)).setAttribute('class','svgBlock ' + type + 'BlockActive');
   }
 
   // down-left
   if(piece.match(/(j3)|(l2)|(s0)|(z1)/g)){
-    // graphics.setBlock(type, x-1, y+1);
     document.getElementById('next-' + (x-1) + '-' + (y+1)).setAttribute('class','svgBlock ' + type + 'BlockActive');
   }
 
   // down
   if(piece.match(/(i1)|(j1)|(j3)|(l1)|(l3)|(o0)|(s0)|(t1)|(t2)|(t3)|(z0)/g)){
-    // graphics.setBlock(type, x, y+1);
     document.getElementById('next-' + (x) + '-' + (y+1)).setAttribute('class','svgBlock ' + type + 'BlockActive');
   }
 
   // down-right
   if(piece.match(/(j2)|(l1)|(o0)|(s1)|(z0)/g)){
-    // graphics.setBlock(type, x+1, y+1);
     document.getElementById('next-' + (x+1) + '-' + (y+1)).setAttribute('class','svgBlock ' + type + 'BlockActive');
   }
 
   // down-down
   if(piece.match(/(i1)/g)){
-    // graphics.setBlock(type, x, y+2);
     document.getElementById('next-' + (x) + '-' + (y+2)).setAttribute('class','svgBlock ' + type + 'BlockActive');
   }
+}
+
+export const clearBoard = () => {
+  for(let y = 0; y < 20; y++) {
+    for(let x = 0; x < 10; x++) {
+      clearBlock(x, y);
+    }
+  }
+
+  clearNextSquare();
+}
+
+function clearNextSquare () {
+  for(let y = 0; y < 4; y++) {
+    for(let x = 0; x < 4; x++) {
+      document.getElementById('next-' + x + '-' + y).setAttribute('class','svgBlock hidden');
+    }
+  }
+}
+
+export const gameOver = () => {
+  document.getElementById('btnNewGame').classList.remove('hidden');
+  document.getElementById('newGameText').classList.remove('hidden');
+  document.getElementById('svgGameOver1').classList.remove('hidden');
+  document.getElementById('svgGameOver2').classList.remove('hidden');
+  document.getElementById('svgDarkRect').classList.remove('hidden');
 }

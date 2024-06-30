@@ -38,6 +38,10 @@ html, body, #root, #appDiv {
   fill: var(--color-ui-background);
 }
 
+#svgDarkRect {
+  fill: var(--color-board-background-trans);
+}
+
 .svgTextPixel {
   font-family: EisbaerPixels, Arial;
 }
@@ -48,7 +52,6 @@ html, body, #root, #appDiv {
 
 .svgTextWhite {
   fill: #ffffff;
-  
 }
 
 .svgButton {

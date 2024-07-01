@@ -43,17 +43,12 @@ componentWillUnmount() {
 
 doTick() {
   // console.log('eisDEBUG: Game.doTick()');
-  // if(this.state.gameState === 1 && this.state.gameBoard.checkGameOver()) {
-  //   console.log('  eisDEBUG: doTick(); gameState is 1 and gameBoard.gameover is true');
-  //   this.state.gameState = 3;
-  //   this.state.isPaused = true;
-  // }
   if(!this.state.isPaused) {
     this.state.counter++;
   
-    if(this.state.counter % 100 === 0) {
-      console.log('this.state.counter is ' + this.state.counter);
-    }
+    // if(this.state.counter % 100 === 0) {
+    //   console.log('this.state.counter is ' + this.state.counter);
+    // }
 
     this.state.countdown--;
     if(this.state.countdown <= 0) {
@@ -71,7 +66,7 @@ initializeListeners() {
 
 getKeyPressed(e) {
   let key = e.keyCode;
-  console.log('eisDEBUG: getKeyPressed(), key is ' + key);
+  // console.log('eisDEBUG: getKeyPressed(), key is ' + key);
 
   if(this.state.gameState === 1) {
     if(key === 87 || key === 38) {
@@ -84,6 +79,8 @@ getKeyPressed(e) {
       this.apiDown();
     } else if(key === 32) {
       this.apiSpace();
+    } else if(key === 80) { // P
+      this.apiPause();
     } else {
       console.log('eisDEBUG: getKeyPressed(), key is ' + key + '; not a valid control');
     }
@@ -103,8 +100,12 @@ apiStartGame() {
   console.log('eisDEBUG: this.state.gameBoard is ' + this.state.gameBoard);
 }
 
+apiPause() {
+  this.state.isPaused = !this.state.isPaused;
+}
+
 apiUp() {
-  console.log('eisDEBUG: apiUp()');
+  // console.log('eisDEBUG: apiUp()');
 
   let newType = this.state.gameBoard.activePiece;
   let newX = this.state.gameBoard.activeX;
@@ -112,20 +113,20 @@ apiUp() {
 
   let newRotation = this.state.gameBoard.activeRotation + 1;
   if(newType.match(/[isz]/g)){
-    console.log('  eisDEBUG: apiUp(), type matches [isz]');
+    // console.log('  eisDEBUG: apiUp(), type matches [isz]');
     newRotation %= 2;
   } else if(newType.match(/[jlt]/g)){
-    console.log('  eisDEBUG: apiUp(), type matches [jlt]');
+    // console.log('  eisDEBUG: apiUp(), type matches [jlt]');
     newRotation %= 4;
   } else {
-    console.log('  eisDEBUG: apiUp(), type is o');
+    // console.log('  eisDEBUG: apiUp(), type is o');
     newRotation = 0;
   }
 
   if(this.state.gameBoard.checkPlace(newType, newRotation, newX, newY)) {
     this.state.gameBoard.removePiece(newType, this.state.gameBoard.activeRotation, newX, newY);
     this.state.gameBoard.addPiece(newType, newRotation, newX, newY);
-    console.log('    eisDEBUG: apiUp(), oldRotation is ' + this.state.gameBoard.activeRotation + ', newRotation is ' + newRotation);
+    // console.log('    eisDEBUG: apiUp(), oldRotation is ' + this.state.gameBoard.activeRotation + ', newRotation is ' + newRotation);
     this.state.gameBoard.activeRotation = newRotation;
   } else {
     console.log('  eisDEBUG: apiUp() failed');
@@ -133,7 +134,7 @@ apiUp() {
 }
 
 apiLeft() {
-  console.log('eisDEBUG: apiLeft()');
+  // console.log('eisDEBUG: apiLeft()');
 
   let newType = this.state.gameBoard.activePiece;
   let newRotation = this.state.gameBoard.activeRotation;
@@ -150,7 +151,7 @@ apiLeft() {
 }
 
 apiRight() {
-  console.log('eisDEBUG: apiRight()');
+  // console.log('eisDEBUG: apiRight()');
 
   let newType = this.state.gameBoard.activePiece;
   let newRotation = this.state.gameBoard.activeRotation;
@@ -167,7 +168,7 @@ apiRight() {
 }
 
 apiDown() {
-  console.log('eisDEBUG: apiDown()');
+  // console.log('eisDEBUG: apiDown()');
 
   let newType = this.state.gameBoard.activePiece;
   let newRotation = this.state.gameBoard.activeRotation;
@@ -179,7 +180,7 @@ apiDown() {
     this.state.gameBoard.addPiece(newType, newRotation, newX, newY);
     this.state.gameBoard.activeY++;
   } else {
-    console.log('  eisDEBUG: apiDown() failed');
+    console.log('\n  eisDEBUG: apiDown() failed');
     this.state.gameBoard.setPiece();
     let gameOver = !this.state.gameBoard.newPiece();
     if(gameOver) {
@@ -198,18 +199,11 @@ apiSpace() {
   let newX = this.state.gameBoard.activeX;
   let newY = this.state.gameBoard.activeY;
 
-  // while(!this.state.gameBoard.checkPlace(newType, newRotation, newX, newY)) {
-  //   newY--;
-  // }
-  // let bestY = newY;
   while(newY < 20 && this.state.gameBoard.checkPlace(newType, newRotation, newX, newY)) {
     newY++;
   }
   newY--;
   
-  // this.state.gameBoard.removePiece(newType, newRotation, newX, newY - 1);
-  // this.state.gameBoard.addPiece(newType, newRotation, newX, newY);
-
   this.state.gameBoard.removePiece(newType, newRotation, newX, this.state.gameBoard.activeY);
   this.state.gameBoard.addPiece(newType, newRotation, newX, newY);
   this.state.gameBoard.activeY = newY;

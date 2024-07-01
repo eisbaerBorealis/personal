@@ -20,8 +20,8 @@ export const initializeBoardSVG = () => {
   svgHTML += '<rect id="btnNewGame" class="svgButton clickable" width="200" height="50" x="50" y="275" rx="15" />';
   svgHTML += '<text id="newGameText" class="svgTextPlain svgTextWhite unclickable" font-size="24" x="83" y="308">NEW GAME</text>';
 
-  svgHTML += '<text id="svgGameOver1" class="svgTextPixel svgTextWhite hidden" font-size="48" x="83" y="255">GAME</text>';
-  svgHTML += '<text id="svgGameOver2" class="svgTextPixel svgTextWhite hidden" font-size="48" x="83" y="380">OVER</text>';
+  svgHTML += '<text id="svgGameOver1" class="svgTextPixel svgTextWhite hidden" font-size="80" x="40" y="220">GAME</text>';
+  svgHTML += '<text id="svgGameOver2" class="svgTextPixel svgTextWhite hidden" font-size="80" x="40" y="440">OVER</text>';
 
   boardSVG.innerHTML = svgHTML;
 };
@@ -83,13 +83,13 @@ export const hideStartBtn = () => {
 }
 
 export const setBlock = (type, x, y, isActive) => {
-  console.log('eisDEBUG: graphics.setBlock with ' + type + ', ' + x + ', ' + y + ', and ' + isActive);
+  // console.log('eisDEBUG: graphics.setBlock with ' + type + ', ' + x + ', ' + y + ', and ' + isActive);
   if(isActive) {
     document.getElementById('board-' + x + '-' + y).setAttribute('class','svgBlock ' + type + 'BlockActive');
-    console.log('  eisDEBUG: graphics.setBlock (active), ' + x + ', ' + y);
+    // console.log('  eisDEBUG: graphics.setBlock (active), ' + x + ', ' + y);
   } else {
     document.getElementById('board-' + x + '-' + y).setAttribute('class','svgBlock ' + type + 'BlockInactive');
-    console.log('  eisDEBUG: graphics.setBlock (inactive), ' + x + ', ' + y);
+    // console.log('  eisDEBUG: graphics.setBlock (inactive), ' + x + ', ' + y);
   }
 }
 
@@ -104,7 +104,7 @@ export const newNextPiece = (type) => {
   let y = 1;
   let rotation = 0;
   let piece = '' + type + rotation;
-  console.log('eisDEBUG: newNextPiece(), piece is ' + piece);
+  console.log('eisDEBUG: graphics.newNextPiece(), piece is ' + piece);
 
   document.getElementById('next-' + (x) + '-' + (y)).setAttribute('class','svgBlock ' + type + 'BlockActive');
 

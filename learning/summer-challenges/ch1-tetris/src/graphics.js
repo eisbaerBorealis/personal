@@ -159,6 +159,12 @@ export const newNextPiece = (type) => {
   }
 }
 
+export const updateScore = (newScore, newLevel) => {
+  // https://stackoverflow.com/a/2901298
+  document.getElementById('svgScore').innerHTML = newScore.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  document.getElementById('svgLevel').innerHTML = newLevel;
+}
+
 export const clearBoard = () => {
   for(let y = 0; y < 20; y++) {
     for(let x = 0; x < 10; x++) {

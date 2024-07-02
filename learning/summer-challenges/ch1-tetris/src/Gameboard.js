@@ -9,6 +9,7 @@ class Gameboard {
     this.activeY = 0;
     this.nextPiece = null;
     this.nextRotation = 0;
+    this.score = 0;
     console.log('eisDEBUG: Gameboard.constructor()');
     graphics.clearBoard();
     this.newNextPiece();
@@ -303,80 +304,80 @@ class Gameboard {
     if(piece.match(/(j0)|(l3)/g)){
       this.board[y-1][x-1] = this.activePiece;
       graphics.setBlock(type, x-1, y-1, false);
-      if(y-1 < minY) {minY = y-1; console.log('eisDEBUG: changed minY to ' + minY + ' on up-left check');}
-      if(y-1 > maxY) {maxY = y-1; console.log('eisDEBUG: changed maxY to ' + maxY + ' on up-left check');}
+      if(y-1 < minY) {minY = y-1;}
+      if(y-1 > maxY) {maxY = y-1;}
     }
 
     // up
     if(piece.match(/(i1)|(j1)|(j3)|(l1)|(l3)|(s1)|(t0)|(t1)|(t3)|(z1)/g)){
       this.board[y-1][x] = this.activePiece;
       graphics.setBlock(type, x, y-1, false);
-      if(y-1 < minY) {minY = y-1; console.log('eisDEBUG: changed minY to ' + minY + ' on up check');}
-      if(y-1 > maxY) {maxY = y-1; console.log('eisDEBUG: changed maxY to ' + maxY + ' on up check');}
+      if(y-1 < minY) {minY = y-1;}
+      if(y-1 > maxY) {maxY = y-1;}
     }
 
     // up-right
     if(piece.match(/(j1)|(l0)/g)){
       this.board[y-1][x+1] = this.activePiece;
       graphics.setBlock(type, x+1, y-1, false);
-      if(y-1 < minY) {minY = y-1; console.log('eisDEBUG: changed minY to ' + minY + ' on up-right check');}
-      if(y-1 > maxY) {maxY = y-1; console.log('eisDEBUG: changed maxY to ' + maxY + ' on up-right check');}
+      if(y-1 < minY) {minY = y-1;}
+      if(y-1 > maxY) {maxY = y-1;}
     }
 
     // left
     if(piece.match(/(i0)|(j0)|(j2)|(l0)|(l2)|(t0)|(t2)|(t3)|(z0)|(z1)/g)){
       this.board[y][x-1] = this.activePiece;
       graphics.setBlock(type, x-1, y, false);
-      if(y < minY) {minY = y; console.log('eisDEBUG: changed minY to ' + minY + ' on left check');}
-      if(y > maxY) {maxY = y; console.log('eisDEBUG: changed maxY to ' + maxY + ' on left check');}
+      if(y < minY) {minY = y;}
+      if(y > maxY) {maxY = y;}
     }
 
     // right
     if(piece.match(/(i0)|(j0)|(j2)|(l0)|(l2)|(o0)|(s0)|(s1)|(t0)|(t1)|(t2)/g)){
       this.board[y][x+1] = this.activePiece;
       graphics.setBlock(type, x+1, y, false);
-      if(y < minY) {minY = y; console.log('eisDEBUG: changed minY to ' + minY + ' on right check');}
-      if(y > maxY) {maxY = y; console.log('eisDEBUG: changed maxY to ' + maxY + ' on right check');}
+      if(y < minY) {minY = y;}
+      if(y > maxY) {maxY = y;}
     }
 
     // right-right
     if(piece.match(/(i0)/g)){
       this.board[y][x+2] = this.activePiece;
       graphics.setBlock(type, x+2, y, false);
-      if(y < minY) {minY = y; console.log('eisDEBUG: changed minY to ' + minY + ' on right-right check');}
-      if(y > maxY) {maxY = y; console.log('eisDEBUG: changed maxY to ' + maxY + ' on right-right check');}
+      if(y < minY) {minY = y;}
+      if(y > maxY) {maxY = y;}
     }
 
     // down-left
     if(piece.match(/(j3)|(l2)|(s0)|(z1)/g)){
       this.board[y+1][x-1] = this.activePiece;
       graphics.setBlock(type, x-1, y+1, false);
-      if(y+1 < minY) {minY = y+1; console.log('eisDEBUG: changed minY to ' + minY + ' on down-left check');}
-      if(y+1 > maxY) {maxY = y+1; console.log('eisDEBUG: changed maxY to ' + maxY + ' on down-left check');}
+      if(y+1 < minY) {minY = y+1;}
+      if(y+1 > maxY) {maxY = y+1;}
     }
 
     // down
     if(piece.match(/(i1)|(j1)|(j3)|(l1)|(l3)|(o0)|(s0)|(t1)|(t2)|(t3)|(z0)/g)){
       this.board[y+1][x] = this.activePiece;
       graphics.setBlock(type, x, y+1, false);
-      if(y+1 < minY) {minY = y+1; console.log('eisDEBUG: changed minY to ' + minY + ' on down check');}
-      if(y+1 > maxY) {maxY = y+1; console.log('eisDEBUG: changed maxY to ' + maxY + ' on down check');}
+      if(y+1 < minY) {minY = y+1;}
+      if(y+1 > maxY) {maxY = y+1;}
     }
 
     // down-right
     if(piece.match(/(j2)|(l1)|(o0)|(s1)|(z0)/g)){
       this.board[y+1][x+1] = this.activePiece;
       graphics.setBlock(type, x+1, y+1, false);
-      if(y+1 < minY) {minY = y+1; console.log('eisDEBUG: changed minY to ' + minY + ' on down-right check');}
-      if(y+1 > maxY) {maxY = y+1; console.log('eisDEBUG: changed maxY to ' + maxY + ' on down-right check');}
+      if(y+1 < minY) {minY = y+1;}
+      if(y+1 > maxY) {maxY = y+1;}
     }
 
     // down-down
     if(piece.match(/(i1)/g)){
       this.board[y+2][x] = this.activePiece;
       graphics.setBlock(type, x, y+2, false);
-      if(y+2 < minY) {minY = y+2; console.log('eisDEBUG: changed minY to ' + minY + ' on down-down check');}
-      if(y+2 > maxY) {maxY = y+2; console.log('eisDEBUG: changed maxY to ' + maxY + ' on down-down check');}
+      if(y+2 < minY) {minY = y+2;}
+      if(y+2 > maxY) {maxY = y+2;}
     }
 
     this.checkRows(minY, maxY);
@@ -384,17 +385,22 @@ class Gameboard {
   
   checkRows(minY, maxY) {
     console.log('eisDEBUG: checkRows() between ' + minY + ' and ' + maxY);
+
+    let scoreMultiplier = 1;
+
     for(let y = maxY; y >= minY; y--) {
       let rowComplete = true;
       for(let x = 0; x < 10; x++) {
         if(this.board[y][x] === null) {
           rowComplete = false;
-          console.log('  eisDEBUG: empty cell at ' + x + ',' + y);
+          // console.log('  eisDEBUG: empty cell at ' + x + ',' + y);
           x = 10;
         }
       }
       if(rowComplete) {
-        console.log('    eisDEBUG: rowComplete!');
+        this.score += 100 * scoreMultiplier;
+        scoreMultiplier++;
+        console.log('    eisDEBUG: rowComplete! New score is ' + this.score);
 
         for(let y2 = y; y2 > 0; y2--) {
           for(let x2 = 0; x2 < 10; x2++) {

@@ -12,6 +12,7 @@ class Game extends Component {
       isPaused: true,
       countdown: 20,
       score: 0,
+      level: 1,
     };
     
     this.doTick = this.doTick.bind(this);
@@ -23,6 +24,7 @@ class Game extends Component {
     this.apiRight = this.apiRight.bind(this);
     this.apiDown = this.apiDown.bind(this);
     this.apiSpace = this.apiSpace.bind(this);
+    this.setPiece = this.setPiece.bind(this);
   }
   
 componentDidMount() {
@@ -53,7 +55,13 @@ doTick() {
     this.state.countdown--;
     if(this.state.countdown <= 0) {
       this.apiDown();
-      this.state.countdown = 20;
+      this.state.countdown = 20 - this.state.level;
+      // console.log('eisDEBUG: doTick(); countdown reset; this.state.level is ' + this.state.level);
+      // console.log('  eisDEBUG: doTick(); countdown reset1; this.state.countdown is ' + this.state.countdown);
+      if(this.state.countdown < 1) {
+        this.state.countdown = 1;
+      }
+      // console.log('  eisDEBUG: doTick(); countdown reset2; this.state.countdown is ' + this.state.countdown);
     }
   }
 }
@@ -95,9 +103,12 @@ apiStartGame() {
   this.state.gameState = 1;
   this.state.isPaused = false;
   this.state.gameBoard = new Gameboard();
+  this.state.score = 0;
+  graphics.updateScore(0, 1);
   graphics.hideStartBtn();
   console.log('eisDEBUG: this.state.gameState is ' + this.state.gameState);
   console.log('eisDEBUG: this.state.gameBoard is ' + this.state.gameBoard);
+  console.log('eisDEBUG: this.state.gameBoard.score is ' + this.state.gameBoard.score);
 }
 
 apiPause() {
@@ -181,13 +192,7 @@ apiDown() {
     this.state.gameBoard.activeY++;
   } else {
     console.log('\n  eisDEBUG: apiDown() failed');
-    this.state.gameBoard.setPiece();
-    let gameOver = !this.state.gameBoard.newPiece();
-    if(gameOver) {
-      this.state.gameState = 3;
-      this.state.isPaused = true;
-      graphics.gameOver();
-    }
+    this.setPiece();
   }
 }
 
@@ -208,8 +213,25 @@ apiSpace() {
   this.state.gameBoard.addPiece(newType, newRotation, newX, newY);
   this.state.gameBoard.activeY = newY;
   
+  this.setPiece();
+}
+
+setPiece() {
   this.state.gameBoard.setPiece();
-  this.state.gameBoard.newPiece();
+  let gameOver = !this.state.gameBoard.newPiece();
+  if(gameOver) {
+    this.state.gameState = 3;
+    this.state.isPaused = true;
+    graphics.gameOver();
+  } else {
+    if(this.state.gameBoard.score !== this.score) {
+      this.state.score = this.state.gameBoard.score;
+      this.state.level = Math.ceil(this.state.score / 1000);
+      graphics.updateScore(this.state.score, this.state.level);
+    } else {
+      console.log('eisDEBUG: Game.setPiece(), gameBoard.score is ' + this.state.gameBoard.score + ', Game.score is ' + this.state.score);
+    }
+  }
 }
 
 render() {

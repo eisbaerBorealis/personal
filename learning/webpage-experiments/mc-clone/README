@@ -1,0 +1,11 @@
+v 0.0.1 - large block of cubic voxels (no optimization)
+
+https://www.youtube.com/playlist?list=PLtzt35QOXmkKALLv9RzT8oGwN5qwmRjTo
+
+Navigate to parent folder
+> npm create vite@latest
+    "003-minecraft-clone"
+    Vanilla
+    Javascript
+> npm i
+> npm run dev

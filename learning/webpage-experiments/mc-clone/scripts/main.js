@@ -1,6 +1,11 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import Stats from 'three/examples/jsm/libs/stats.module.js';
 import { World } from './world';
+import { setupUI } from './ui';
+
+const stats = new Stats();
+document.body.append(stats.dom);
 
 // Renderer setup
 const renderer = new THREE.WebGLRenderer();
@@ -11,10 +16,12 @@ document.body.appendChild(renderer.domElement);
 
 // Camera setup
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight);
-camera.position.set(-32, 16, -32);
+camera.position.set(-32, 16, -32); // wide angle for big terrain
+// camera.position.set(0, 5, 0);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.set(16, 0, 16);
+// controls.target.set(0, 0, 0);
 controls.update();
 
 // Lights setup
@@ -42,6 +49,7 @@ scene.add(light2);
 function animate() {
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
+  stats.update();
 }
 
 // On window resize
@@ -52,4 +60,5 @@ window.addEventListener('resize', () => {
 })
 
 // initialize
+setupUI(world);
 animate();

@@ -15,7 +15,7 @@ export class World extends THREE.Group {
    */
   data = [];
 
-  constructor(size = { radius: 16, height: 8 }) {
+  constructor(size = { radius: 3, height: 2 }) {
     super();
     this.size = size;
   }
@@ -116,19 +116,24 @@ export class World extends THREE.Group {
             const newBlockInstanceId = mesh.count;
 
             if (newBlockId !== 0) {
-              let xOffset = z / 2 % 1;
-              if(r % 2 === 0) {
-                xOffset *= -1;
-              }
-              let yOffset = Math.random() * 0.0;
+              let voxelX = x - r + 1;
+              let voxelY = y + Math.random() * 0.0;
+              let voxelZ = z - r + 1;
 
-              matrix.setPosition(x + xOffset, y + yOffset, z * SQRT_3 / 2);
+              if (Math.abs(voxelZ % 2) === 1) {
+                voxelX += 0.5;
+              }
+
+              voxelZ *= SQRT_3 / 2;
+
+              matrix.setPosition(voxelX, voxelY, voxelZ);
+
               mesh.setMatrixAt(newBlockInstanceId, matrix);
               this.setBlockInstanceId(x, y, z, newBlockInstanceId);
               mesh.count++;
 
               console.log(`x: ${x}, y: ${y}, z: ${z}`);
-              console.log(`  x: ${x + xOffset}, y: ${y + yOffset}, z: ${z * SQRT_3 / 2}`);
+              console.log(`  x: ${voxelX}, y: ${voxelY}, z: ${voxelZ}`);
               console.log(`    Voxel ${mesh.count} set`);
             }
           }

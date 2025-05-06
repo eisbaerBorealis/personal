@@ -20,7 +20,7 @@ camera.position.set(-32, 16, -32); // wide angle for big terrain
 // camera.position.set(0, 5, 0);
 
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.target.set(16, 0, 16);
+controls.target.set(0, 2, 0);
 // controls.target.set(0, 0, 0);
 controls.update();
 

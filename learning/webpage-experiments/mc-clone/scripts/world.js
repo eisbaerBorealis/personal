@@ -1,4 +1,6 @@
 import * as THREE from 'three';
+import { SimplexNoise } from 'three/examples/jsm/math/SimplexNoise.js';
+import { RNG } from './rng';
 
 const SQRT_3 = Math.sqrt(3);
 const SQRT_4_3 = Math.sqrt(4/3);
@@ -15,17 +17,30 @@ export class World extends THREE.Group {
    */
   data = [];
 
-  constructor(size = { radius: 3, height: 2 }) {
+  params = {
+    seed: 0,
+    terrain: {
+      scale: 30,
+      magnitude: 0.5,
+      offset: 0.2,
+    }
+  }
+
+  constructor(size = { radius: 16, height: 12 }) {
     super();
     this.size = size;
   }
 
   generate() {
+    this.initializeTerrain();
     this.generateTerrain();
     this.generateMeshes();
   }
 
-  generateTerrain() {
+  /**
+   * Initializing the world terrain data as air
+   */
+  initializeTerrain() {
     this.data = [];
 
     let r = this.size.radius;
@@ -39,13 +54,12 @@ export class World extends THREE.Group {
         for (let z = 0; z < diameter; z++) {
           let zDist = Math.abs(center - z);
           console.log(`    r: ${r}, diameter: ${diameter}, zDist: ${zDist}`);
-          let newId = 1;
           if((x < (zDist / 2) - 0.5) || (x > diameter - (zDist / 2) - 1)) {
             row.push(null);
             console.log(`null at x: ${x}, y: ${y}, z: ${z}`);
           } else {
             row.push({
-              id: newId,
+              id: 0,
               instanceId: null
             });
             console.log(`new block at x: ${x}, y: ${y}, z: ${z}`);
@@ -54,6 +68,33 @@ export class World extends THREE.Group {
         slice.push(row);
       }
       this.data.push(slice);
+    }
+  }
+
+  generateTerrain() {
+    const rng = new RNG(this.params.seed);
+    const simplex = new SimplexNoise(rng);
+    let d = this.size.radius * 2 - 1;
+    for (let x = 0; x < d; x++) {
+      for (let z = 0; z < d; z++) {
+        // Compute the noise value at this x-z location
+        const value = simplex.noise(
+          x / this.params.terrain.scale,
+          z / this.params.terrain.scale
+        );
+        // Scale the noise based on the magnitude/offset
+        const scaledNoise = this.params.terrain.offset + this.params.terrain.magnitude * value;
+
+        // Computing the height of the terrain at this x-z location
+        let height = Math.round(this.size.height * scaledNoise);
+
+        // Clamping height between 0 and max height
+        height = Math.max(0, Math.min(height, this.size.height - 1));
+
+        for (let y = 0; y <= height; y++) {
+          this.setBlockId(x, y, z, 1);
+        }
+      }
     }
   }
 
@@ -143,7 +184,6 @@ export class World extends THREE.Group {
 
     this.add(mesh);
   }
-
 
   /**
    * Checks if the (x, y, z) coordinates are within bounds

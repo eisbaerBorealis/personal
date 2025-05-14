@@ -1,3 +1,4 @@
+v 0.1.1 - does not render obscured blocks
 v 0.1.0 - added multiple block types
 v 0.0.4 - added simplex noise with parameters
 v 0.0.3 - hexagonal chunk now centered on 0,0

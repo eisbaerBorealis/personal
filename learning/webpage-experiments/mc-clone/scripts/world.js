@@ -54,16 +54,13 @@ export class World extends THREE.Group {
         const row = [];
         for (let z = 0; z < diameter; z++) {
           let zDist = Math.abs(center - z);
-          // console.log(`    r: ${r}, diameter: ${diameter}, zDist: ${zDist}`);
           if((x < (zDist / 2) - 0.5) || (x > diameter - (zDist / 2) - 1)) {
             row.push(null);
-            // console.log(`null at x: ${x}, y: ${y}, z: ${z}`);
           } else {
             row.push({
               id: blocks.air.id,
               instanceId: null
             });
-            // console.log(`new block at x: ${x}, y: ${y}, z: ${z}`);
           }
         }
         slice.push(row);
@@ -113,7 +110,7 @@ export class World extends THREE.Group {
    * @returns {{id: number, instanceId: number}}
    */
   getBlock(x, y, z) {
-    if (this.inBounds(x, y, z)) {
+    if (this.inBounds(x, y, z) && this.data[x] !== undefined) { // I don't know why this was sometimes inbounds but data[x] was undefined...
       return this.data[x][y][z];
     } else {
       return null;
@@ -159,7 +156,8 @@ export class World extends THREE.Group {
       for (let y = 0; y < this.size.height; y++) {
         for (let z = 0; z < diameter; z++) {
           const tempBlock = this.getBlock(x, y, z);
-          if(tempBlock !== null) {
+
+          if(tempBlock !== null && !this.isBlockObscured(x, y, z)) {
             const newBlockId = tempBlock.id;
             const blockType = Object.values(blocks).find(x => x.id === newBlockId);
             const newBlockInstanceId = mesh.count;
@@ -181,10 +179,6 @@ export class World extends THREE.Group {
               mesh.setColorAt(newBlockInstanceId, new THREE.Color(blockType.color));
               this.setBlockInstanceId(x, y, z, newBlockInstanceId);
               mesh.count++;
-
-              // console.log(`x: ${x}, y: ${y}, z: ${z}`);
-              // console.log(`  x: ${voxelX}, y: ${voxelY}, z: ${voxelZ}`);
-              // console.log(`    Voxel ${mesh.count} set`);
             }
           }
         }
@@ -206,8 +200,56 @@ export class World extends THREE.Group {
     return (x >= 0 && x < diameter && y >= 0 && y < this.size.height && z >= 0 && z < diameter);
   }
 
+  /**
+   * Checks whether the block has neighboring blocks on all eight sides
+   * @param {number} x 
+   * @param {number} y 
+   * @param {number} z
+   * @returns {boolean}
+   */
   isBlockObscured (x, y, z) {
-    
+    let r = this.size.radius;
+    let diagOffset = 1;
+    if(r % 2 !== z % 2) { // if r and z are both odd or both even, keep offset 1
+      diagOffset = -1;
+    }
+
+    let isObscured = true;
+
+    if(isObscured && (this.getBlock(x-1, y, z) == null ||
+        this.getBlock(x-1, y, z).id === blocks.air.id )) {
+      isObscured = false;
+    }
+    if(isObscured && (this.getBlock(x+1, y, z) == null ||
+        this.getBlock(x+1, y, z).id === blocks.air.id)) {
+      isObscured = false;
+    }
+    if(isObscured && (this.getBlock(x, y-1, z) == null ||
+        this.getBlock(x, y-1, z).id === blocks.air.id)) {
+      isObscured = false;
+    }
+    if(isObscured && (this.getBlock(x, y+1, z) == null ||
+        this.getBlock(x, y+1, z).id === blocks.air.id)) {
+      isObscured = false;
+    }
+    if(isObscured && (this.getBlock(x, y, z-1) == null ||
+        this.getBlock(x, y, z-1).id === blocks.air.id)) {
+      isObscured = false;
+    }
+    if(isObscured && (this.getBlock(x, y, z+1) == null ||
+        this.getBlock(x, y, z+1).id === blocks.air.id)) {
+      isObscured = false;
+    }
+    if(isObscured && (this.getBlock(x+diagOffset, y, z-1) == null ||
+        this.getBlock(x+diagOffset, y, z-1).id === blocks.air.id)) {
+      isObscured = false;
+    }
+    if(isObscured && (this.getBlock(x+diagOffset, y, z+1) == null ||
+        this.getBlock(x+diagOffset, y, z+1).id === blocks.air.id)) {
+      isObscured = false;
+    }
+
+    return isObscured;
   }
 
 } // END class World

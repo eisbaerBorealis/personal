@@ -1,3 +1,4 @@
+v 0.1.3 - textures and shadows
 v 0.1.2 - resource generation
 v 0.1.1 - does not render obscured blocks
 v 0.1.0 - added multiple block types
@@ -15,3 +16,6 @@ Navigate to parent folder
     Javascript
 > npm i
 > npm run dev
+
+Prep for github:
+???

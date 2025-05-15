@@ -1,10 +1,10 @@
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 import { blocks, resources } from './blocks';
 
-export function setupUI(world) {
+export function setupUI(world/*, sunLight*/) {
   const gui = new GUI();
 
-  gui.add(world.size, 'radius', 3, 64, 1).name('Width');
+  gui.add(world.size, 'radius', 3, 64, 1).name('Radius');
   gui.add(world.size, 'height', 1, 64, 1).name('Height');
 
   const terrainFolder = gui.addFolder('Terrain');
@@ -30,6 +30,16 @@ export function setupUI(world) {
     resourceFolder.add(resource.scale, 'y', 10, 100).name('Y Scale');
     resourceFolder.add(resource.scale, 'z', 10, 100).name('Z Scale');
   });
+/*
+  const sunFolder = gui.addFolder('Sun');
+  sunFolder.add(sunLight.position, 'x', -200, 200).name('X');
+  sunFolder.add(sunLight.position, 'y', -200, 200).name('Y');
+  sunFolder.add(sunLight.position, 'z', -200, 200).name('Z');
+  sunFolder.add(sunLight.shadow.camera, 'left', -200, 200).name('Left');
+  sunFolder.add(sunLight.shadow.camera, 'right', -200, 200).name('Right');
+  sunFolder.add(sunLight.shadow.camera, 'bottom', -200, 200).name('Bottom');
+  // sunFolder.add(sunLight.shadow.camera, 'near', -200, 200).name('Near');
+  sunFolder.add(sunLight.shadow.camera, 'far', -200, 200).name('Far'); //*/
 
   // gui.add(world, 'generate');
   gui.onChange(() => {

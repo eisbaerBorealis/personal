@@ -7,7 +7,6 @@ const SQRT_3 = Math.sqrt(3);
 const SQRT_4_3 = Math.sqrt(4/3);
 
 const geometry = new THREE.CylinderGeometry(SQRT_4_3 / 2, SQRT_4_3 / 2, 1, 6);
-const material = new THREE.MeshLambertMaterial();
 
 export class World extends THREE.Group {
   /**
@@ -20,19 +19,21 @@ export class World extends THREE.Group {
 
   // old: 0, 30, 0.5, 0.2
   // fav: 0, 40, 0.2, 0.8
+  // v0.1.3: 
   params = {
     seed: 0,
     terrain: {
       active: true,
-      scale: 40,
-      magnitude: 0.2,
-      offset: 0.8,
+      scale: 50,
+      magnitude: 0.35,
+      offset: 0.50,
     }
   }
 
   // old: 16, 12
   // fav: 64, 64
-  constructor(size = { radius: 64, height: 64 }) {
+  // v0.1.3: 
+  constructor(size = { radius: 40, height: 32 }) {
     super();
     this.size = size;
   }
@@ -212,8 +213,19 @@ export class World extends THREE.Group {
     let r = this.size.radius;
     let diameter = r * 2 - 1;
     const maxCount = diameter * diameter * this.size.height;
-    const mesh = new THREE.InstancedMesh(geometry, material, maxCount);
-    mesh.count = 0;
+
+    const meshes = {};
+    Object.values(blocks)
+      .filter(blockType => blockType.id !== blocks.air.id)
+      .forEach(blockType => {
+        const mesh = new THREE.InstancedMesh(geometry, blockType.material, maxCount);
+        mesh.name = blockType.name;
+        mesh.count = 0;
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        meshes[blockType.id] = mesh;
+      });
+
     const matrix = new THREE.Matrix4();
 
     for (let x = 0; x < diameter; x++) {
@@ -223,10 +235,11 @@ export class World extends THREE.Group {
 
           if(tempBlock !== null && !this.isBlockObscured(x, y, z)) {
             const newBlockId = tempBlock.id;
-            const blockType = Object.values(blocks).find(x => x.id === newBlockId);
-            const newBlockInstanceId = mesh.count;
 
             if (newBlockId !== 0) {
+              const mesh = meshes[newBlockId];
+              const newBlockInstanceId = mesh.count;
+
               let voxelX = x - r + 1;
               let voxelY = y + Math.random() * 0.0;
               let voxelZ = z - r + 1;
@@ -240,7 +253,6 @@ export class World extends THREE.Group {
               matrix.setPosition(voxelX, voxelY, voxelZ);
 
               mesh.setMatrixAt(newBlockInstanceId, matrix);
-              mesh.setColorAt(newBlockInstanceId, new THREE.Color(blockType.color));
               this.setBlockInstanceId(x, y, z, newBlockInstanceId);
               mesh.count++;
             }
@@ -249,7 +261,8 @@ export class World extends THREE.Group {
       }
     }
 
-    this.add(mesh);
+    // this.add(mesh);
+    this.add(...Object.values(meshes));
   }
 
   /**

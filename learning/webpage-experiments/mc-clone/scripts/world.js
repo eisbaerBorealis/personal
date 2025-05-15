@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { SimplexNoise } from 'three/examples/jsm/math/SimplexNoise.js';
 import { RNG } from './rng';
-import { blocks } from './blocks';
+import { blocks, resources } from './blocks';
 
 const SQRT_3 = Math.sqrt(3);
 const SQRT_4_3 = Math.sqrt(4/3);
@@ -18,23 +18,33 @@ export class World extends THREE.Group {
    */
   data = [];
 
+  // old: 0, 30, 0.5, 0.2
+  // fav: 0, 40, 0.2, 0.8
   params = {
     seed: 0,
     terrain: {
-      scale: 30,
-      magnitude: 0.5,
-      offset: 0.2,
+      active: true,
+      scale: 40,
+      magnitude: 0.2,
+      offset: 0.8,
     }
   }
 
-  constructor(size = { radius: 16, height: 12 }) {
+  // old: 16, 12
+  // fav: 64, 64
+  constructor(size = { radius: 64, height: 64 }) {
     super();
     this.size = size;
   }
 
   generate() {
+    const rng1 = new RNG(this.params.seed);
+    const rng2 = new RNG(this.params.seed + 1);
     this.initializeTerrain();
-    this.generateTerrain();
+    if(this.params.terrain.active) {
+      this.generateTerrain(rng1);
+    }
+    this.generateResources(rng2);
     this.generateMeshes();
   }
 
@@ -69,8 +79,7 @@ export class World extends THREE.Group {
     }
   }
 
-  generateTerrain() {
-    const rng = new RNG(this.params.seed);
+  generateTerrain(rng) {
     const simplex = new SimplexNoise(rng);
     let d = this.size.radius * 2 - 1;
     for (let x = 0; x < d; x++) {
@@ -88,16 +97,71 @@ export class World extends THREE.Group {
 
         // Clamping height between 0 and max height
         height = Math.max(0, Math.min(height, this.size.height - 1));
-
+        
         for (let y = 0; y <= this.size.height; y++) {
-          if (y === 0 && height > 1) {
+          if (y <= height) {
             this.setBlockId(x, y, z, blocks.stone.id);
-          } else if (y < height) {
-            this.setBlockId(x, y, z, blocks.dirt.id);
-          } else if (y === height) {
-            this.setBlockId(x, y, z, blocks.grass.id);
           }
-        }//*/
+        }
+      }
+    }
+  }
+
+  generateResources(rng) {
+    let d = this.size.radius * 2 - 1;
+    let h = this.size.height;
+
+    const simplex = new SimplexNoise(rng);
+    for (let x = 0; x < d; x++) {
+      for (let z = 0; z < d; z++) {
+        let maxHeight = 0;
+        if(this.params.terrain.active) {
+          for (let y = 0; y < h; y++) {
+            if(this.getBlock(x, y, z) !== null && this.getBlock(x, y, z).id === blocks.air.id) {
+              maxHeight = y - 1;
+              y = h;
+            }
+          }
+        }
+        if ( maxHeight === 0) { maxHeight = h - 1;}
+
+        for (let y = 0; y < h; y++) {
+          if(this.params.terrain.active) {
+            const value = simplex.noise(
+              x / blocks.dirt.scale.x,
+              z / blocks.dirt.scale.z) / 2 + 0.5;
+            if ((maxHeight * (1 - blocks.dirt.depth)) <= y && this.getBlock(x, y, z) != null && this.getBlock(x, y, z).id === blocks.stone.id && value < 1 - blocks.dirt.scarcity) {
+              if (y === h - 1 || this.getBlock(x, y+1, z).id === blocks.air.id) {
+                this.setBlockId(x, y, z, blocks.grass.id);
+              } else {
+                this.setBlockId(x, y, z, blocks.dirt.id);
+              }
+              
+            }
+
+            resources.forEach(resource => {
+              const value = simplex.noise3d(
+                x / resource.scale.x,
+                y / resource.scale.y,
+                z / resource.scale.z);
+              if (this.data[x] != null && value > resource.scarcity && this.getBlock(x, y, z) != null && this.getBlock(x, y, z).id === blocks.stone.id &&
+                  y >= resource.range.min * h &&  y <= resource.range.max * h) {
+                this.setBlockId(x, y, z, resource.id);
+              }
+            });
+          } else {
+            resources.forEach(resource => {
+              const value = simplex.noise3d(
+                x / resource.scale.x,
+                y / resource.scale.y,
+                z / resource.scale.z);
+              if (this.data[x] != null && value > resource.scarcity &&
+                  y >= resource.range.min * h &&  y <= resource.range.max * h) {
+                this.setBlockId(x, y, z, resource.id);
+              }
+            });
+          }
+        }
       }
     }
   }

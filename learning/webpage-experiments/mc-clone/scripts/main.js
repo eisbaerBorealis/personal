@@ -16,8 +16,9 @@ document.body.appendChild(renderer.domElement);
 
 // Camera setup
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight);
-camera.position.set(-32, 16, -32); // wide angle for big terrain
+// camera.position.set(-32, 16, -32); // wide angle for big terrain
 // camera.position.set(0, 5, 0);
+camera.position.set(-80, 120, -80); // was -32, 16, -32
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.set(0, 2, 0);

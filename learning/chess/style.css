@@ -1,0 +1,167 @@
+.theme-default {
+    --color-background: #1a1a2e;
+    --color-background2: #16213e;
+    --color-board-edge: #ebd19c;
+    --color-board-dark: #a88116;
+    --color-board-light: #ebd19c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    background: var(--color-background);
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* ===== CIRCLE CONTAINER ===== */
+#circle-container {
+    width: min(calc(100vw - 40px), calc(100vh - 40px));
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    background: var(--color-background2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    
+    /* Use flex to center the inner content */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Clip children to circle shape */
+    overflow: hidden;
+    
+    /* Make it a container for cqi units */
+    container-type: inline-size;
+    container-name: circle;
+}
+
+/* ===== INNER SQUARE WRAPPER ===== */
+/* This is the inscribed square that fits inside the circle */
+#inner-square {
+    /* The inscribed square: diameter / √2 ≈ diameter × 0.707 */
+    width: calc(100% * 0.707);
+    height: calc(100% * 0.707);
+
+    padding: 5%;
+    
+    /* Center it */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===== CHESS LAYOUT INSIDE THE SQUARE ===== */
+#app {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    width: 100%;
+    height: 100%;
+    gap: 2cqi;
+    padding: 0;
+}
+
+/* Top and bottom bars */
+#top-bar, #bottom-bar {
+    color: #ecf0f1;
+    padding: 2cqi 1.5cqi;
+    text-align: center;
+    font-size: clamp(0.7rem, 2cqi, 1.3rem);
+    font-weight: bold;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+}
+
+/* Middle section with board and side panels */
+#middle-section {
+    display: flex;
+    gap: 2cqi;
+    min-height: 0;
+}
+
+/* Side panels */
+#left-panel, #right-panel {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    flex: 0 0 10cqi;
+    min-height: 0;
+}
+
+/* Board wrapper - ensures square fits */
+#board-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 0;
+    min-width: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* The actual chessboard */
+#chessboard {
+    /* Make it square and fit in available space */
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-width: 100%;
+    max-height: 100%;
+    
+    /* Chessboard styling */
+    background: var(--color-board-edge);
+    border-radius: 4px;
+    border: 1.5cqi solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    
+    /* Chessboard grid */
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+}
+
+.light-square, .dark-square {
+    font-size: clamp(0.7rem, 2cqi, 1.3rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.light-square {
+    background: var(--color-board-light);
+}
+
+.dark-square {
+    background: var(--color-board-dark);
+}
+
+/* ===== RESPONSIVE TWEAKS ===== */
+@media (max-width: 500px) {
+    #left-panel, #right-panel {
+        flex: 0 0 8cqi;
+    }
+    
+    #app {
+        gap: 1.5cqi;
+    }
+}
+
+.clickable:hover {
+    cursor: pointer;
+}
+
+.unclickable {
+    pointer-events: none;
+}

@@ -8,6 +8,8 @@
             console.log('  DEBUG: document ready')
             clearInterval(stateCheck);
             startup();
+        } else {
+            console.log('  DEBUG: document not ready')
         }
     }, 100);
 })();
@@ -19,21 +21,6 @@ function startup() {
     newGame();
 }
 
-function buildBoard() {
-    console.log('  DEBUG: buildBoard()');
-    
-    for(let i = 8; i > 0; i--) {
-        for (let j = 0; j < 8; j++) {
-            let square = document.createElement('div');
-            square.id = addToChar('a', j) + i;
-            square.classList.add((i + j) % 2 === 0 ? 'light-square' : 'dark-square');
-            document.getElementById('chessboard').appendChild(square);
-        }
-    }
-
-    console.log(document.querySelectorAll('#chessboard > div').length); // Should be 64
-}
-
 function newGame() {
     console.log('  DEBUG: newGame()');
 
@@ -41,4 +28,12 @@ function newGame() {
 
 function addToChar(char, num) {
     return String.fromCharCode(char.charCodeAt(0) + num);
+}
+
+function chessCharToNum(char) {
+    return char.charCodeAt(0) - 'a'.charCodeAt(0);
+}
+
+function chessNumToChar(num) {
+    return String.fromCharCode('a'.charCodeAt(0) + num);
 }
